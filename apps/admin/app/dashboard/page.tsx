@@ -93,13 +93,16 @@ export default function DashboardPage() {
           availability: apt.availability || { start_time: new Date().toISOString() },
         }))
 
-      // Fetch total clients count
-      const { count: clientsCount, error: clientsError } = await supabase
-        .from('profiles')
-        .select('*', { count: 'exact', head: true })
-        .eq('is_admin', false)
+      // Fetch unique clients who have appointments
+      const { data: clientsData, error: clientsError } = await supabase
+        .from('appointments')
+        .select('client_id')
 
       if (clientsError) throw clientsError
+
+      // Count unique clients
+      const uniqueClients = new Set(clientsData?.map(apt => apt.client_id) || [])
+      const clientsCount = uniqueClients.size
 
       // Fetch upcoming available slots
       const { count: slotsCount, error: slotsError } = await supabase
@@ -213,7 +216,9 @@ export default function DashboardPage() {
                 <p className="text-center text-gray-500 py-4">Keine Termine für heute</p>
               ) : (
                 todayAppointments.map((apt) => {
-                  const startTime = new Date(apt.availability.start_time)
+                  const startTime = apt.availability?.start_time 
+                    ? new Date(apt.availability.start_time) 
+                    : new Date()
                   return (
                     <div
                       key={apt.id}
