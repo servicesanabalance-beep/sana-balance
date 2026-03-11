@@ -17,13 +17,13 @@ export function Header() {
         <div className="flex items-center justify-between h-20">
           <Link href="/" className="flex items-center gap-3">
             <Image 
-              src="/logo.bige.png" 
+              src="/logo.sb.png" 
               alt="Sana Balance Logo" 
               width={120} 
               height={60}
-              className="h-12 w-auto drop-shadow-md"
+              className="h-12 w-auto"
             />
-            <div className="text-2xl font-serif font-semibold text-sana-brown-dark drop-shadow-sm">
+            <div className="text-2xl font-serif font-semibold text-sana-brown-dark">
               Sana Balance
             </div>
           </Link>
