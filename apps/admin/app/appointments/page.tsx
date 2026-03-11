@@ -1,53 +1,124 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Card, CardHeader, CardTitle, CardContent, Button } from '@sana-balance/ui'
 import { Search, Filter, Calendar } from 'lucide-react'
 import { BackButton } from '@/components/back-button'
+import { createClient } from '@/lib/supabase/client'
+import { format } from 'date-fns'
+import { de } from 'date-fns/locale'
+
+interface Appointment {
+  id: string
+  created_at: string
+  status: string
+  notes: string | null
+  client_id: string
+  service_id: number
+  availability_id: number
+  profiles: {
+    first_name: string
+    last_name: string
+    phone: string | null
+  }
+  services: {
+    name_de: string
+    duration_minutes: number
+    price_eur: number
+  }
+  availability: {
+    start_time: string
+    end_time: string
+  }
+}
 
 export default function AppointmentsPage() {
   const [filter, setFilter] = useState('all')
+  const [appointments, setAppointments] = useState<Appointment[]>([])
+  const [loading, setLoading] = useState(true)
+  const [searchQuery, setSearchQuery] = useState('')
 
-  // Mock data - replace with Supabase queries
-  const appointments = [
-    {
-      id: 1,
-      date: '2024-03-15',
-      time: '10:00',
-      client: 'Maria Schmidt',
-      email: 'maria@example.com',
-      service: 'Klassische Massage',
-      duration: 60,
-      price: 120,
-      status: 'confirmed',
-    },
-    {
-      id: 2,
-      date: '2024-03-15',
-      time: '14:00',
-      client: 'Hans Müller',
-      email: 'hans@example.com',
-      service: 'Wellnessmassage',
-      duration: 90,
-      price: 150,
-      status: 'pending',
-    },
-    {
-      id: 3,
-      date: '2024-03-16',
-      time: '09:00',
-      client: 'Anna Weber',
-      email: 'anna@example.com',
-      service: 'Sportmassage',
-      duration: 60,
-      price: 130,
-      status: 'confirmed',
-    },
-  ]
+  const supabase = createClient()
+
+  useEffect(() => {
+    fetchAppointments()
+  }, [])
+
+  async function fetchAppointments() {
+    try {
+      const { data, error } = await supabase
+        .from('appointments')
+        .select(`
+          *,
+          profiles:client_id (
+            first_name,
+            last_name,
+            phone
+          ),
+          services:service_id (
+            name_de,
+            duration_minutes,
+            price_eur
+          ),
+          availability:availability_id (
+            start_time,
+            end_time
+          )
+        `)
+        .order('created_at', { ascending: false })
+
+      if (error) throw error
+      setAppointments(data || [])
+    } catch (error) {
+      console.error('Error fetching appointments:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  async function handleStatusChange(appointmentId: string, newStatus: string) {
+    try {
+      const { error } = await supabase
+        .from('appointments')
+        .update({ status: newStatus })
+        .eq('id', appointmentId)
+
+      if (error) throw error
+      
+      // Refresh appointments
+      await fetchAppointments()
+    } catch (error) {
+      console.error('Error updating appointment:', error)
+      alert('Fehler beim Aktualisieren des Termins')
+    }
+  }
+
+  async function handleDelete(appointmentId: string) {
+    if (!confirm('Möchten Sie diesen Termin wirklich löschen?')) return
+
+    try {
+      const { error } = await supabase
+        .from('appointments')
+        .delete()
+        .eq('id', appointmentId)
+
+      if (error) throw error
+      
+      // Refresh appointments
+      await fetchAppointments()
+    } catch (error) {
+      console.error('Error deleting appointment:', error)
+      alert('Fehler beim Löschen des Termins')
+    }
+  }
 
   const filteredAppointments = appointments.filter((apt) => {
-    if (filter === 'all') return true
-    return apt.status === filter
+    const matchesFilter = filter === 'all' || apt.status === filter
+    const matchesSearch = searchQuery === '' || 
+      `${apt.profiles.first_name} ${apt.profiles.last_name}`.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      apt.services.name_de.toLowerCase().includes(searchQuery.toLowerCase())
+    
+    return matchesFilter && matchesSearch
   })
 
   return (
@@ -77,6 +148,8 @@ export default function AppointmentsPage() {
                   <input
                     type="text"
                     placeholder="Suchen..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
                     className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                   />
                 </div>
@@ -151,48 +224,81 @@ export default function AppointmentsPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredAppointments.map((apt) => (
-                    <tr key={apt.id} className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
-                      <td className="py-3 px-4 text-gray-800 dark:text-gray-100">{apt.date}</td>
-                      <td className="py-3 px-4 text-gray-800 dark:text-gray-100">{apt.time}</td>
-                      <td className="py-3 px-4">
-                        <div>
-                          <p className="font-medium text-gray-800 dark:text-gray-100">{apt.client}</p>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">{apt.email}</p>
-                        </div>
-                      </td>
-                      <td className="py-3 px-4">
-                        <div>
-                          <p className="text-gray-800 dark:text-gray-100">{apt.service}</p>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">{apt.duration} Min</p>
-                        </div>
-                      </td>
-                      <td className="py-3 px-4 font-semibold text-gray-800 dark:text-gray-100">
-                        {apt.price} CHF
-                      </td>
-                      <td className="py-3 px-4">
-                        <span
-                          className={`px-3 py-1 rounded-full text-xs font-medium ${
-                            apt.status === 'confirmed'
-                              ? 'bg-green-100 text-green-800'
-                              : 'bg-yellow-100 text-yellow-800'
-                          }`}
-                        >
-                          {apt.status === 'confirmed' ? 'Bestätigt' : 'Ausstehend'}
-                        </span>
-                      </td>
-                      <td className="py-3 px-4">
-                        <div className="flex flex-wrap gap-2">
-                          <button className="text-amber-700 hover:text-amber-900 dark:text-amber-400 dark:hover:text-amber-300 text-sm min-w-[90px] truncate">
-                            Bearbeiten
-                          </button>
-                          <button className="text-red-600 hover:text-red-800 text-sm min-w-[70px] truncate">
-                            Löschen
-                          </button>
-                        </div>
+                  {loading ? (
+                    <tr>
+                      <td colSpan={7} className="py-8 text-center text-gray-500">
+                        Laden...
                       </td>
                     </tr>
-                  ))}
+                  ) : filteredAppointments.length === 0 ? (
+                    <tr>
+                      <td colSpan={7} className="py-8 text-center text-gray-500">
+                        Keine Termine gefunden
+                      </td>
+                    </tr>
+                  ) : (
+                    filteredAppointments.map((apt) => {
+                      const startTime = new Date(apt.availability.start_time)
+                      return (
+                        <tr key={apt.id} className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
+                          <td className="py-3 px-4 text-gray-800 dark:text-gray-100">
+                            {format(startTime, 'dd.MM.yyyy', { locale: de })}
+                          </td>
+                          <td className="py-3 px-4 text-gray-800 dark:text-gray-100">
+                            {format(startTime, 'HH:mm', { locale: de })} Uhr
+                          </td>
+                          <td className="py-3 px-4">
+                            <div>
+                              <p className="font-medium text-gray-800 dark:text-gray-100">
+                                {apt.profiles.first_name} {apt.profiles.last_name}
+                              </p>
+                              {apt.profiles.phone && (
+                                <p className="text-sm text-gray-600 dark:text-gray-400">{apt.profiles.phone}</p>
+                              )}
+                            </div>
+                          </td>
+                          <td className="py-3 px-4">
+                            <div>
+                              <p className="text-gray-800 dark:text-gray-100">{apt.services.name_de}</p>
+                              <p className="text-sm text-gray-600 dark:text-gray-400">{apt.services.duration_minutes} Min</p>
+                            </div>
+                          </td>
+                          <td className="py-3 px-4 font-semibold text-gray-800 dark:text-gray-100">
+                            {apt.services.price_eur} CHF
+                          </td>
+                          <td className="py-3 px-4">
+                            <span
+                              className={`px-3 py-1 rounded-full text-xs font-medium ${
+                                apt.status === 'confirmed'
+                                  ? 'bg-green-100 text-green-800'
+                                  : apt.status === 'cancelled'
+                                  ? 'bg-red-100 text-red-800'
+                                  : 'bg-yellow-100 text-yellow-800'
+                              }`}
+                            >
+                              {apt.status === 'confirmed' ? 'Bestätigt' : apt.status === 'cancelled' ? 'Storniert' : 'Ausstehend'}
+                            </span>
+                          </td>
+                          <td className="py-3 px-4">
+                            <div className="flex flex-wrap gap-2">
+                              <button 
+                                onClick={() => handleStatusChange(apt.id, apt.status === 'confirmed' ? 'cancelled' : 'confirmed')}
+                                className="text-amber-700 hover:text-amber-900 dark:text-amber-400 dark:hover:text-amber-300 text-sm min-w-[90px] truncate"
+                              >
+                                {apt.status === 'confirmed' ? 'Stornieren' : 'Bestätigen'}
+                              </button>
+                              <button 
+                                onClick={() => handleDelete(apt.id)}
+                                className="text-red-600 hover:text-red-800 text-sm min-w-[70px] truncate"
+                              >
+                                Löschen
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      )
+                    })
+                  )}
                 </tbody>
               </table>
             </div>
