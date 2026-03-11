@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { Card, CardHeader, CardTitle, CardContent } from '@sana-balance/ui'
 import { Calendar, Users, Clock, CheckCircle } from 'lucide-react'
 import { BackButton } from '@/components/back-button'
+import { LogoutButton } from '@/components/logout-button'
 import { createClient } from '@/lib/supabase/client'
 import { format, startOfDay, endOfDay } from 'date-fns'
 
@@ -113,12 +114,14 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen p-4 lg:p-8">
       <div className="max-w-7xl mx-auto">
-        <BackButton href="/" label="Zurück zur Startseite" />
-        <div className="mb-8">
-          <h1 className="text-4xl font-serif font-bold text-amber-900 dark:text-amber-50 mb-2">
-            Dashboard
-          </h1>
-          <p className="text-gray-700 dark:text-amber-100">Übersicht über Ihre Termine und Statistiken</p>
+        <div className="flex justify-between items-center mb-8">
+          <div>
+            <h1 className="text-4xl font-serif font-bold text-amber-900 dark:text-amber-50 mb-2">
+              Dashboard
+            </h1>
+            <p className="text-gray-700 dark:text-amber-100">Übersicht über Ihre Termine und Statistiken</p>
+          </div>
+          <LogoutButton />
         </div>
 
         {/* Stats Grid */}
