@@ -16,6 +16,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Sana Balance Admin",
   description: "Verwaltungsbereich für Sana Balance",
+  icons: {
+    icon: '/logo.weiss.png',
+    apple: '/logo.weiss.png',
+  },
 };
 
 export default function RootLayout({
