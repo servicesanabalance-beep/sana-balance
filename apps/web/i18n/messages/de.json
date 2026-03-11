@@ -1,0 +1,109 @@
+{
+  "nav": {
+    "about": "Wer sind wir?",
+    "aboutUs": "Über uns",
+    "services": "Massagen",
+    "maderotherapy": "Maderotherapie",
+    "reconnective": "Reconnective Healing®",
+    "booking": "Termin buchen"
+  },
+  "hero": {
+    "title": "Entspannen Sie Körper, Geist und Seele",
+    "subtitle": "Willkommen in der Praxis Sana Balance.",
+    "description": "Gönnen Sie sich eine Auszeit vom Alltag und erleben Sie wohltuende Massagen und ganzheitliche Behandlungen für Ihr körperliches und seelisches Wohlbefinden.",
+    "cta": "Termin buchen"
+  },
+  "features": {
+    "atmosphere": {
+      "title": "Wohlfühlatmosphäre",
+      "description": "Entspannen Sie in einem stilvollen, harmonischen Ambiente"
+    },
+    "professional": {
+      "title": "Professionelle Behandlungen",
+      "description": "Erleben Sie Massagen und Anwendungen von erfahrenen Therapeuten"
+    },
+    "holistic": {
+      "title": "Ganzheitlicher Ansatz",
+      "description": "Natürliche Heilmethoden für Körper, Geist und Seele"
+    }
+  },
+  "services": {
+    "title": "Gönnen Sie sich eine entspannende Massage.",
+    "classic": {
+      "name": "Klassische Massage",
+      "description": "Die klassische Massage ist eine beährte Technik zur Linderung von Muskelverspannungen. Sie fördert die Durchblutung und hilft, Stress abzubauen und das körperliche Wohlbefinden steigern."
+    },
+    "wellness": {
+      "name": "Wellnessmassage",
+      "description": "Die Wellnessmassage schenkt tiefe Entspannung für Körper und Geist. Sie hilft, Stress abzubauen und die innere Energie zu harmonisieren."
+    },
+    "dorn": {
+      "name": "Dorn & Breuss Methode",
+      "description": "Die Dorn & Breuss Massage lindert Rücken schmerzen und Nackenverspannungen. Diese Methode ist eine sanfte Korrektur von Gelenkfehlstellungen mit einer bevor zu-genden Ölmassage, die die Muskeln ent-spannt und das allgemeine Wohlbefinden steigert."
+    },
+    "sport": {
+      "name": "Sportmassage",
+      "description": "Wenn Sie sportlich aktiv sind, egal ob als Profi oder Freizeitsportler, ist eine Sportmassage ideal für Sie. Verspannungen und die Erscherung des Muskelmocker werden gelöst, sodass Sie sich schneller er holen."
+    }
+  },
+  "about": {
+    "title": "Wer sind wir?",
+    "subtitle": "Über uns",
+    "team": {
+      "title": "Wer sind wir?",
+      "description": "In unserer Praxis für ganzheitliches Wohlbefinden in Greif verbinden wir Erfahrung und moderne Methoden, um Körper und Seele ins Gleichgewicht zu bringen. Wir bieten Massagen (klassisch, Wellness, Dorn & Breuss, Sport), Maderotherapie sowie Reconnective Healing® an."
+    },
+    "expertise": {
+      "title": "Über uns",
+      "description": "In unserer Praxis für ganzheitliches Wohlbefinden begegnen wir jedem Patienten mit Greif und Kompetenz. Unser erfahrenes Team bietet einfühlsame Therapien, die gezielt auf die persönlichen Bedürfnisse abgestimmt sind. Vertrauen Sie auf unsere Kompetenz und Hingabe für Ihr ganzheit-liches Wohlbefinden."
+    },
+    "experience": {
+      "title": "Langjährige Erfahrung",
+      "description": "Erfahrene und zartilizierte Therapeuten für Ihr Wohlbefinden"
+    },
+    "individual": {
+      "title": "Individuelle Betreuung",
+      "description": "Maßgeschneiderte Therapi-ansätze nach Ihren Bedürfnissen"
+    },
+    "approach": {
+      "title": "Ganzheitlicher Ansatz",
+      "description": "Natürliche Heilmethoden für Körper, Geist und Seele"
+    }
+  },
+  "booking": {
+    "title": "Termin buchen",
+    "selectService": "Service auswählen",
+    "selectDate": "Datum auswählen",
+    "selectTime": "Uhrzeit auswählen",
+    "login": "Anmelden",
+    "register": "Registrieren",
+    "confirm": "Termin bestätigen",
+    "success": "Ihr Termin wurde erfolgreich gebucht!",
+    "loginRequired": "Bitte melden Sie sich an, um einen Termin zu buchen."
+  },
+  "auth": {
+    "email": "E-Mail",
+    "password": "Passwort",
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "login": "Anmelden",
+    "register": "Registrieren",
+    "noAccount": "Noch kein Konto?",
+    "hasAccount": "Bereits ein Konto?",
+    "loginHere": "Hier anmelden",
+    "registerHere": "Hier registrieren"
+  },
+  "common": {
+    "loading": "Lädt...",
+    "error": "Ein Fehler ist aufgetreten",
+    "back": "Zurück",
+    "next": "Weiter",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "close": "Schließen",
+    "minutes": "Minuten",
+    "chf": "CHF"
+  }
+}

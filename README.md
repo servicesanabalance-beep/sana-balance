@@ -1,151 +1,305 @@
-# Turborepo starter
+# Sana Balance - Massage Therapy Platform
 
-This Turborepo starter is maintained by the Turborepo core team.
+Eine moderne, skalierbare Web-Plattform für eine Massagepraxis mit Monorepo-Architektur (Turborepo).
 
-## Using this example
+## 🎯 Projektübersicht
 
-Run the following command:
+Sana Balance ist eine vollständige Buchungsplattform für Massagetherapie mit:
+- **Client Web App** - Öffentliche Website mit Buchungssystem (Next.js)
+- **Admin Panel** - Verwaltungsbereich für Termine, Verfügbarkeit und Services
+- **Shared Packages** - Wiederverwendbare UI-Komponenten und Business-Logik
 
+## 📦 Monorepo-Struktur
+
+Dieses Turborepo enthält folgende Packages/Apps:
+
+### Apps
+
+- **`apps/web`** - Client-facing Next.js App (App Router, SSR)
+  - Homepage mit Services-Übersicht
+  - Booking Flow (Service → Datum/Zeit → Auth → Bestätigung)
+  - Responsive Design mit Sana Balance Theme
+  - Primärsprache: Deutsch (DE)
+
+- **`apps/admin`** - Admin Panel (Next.js)
+  - Geschützt durch Supabase Auth (`is_admin` Flag)
+  - Verwaltung von Terminen, Verfügbarkeit, Services
+  - Dashboard mit Statistiken
+
+### Packages
+
+- **`packages/ui`** - Shared UI Component Library
+  - Button, Input, Card, Calendar, ServiceCard
+  - Tailwind CSS mit Sana Balance Design System
+  - Radix UI für Accessibility
+
+- **`packages/core`** - Shared Business Logic
+  - TypeScript Types (Supabase-generiert)
+  - Zod Validation Schemas
+  - Utility Functions (Datum, Preis-Formatierung)
+  - Supabase Client Configuration
+
+- **`packages/eslint-config`** - ESLint Konfigurationen
+- **`packages/typescript-config`** - Shared TypeScript Configs
+
+Alle Packages/Apps sind 100% [TypeScript](https://www.typescriptlang.org/).
+
+## 🛠️ Tech Stack
+
+### Frontend
+- **React 18+** - UI Library
+- **Next.js 16** - App Router, SSR, Image Optimization
+- **TypeScript** - Type Safety (Strict Mode)
+- **Tailwind CSS** - Styling mit Custom Theme
+- **TanStack Query** - Server State Management
+- **date-fns** - Date Manipulation
+- **Lucide React** - Icons
+
+### Backend & Database
+- **Supabase** - Authentication, PostgreSQL Database, Row Level Security
+- **@supabase/ssr** - Server-Side Auth für Next.js
+
+### UI Components
+- **Radix UI** - Headless UI Primitives
+- **react-day-picker** - Calendar Component
+- **class-variance-authority** - Component Variants
+
+### Development Tools
+- **Turborepo** - Monorepo Build System
+- **TypeScript** - Static Type Checking
+- **ESLint** - Code Linting
+- **Zod** - Runtime Validation
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js 18+ 
+- npm, yarn, or pnpm
+- Supabase Account (für Production)
+
+### Installation
+
+1. **Clone Repository**
 ```sh
-npx create-turbo@latest
+git clone <repository-url>
+cd sana-balance
 ```
 
-## What's inside?
+2. **Install Dependencies**
+```sh
+npm install
+```
 
-This Turborepo includes the following packages/apps:
+3. **Setup Environment Variables**
 
-### Apps and Packages
+Erstellen Sie `.env.local` in `apps/web/`:
+```env
+NEXT_PUBLIC_SUPABASE_URL=your-project-url.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+```
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+4. **Setup Supabase Database**
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+Führen Sie die SQL-Migrationen aus (siehe `packages/core/src/types/database.types.ts` für Schema):
+- `profiles` - Benutzerprofile
+- `services` - Massage-Services
+- `availability_slots` - Verfügbare Zeitslots
+- `appointments` - Gebuchte Termine
 
-### Utilities
+### Development
 
-This Turborepo has some additional tools already setup for you:
+Starten Sie alle Apps im Development Mode:
+```sh
+npm run dev
+```
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+Oder starten Sie spezifische Apps:
+```sh
+# Nur Web App
+npm run dev --filter=web
+
+# Nur Admin Panel
+npm run dev --filter=admin
+```
+
+Die Apps laufen auf:
+- **Web App**: http://localhost:3000
+- **Admin Panel**: http://localhost:3001
 
 ### Build
 
-To build all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
+Build aller Apps und Packages:
 ```sh
-cd my-turborepo
-turbo build
+npm run build
 ```
 
-Without global `turbo`, use your package manager:
-
+Build spezifischer Apps:
 ```sh
-cd my-turborepo
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
+npm run build --filter=web
 ```
 
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+## 🎨 Design System
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+### Sana Balance Theme
 
-```sh
-turbo build --filter=docs
+**Farben:**
+- Cream: `#F5F1ED` - Haupthintergrund
+- Beige: `#E8DDD3` - Sekundärer Hintergrund
+- Brown: `#8B7355` - Text & Akzente
+- Brown Dark: `#6B5744` - Überschriften
+- Gold: `#C9A87C` - Call-to-Actions
+- White: `#FFFFFF`
+- Black: `#1A1A1A`
+
+**Typografie:**
+- Headings: Georgia (Serif)
+- Body: Inter (Sans-serif)
+
+**Border Radius:** 2rem (abgerundete Ecken)
+
+**Shadows:** Weiche Schatten mit Brown-Tönen
+
+## 📱 Features
+
+### Client Web App (`apps/web`)
+
+✅ **Homepage**
+- Hero Section mit Massage-Hintergrundbild
+- Features-Übersicht (3 Icons)
+- Services-Karten mit Bildern
+- Responsive Design
+
+✅ **Booking Flow** (4 Schritte)
+1. **Service auswählen** - ServiceCard mit Preis & Dauer
+2. **Datum & Uhrzeit** - Calendar + Zeitslot-Auswahl
+3. **Authentifizierung** - Login/Register (nur beim finalen Schritt)
+4. **Bestätigung** - Zusammenfassung & Buchung
+
+✅ **Internationalisierung**
+- Primärsprache: Deutsch (DE)
+- Bereit für: EN, IT, FR (einfach erweiterbar)
+
+### Admin Panel (`apps/admin`)
+
+🔒 **Auth-Protected** (Supabase `is_admin` Flag)
+
+📊 **Features** (Grundstruktur vorhanden):
+- Dashboard mit Termin-Übersicht
+- Appointments Management (CRUD)
+- Availability Slots Management
+- Services Management (CRUD)
+- User Profile Management
+
+## 🗄️ Database Schema
+
+### Tables
+
+**profiles**
+- `id` (uuid, FK zu auth.users)
+- `first_name`, `last_name`
+- `is_admin` (boolean)
+- `created_at`, `updated_at`
+
+**services**
+- `id` (uuid)
+- `name`, `description`
+- `duration_minutes` (integer)
+- `price` (decimal)
+- `is_active` (boolean)
+- `created_at`, `updated_at`
+
+**availability_slots**
+- `id` (uuid)
+- `service_id` (uuid, FK)
+- `date` (date)
+- `start_time`, `end_time` (time)
+- `is_booked` (boolean)
+- `created_at`, `updated_at`
+
+**appointments**
+- `id` (uuid)
+- `user_id` (uuid, FK)
+- `service_id` (uuid, FK)
+- `slot_id` (uuid, FK)
+- `status` (enum: pending, confirmed, cancelled)
+- `notes` (text)
+- `created_at`, `updated_at`
+
+### Row Level Security (RLS)
+
+Alle Tabellen haben RLS aktiviert:
+- Users können nur ihre eigenen Appointments sehen
+- Admins haben vollen Zugriff
+- Public kann Services und verfügbare Slots sehen
+
+## 📂 Projekt-Struktur
+
+```
+sana-balance/
+├── apps/
+│   ├── web/              # Client Next.js App
+│   │   ├── app/          # App Router Pages
+│   │   ├── components/   # React Components
+│   │   ├── hooks/        # Custom Hooks (TanStack Query)
+│   │   ├── lib/          # Utilities, Supabase Clients
+│   │   └── i18n/         # Übersetzungen (DE)
+│   └── admin/            # Admin Panel
+│       └── app/          # Admin Pages
+├── packages/
+│   ├── ui/               # Shared UI Components
+│   │   └── src/
+│   │       ├── button.tsx
+│   │       ├── input.tsx
+│   │       ├── card.tsx
+│   │       ├── calendar.tsx
+│   │       └── service-card.tsx
+│   ├── core/             # Shared Logic
+│   │   └── src/
+│   │       ├── types/    # TypeScript Types
+│   │       ├── schemas/  # Zod Schemas
+│   │       ├── lib/      # Supabase Config
+│   │       └── utils/    # Helper Functions
+│   ├── eslint-config/    # ESLint Configs
+│   └── typescript-config/# TS Configs
+└── turbo.json            # Turborepo Config
 ```
 
-Without global `turbo`:
+## 🔐 Security
 
-```sh
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-```
+- **Supabase Auth** - Email/Password Authentication
+- **Row Level Security** - Database-Level Access Control
+- **Admin Protection** - `is_admin` Flag in User Profile
+- **Environment Variables** - Sensitive Data in `.env.local`
 
-### Develop
+## 🚀 Deployment
 
-To develop all apps and packages, run the following command:
+### Vercel (Empfohlen)
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+1. Verbinden Sie Ihr Git Repository mit Vercel
+2. Konfigurieren Sie Build Settings:
+   - **Root Directory**: `apps/web` (für Web App)
+   - **Build Command**: `cd ../.. && npm run build --filter=web`
+   - **Output Directory**: `.next`
+3. Fügen Sie Environment Variables hinzu
+4. Deploy!
 
-```sh
-cd my-turborepo
-turbo dev
-```
+### Supabase Setup
 
-Without global `turbo`, use your package manager:
+1. Erstellen Sie ein Supabase Projekt
+2. Führen Sie SQL Migrationen aus
+3. Aktivieren Sie Row Level Security
+4. Kopieren Sie URL und Anon Key zu `.env.local`
 
-```sh
-cd my-turborepo
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
-```
+## 📝 Next Steps
 
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo dev --filter=web
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo login
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo link
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
-```
+- [ ] Supabase Database Setup & Migrationen
+- [ ] Admin Panel UI implementieren
+- [ ] Email-Benachrichtigungen (Termin-Bestätigungen)
+- [ ] Kalender-Integration (Google Calendar, iCal)
+- [ ] Payment Integration (Stripe)
+- [ ] Mehrsprachigkeit (EN, IT, FR)
+- [ ] SEO Optimierung
+- [ ] Analytics Integration
 
 ## Useful Links
 

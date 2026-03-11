@@ -1,5 +1,5 @@
 {
-  "name": "y",
+  "name": "sana-balance",
   "private": true,
   "scripts": {
     "build": "turbo run build",

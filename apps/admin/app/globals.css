@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+@custom-variant dark (html.dark &);
+
+body {
+  background-color: #F5F1ED;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+html.dark body {
+  background-color: #1A1A1A;
+}
