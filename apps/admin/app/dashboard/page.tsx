@@ -1,23 +1,105 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { Card, CardHeader, CardTitle, CardContent } from '@sana-balance/ui'
 import { Calendar, Users, Clock, CheckCircle } from 'lucide-react'
 import { BackButton } from '@/components/back-button'
+import { createClient } from '@/lib/supabase/client'
+import { format, startOfDay, endOfDay } from 'date-fns'
+
+interface Stats {
+  todayAppointments: number
+  totalClients: number
+  upcomingSlots: number
+  completedToday: number
+}
+
+interface TodayAppointment {
+  id: string
+  status: string
+  profiles: {
+    first_name: string
+    last_name: string
+  }
+  services: {
+    name_de: string
+  }
+  availability: {
+    start_time: string
+  }
+}
 
 export default function DashboardPage() {
-  // Mock data - replace with real Supabase queries
-  const stats = {
-    todayAppointments: 5,
-    totalClients: 42,
-    upcomingSlots: 18,
-    completedToday: 3,
-  }
+  const [stats, setStats] = useState<Stats>({
+    todayAppointments: 0,
+    totalClients: 0,
+    upcomingSlots: 0,
+    completedToday: 0,
+  })
+  const [todayAppointments, setTodayAppointments] = useState<TodayAppointment[]>([])
+  const [loading, setLoading] = useState(true)
 
-  const recentAppointments = [
-    { id: 1, client: 'Maria Schmidt', service: 'Klassische Massage', time: '10:00', status: 'completed' },
-    { id: 2, client: 'Hans Müller', service: 'Wellnessmassage', time: '14:00', status: 'confirmed' },
-    { id: 3, client: 'Anna Weber', service: 'Sportmassage', time: '16:30', status: 'pending' },
-  ]
+  const supabase = createClient()
+
+  useEffect(() => {
+    fetchDashboardData()
+  }, [])
+
+  async function fetchDashboardData() {
+    try {
+      const today = new Date()
+      const todayStart = startOfDay(today).toISOString()
+      const todayEnd = endOfDay(today).toISOString()
+
+      // Fetch today's appointments
+      const { data: todayApts, error: aptsError } = await supabase
+        .from('appointments')
+        .select(`
+          id,
+          status,
+          profiles:client_id (first_name, last_name),
+          services:service_id (name_de),
+          availability:availability_id (start_time)
+        `)
+        .gte('availability.start_time', todayStart)
+        .lte('availability.start_time', todayEnd)
+
+      if (aptsError) throw aptsError
+
+      // Fetch total clients count
+      const { count: clientsCount, error: clientsError } = await supabase
+        .from('profiles')
+        .select('*', { count: 'exact', head: true })
+        .eq('is_admin', false)
+
+      if (clientsError) throw clientsError
+
+      // Fetch upcoming available slots
+      const { count: slotsCount, error: slotsError } = await supabase
+        .from('availability')
+        .select('*', { count: 'exact', head: true })
+        .eq('is_booked', false)
+        .gte('start_time', new Date().toISOString())
+
+      if (slotsError) throw slotsError
+
+      // Calculate stats
+      const completedCount = todayApts?.filter(apt => apt.status === 'completed').length || 0
+
+      setStats({
+        todayAppointments: todayApts?.length || 0,
+        totalClients: clientsCount || 0,
+        upcomingSlots: slotsCount || 0,
+        completedToday: completedCount,
+      })
+
+      setTodayAppointments(todayApts || [])
+    } catch (error) {
+      console.error('Error fetching dashboard data:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
     <div className="min-h-screen p-4 lg:p-8">
