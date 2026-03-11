@@ -52,29 +52,46 @@ export default function DashboardPage() {
       const todayStart = startOfDay(today).toISOString()
       const todayEnd = endOfDay(today).toISOString()
 
-      // Fetch today's appointments
+      // Fetch today's appointments with proper joins
       const { data: todayAptsRaw, error: aptsError } = await supabase
         .from('appointments')
         .select(`
           id,
           status,
-          profiles:client_id (first_name, last_name),
-          services:service_id (name_de),
-          availability:availability_id (start_time)
+          client_id,
+          service_id,
+          availability_id,
+          profiles!appointments_client_id_fkey (
+            first_name,
+            last_name
+          ),
+          services!appointments_service_id_fkey (
+            name_de
+          ),
+          availability!appointments_availability_id_fkey (
+            start_time
+          )
         `)
-        .gte('availability.start_time', todayStart)
-        .lte('availability.start_time', todayEnd)
 
-      if (aptsError) throw aptsError
+      if (aptsError) {
+        console.error('Error fetching appointments:', aptsError)
+        throw aptsError
+      }
 
-      // Transform data to match interface (Supabase returns arrays for joins)
-      const todayApts = todayAptsRaw?.map((apt: any) => ({
-        id: apt.id,
-        status: apt.status,
-        profiles: Array.isArray(apt.profiles) ? apt.profiles[0] : apt.profiles,
-        services: Array.isArray(apt.services) ? apt.services[0] : apt.services,
-        availability: Array.isArray(apt.availability) ? apt.availability[0] : apt.availability,
-      })) || []
+      // Filter for today's appointments and transform data
+      const todayApts = (todayAptsRaw || [])
+        .filter((apt: any) => {
+          if (!apt.availability?.start_time) return false
+          const startTime = new Date(apt.availability.start_time)
+          return startTime >= new Date(todayStart) && startTime <= new Date(todayEnd)
+        })
+        .map((apt: any) => ({
+          id: apt.id,
+          status: apt.status,
+          profiles: apt.profiles || { first_name: 'Unknown', last_name: 'User' },
+          services: apt.services || { name_de: 'Unknown Service' },
+          availability: apt.availability || { start_time: new Date().toISOString() },
+        }))
 
       // Fetch total clients count
       const { count: clientsCount, error: clientsError } = await supabase
