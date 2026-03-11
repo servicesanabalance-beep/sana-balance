@@ -52,7 +52,7 @@ export default function DashboardPage() {
       const todayEnd = endOfDay(today).toISOString()
 
       // Fetch today's appointments
-      const { data: todayApts, error: aptsError } = await supabase
+      const { data: todayAptsRaw, error: aptsError } = await supabase
         .from('appointments')
         .select(`
           id,
@@ -65,6 +65,15 @@ export default function DashboardPage() {
         .lte('availability.start_time', todayEnd)
 
       if (aptsError) throw aptsError
+
+      // Transform data to match interface (Supabase returns arrays for joins)
+      const todayApts = todayAptsRaw?.map((apt: any) => ({
+        id: apt.id,
+        status: apt.status,
+        profiles: Array.isArray(apt.profiles) ? apt.profiles[0] : apt.profiles,
+        services: Array.isArray(apt.services) ? apt.services[0] : apt.services,
+        availability: Array.isArray(apt.availability) ? apt.availability[0] : apt.availability,
+      })) || []
 
       // Fetch total clients count
       const { count: clientsCount, error: clientsError } = await supabase
@@ -84,16 +93,16 @@ export default function DashboardPage() {
       if (slotsError) throw slotsError
 
       // Calculate stats
-      const completedCount = todayApts?.filter(apt => apt.status === 'completed').length || 0
+      const completedCount = todayApts.filter(apt => apt.status === 'completed').length
 
       setStats({
-        todayAppointments: todayApts?.length || 0,
+        todayAppointments: todayApts.length,
         totalClients: clientsCount || 0,
         upcomingSlots: slotsCount || 0,
         completedToday: completedCount,
       })
 
-      setTodayAppointments(todayApts || [])
+      setTodayAppointments(todayApts)
     } catch (error) {
       console.error('Error fetching dashboard data:', error)
     } finally {
@@ -178,35 +187,52 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {recentAppointments.map((apt) => (
-                <div
-                  key={apt.id}
-                  className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600 hover:shadow-md transition-shadow"
-                >
-                  <div className="flex-1">
-                    <p className="font-semibold text-gray-800 dark:text-gray-100">{apt.client}</p>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">{apt.service}</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-medium text-gray-800 dark:text-gray-100">{apt.time}</p>
-                    <span
-                      className={`text-xs px-2 py-1 rounded-full ${
-                        apt.status === 'completed'
-                          ? 'bg-green-100 text-green-800'
-                          : apt.status === 'confirmed'
-                          ? 'bg-blue-100 text-blue-800'
-                          : 'bg-yellow-100 text-yellow-800'
-                      }`}
+              {loading ? (
+                <p className="text-center text-gray-500 py-4">Laden...</p>
+              ) : todayAppointments.length === 0 ? (
+                <p className="text-center text-gray-500 py-4">Keine Termine für heute</p>
+              ) : (
+                todayAppointments.map((apt) => {
+                  const startTime = new Date(apt.availability.start_time)
+                  return (
+                    <div
+                      key={apt.id}
+                      className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600 hover:shadow-md transition-shadow"
                     >
-                      {apt.status === 'completed'
-                        ? 'Abgeschlossen'
-                        : apt.status === 'confirmed'
-                        ? 'Bestätigt'
-                        : 'Ausstehend'}
-                    </span>
-                  </div>
-                </div>
-              ))}
+                      <div className="flex-1">
+                        <p className="font-semibold text-gray-800 dark:text-gray-100">
+                          {apt.profiles.first_name} {apt.profiles.last_name}
+                        </p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">{apt.services.name_de}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="font-medium text-gray-800 dark:text-gray-100">
+                          {format(startTime, 'HH:mm')} Uhr
+                        </p>
+                        <span
+                          className={`text-xs px-2 py-1 rounded-full ${
+                            apt.status === 'completed'
+                              ? 'bg-green-100 text-green-800'
+                              : apt.status === 'confirmed'
+                              ? 'bg-blue-100 text-blue-800'
+                              : apt.status === 'cancelled'
+                              ? 'bg-red-100 text-red-800'
+                              : 'bg-yellow-100 text-yellow-800'
+                          }`}
+                        >
+                          {apt.status === 'completed'
+                            ? 'Abgeschlossen'
+                            : apt.status === 'confirmed'
+                            ? 'Bestätigt'
+                            : apt.status === 'cancelled'
+                            ? 'Storniert'
+                            : 'Ausstehend'}
+                        </span>
+                      </div>
+                    </div>
+                  )
+                })
+              )}
             </div>
           </CardContent>
         </Card>
