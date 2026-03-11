@@ -10,20 +10,82 @@ interface BookingConfirmationProps {
   service: any
   date: Date
   time: string
+  userId: string
   onBack: () => void
 }
 
-export function BookingConfirmation({ service, date, time, onBack }: BookingConfirmationProps) {
+export function BookingConfirmation({ service, date, time, userId, onBack }: BookingConfirmationProps) {
   const [isConfirmed, setIsConfirmed] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const handleConfirm = async () => {
     setIsLoading(true)
-    // TODO: Implement Supabase booking creation
-    setTimeout(() => {
-      setIsLoading(false)
+    setError(null)
+
+    try {
+      // Create appointment in Supabase
+      const { createClient } = await import('@/lib/supabase/client')
+      const supabase = createClient()
+
+      // First, create or find availability slot
+      const startTime = new Date(date)
+      const [hours, minutes] = time.split(':')
+      startTime.setHours(parseInt(hours || '0', 10), parseInt(minutes || '0', 10), 0, 0)
+      
+      const endTime = new Date(startTime)
+      endTime.setMinutes(endTime.getMinutes() + service.duration)
+
+      // Check if availability slot exists
+      const { data: existingSlot } = await supabase
+        .from('availability')
+        .select('id')
+        .eq('start_time', startTime.toISOString())
+        .eq('is_booked', false)
+        .single()
+
+      let availabilityId = existingSlot?.id
+
+      if (!availabilityId) {
+        // Create new availability slot
+        const { data: newSlot, error: slotError } = await supabase
+          .from('availability')
+          .insert({
+            start_time: startTime.toISOString(),
+            end_time: endTime.toISOString(),
+            is_booked: true,
+          })
+          .select('id')
+          .single()
+
+        if (slotError) throw slotError
+        availabilityId = newSlot.id
+      } else {
+        // Mark existing slot as booked
+        await supabase
+          .from('availability')
+          .update({ is_booked: true })
+          .eq('id', availabilityId)
+      }
+
+      // Create appointment
+      const { error: appointmentError } = await supabase
+        .from('appointments')
+        .insert({
+          client_id: userId,
+          service_id: service.id,
+          availability_id: availabilityId,
+          status: 'confirmed',
+        })
+
+      if (appointmentError) throw appointmentError
+
       setIsConfirmed(true)
-    }, 1000)
+    } catch (err: any) {
+      setError(err.message || 'Fehler beim Erstellen des Termins')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   if (isConfirmed) {
@@ -128,6 +190,12 @@ export function BookingConfirmation({ service, date, time, onBack }: BookingConf
           </div>
         </CardContent>
       </Card>
+
+      {error && (
+        <div className="max-w-md mx-auto p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
+          {error}
+        </div>
+      )}
 
       <div className="flex gap-4 max-w-md mx-auto">
         <Button variant="outline" onClick={onBack} className="flex-1">

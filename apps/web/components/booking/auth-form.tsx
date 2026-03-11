@@ -2,9 +2,10 @@
 
 import { useState } from 'react'
 import { Button, Input, Card, CardHeader, CardTitle, CardContent } from '@sana-balance/ui'
+import { createClient } from '@/lib/supabase/client'
 
 interface AuthFormProps {
-  onSuccess: () => void
+  onSuccess: (userId: string) => void
   onBack: () => void
 }
 
@@ -14,11 +15,66 @@ export function AuthForm({ onSuccess, onBack }: AuthFormProps) {
   const [password, setPassword] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
+  const [phone, setPhone] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const supabase = createClient()
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // TODO: Implement Supabase auth
-    onSuccess()
+    setLoading(true)
+    setError(null)
+
+    try {
+      if (isLogin) {
+        // Login existing user
+        const { data, error: signInError } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        })
+
+        if (signInError) throw signInError
+        if (data.user) {
+          onSuccess(data.user.id)
+        }
+      } else {
+        // Register new user
+        const { data, error: signUpError } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            data: {
+              first_name: firstName,
+              last_name: lastName,
+              phone: phone,
+            },
+          },
+        })
+
+        if (signUpError) throw signUpError
+
+        if (data.user) {
+          // Create profile in profiles table
+          const { error: profileError } = await supabase
+            .from('profiles')
+            .insert({
+              id: data.user.id,
+              first_name: firstName,
+              last_name: lastName,
+              phone: phone,
+              is_admin: false,
+            })
+
+          if (profileError) throw profileError
+          onSuccess(data.user.id)
+        }
+      }
+    } catch (err: any) {
+      setError(err.message || 'Ein Fehler ist aufgetreten')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -41,30 +97,43 @@ export function AuthForm({ onSuccess, onBack }: AuthFormProps) {
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             {!isLogin && (
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-[#6B5744] mb-2">
-                    Vorname
-                  </label>
-                  <Input
-                    type="text"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    required
-                  />
+              <>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-[#6B5744] mb-2">
+                      Vorname
+                    </label>
+                    <Input
+                      type="text"
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-[#6B5744] mb-2">
+                      Nachname
+                    </label>
+                    <Input
+                      type="text"
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                      required
+                    />
+                  </div>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-[#6B5744] mb-2">
-                    Nachname
+                    Telefon
                   </label>
                   <Input
-                    type="text"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    required
+                    type="tel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder="+41 79 123 45 67"
                   />
                 </div>
-              </div>
+              </>
             )}
 
             <div>
@@ -91,8 +160,14 @@ export function AuthForm({ onSuccess, onBack }: AuthFormProps) {
               />
             </div>
 
-            <Button type="submit" className="w-full">
-              {isLogin ? 'Anmelden' : 'Registrieren'}
+            {error && (
+              <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+                {error}
+              </div>
+            )}
+
+            <Button type="submit" className="w-full" disabled={loading}>
+              {loading ? 'Wird geladen...' : (isLogin ? 'Anmelden' : 'Registrieren')}
             </Button>
           </form>
 

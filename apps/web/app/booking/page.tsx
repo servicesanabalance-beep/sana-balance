@@ -15,7 +15,7 @@ export default function BookingPage() {
   const [selectedService, setSelectedService] = useState<any>(null)
   const [selectedDate, setSelectedDate] = useState<Date | undefined>()
   const [selectedTime, setSelectedTime] = useState<string | undefined>()
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [userId, setUserId] = useState<string | null>(null)
 
   const handleServiceSelect = (service: any) => {
     setSelectedService(service)
@@ -26,15 +26,15 @@ export default function BookingPage() {
     setSelectedDate(date)
     setSelectedTime(time)
     
-    if (isAuthenticated) {
+    if (userId) {
       setCurrentStep('confirm')
     } else {
       setCurrentStep('auth')
     }
   }
 
-  const handleAuthSuccess = () => {
-    setIsAuthenticated(true)
+  const handleAuthSuccess = (authenticatedUserId: string) => {
+    setUserId(authenticatedUserId)
     setCurrentStep('confirm')
   }
 
@@ -78,11 +78,12 @@ export default function BookingPage() {
               />
             )}
 
-            {currentStep === 'confirm' && selectedService && selectedDate && selectedTime && (
+            {currentStep === 'confirm' && selectedService && selectedDate && selectedTime && userId && (
               <BookingConfirmation
                 service={selectedService}
                 date={selectedDate}
                 time={selectedTime}
+                userId={userId}
                 onBack={handleBack}
               />
             )}
