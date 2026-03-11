@@ -55,18 +55,28 @@ export function AuthForm({ onSuccess, onBack }: AuthFormProps) {
         if (signUpError) throw signUpError
 
         if (data.user) {
-          // Create profile in profiles table
-          const { error: profileError } = await supabase
+          // Check if profile already exists
+          const { data: existingProfile } = await supabase
             .from('profiles')
-            .insert({
-              id: data.user.id,
-              first_name: firstName,
-              last_name: lastName,
-              phone: phone,
-              is_admin: false,
-            })
+            .select('id')
+            .eq('id', data.user.id)
+            .single()
 
-          if (profileError) throw profileError
+          if (!existingProfile) {
+            // Create profile only if it doesn't exist
+            const { error: profileError } = await supabase
+              .from('profiles')
+              .insert({
+                id: data.user.id,
+                first_name: firstName,
+                last_name: lastName,
+                phone: phone,
+                is_admin: false,
+              })
+
+            if (profileError) throw profileError
+          }
+          
           onSuccess(data.user.id)
         }
       }
