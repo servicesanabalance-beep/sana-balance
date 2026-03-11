@@ -2,6 +2,7 @@
 
 import { useTranslations } from '@/lib/i18n'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Menu } from 'lucide-react'
 import { Button } from '@sana-balance/ui'
 import { useState } from 'react'
@@ -15,12 +16,13 @@ export function Header() {
       <div className="container-sana">
         <div className="flex items-center justify-between h-20">
           <Link href="/" className="flex items-center gap-3">
-            <div className="text-3xl font-serif font-bold text-sana-brown-dark">
-              <span className="text-sana-gold">SB</span>
-            </div>
-            <div className="hidden sm:block">
-              <div className="text-xl font-serif text-sana-brown-dark">Sana Balance</div>
-            </div>
+            <Image 
+              src="/logo.bige.png" 
+              alt="Sana Balance Logo" 
+              width={120} 
+              height={60}
+              className="h-12 w-auto"
+            />
           </Link>
 
           <nav className="hidden md:flex items-center gap-8">
