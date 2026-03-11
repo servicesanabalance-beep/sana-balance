@@ -21,8 +21,11 @@ export function Header() {
               alt="Sana Balance Logo" 
               width={120} 
               height={60}
-              className="h-12 w-auto"
+              className="h-12 w-auto drop-shadow-md"
             />
+            <div className="text-2xl font-serif font-semibold text-sana-brown-dark drop-shadow-sm">
+              Sana Balance
+            </div>
           </Link>
 
           <nav className="hidden md:flex items-center gap-8">
