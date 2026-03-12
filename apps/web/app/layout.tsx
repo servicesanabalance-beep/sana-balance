@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     description: "Gönnen Sie sich eine Auszeit vom Alltag und erleben Sie wohltuende Massagen und ganzheitliche Behandlungen für Ihr körperliches und seelisches Wohlbefinden.",
     images: [
       {
-        url: '/logo.sb.png',
+        url: '/favicon.png',
         width: 1200,
         height: 630,
         alt: 'Sana Balance Logo',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: "Sana Balance - Praxis für ganzheitliches Wohlbefinden",
     description: "Gönnen Sie sich eine Auszeit vom Alltag und erleben Sie wohltuende Massagen und ganzheitliche Behandlungen für Ihr körperliches und seelisches Wohlbefinden.",
-    images: ['/logo.sb.png'],
+    images: ['/favicon.png'],
   },
 };
 
