@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Providers } from "@/lib/providers";
 import { CookieConsent } from "@/components/cookie-consent";
+import { ScrollReset } from "@/components/scroll-reset";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -21,6 +22,7 @@ export default function RootLayout({
   return (
     <html lang="de">
       <body>
+        <ScrollReset />
         <Providers>{children}</Providers>
         <CookieConsent />
       </body>
