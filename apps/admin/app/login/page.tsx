@@ -59,7 +59,7 @@ export default function LoginPage() {
         <CardHeader className="text-center pb-2">
           <div className="mb-4">
             <h1 className="text-3xl font-serif font-bold text-amber-900 dark:text-amber-50">
-              Sana Balance
+              SanaBalance
             </h1>
             <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">Admin Panel</p>
           </div>

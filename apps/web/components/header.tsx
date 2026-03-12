@@ -35,18 +35,15 @@ export function Header() {
     <header className="sticky top-0 z-50 bg-sana-white/95 backdrop-blur-sm border-b border-sana-beige">
       <div className="container-sana" ref={menuRef}>
         <div className="flex items-center justify-between h-20">
-          <Link href="/" className="flex items-center gap-3">
+          <Link href="/" className="flex items-center">
             <Image 
-              src="/logo.sb.png" 
+              src="/massage.sana.svg" 
               alt="SanaBalance Logo" 
-              width={120} 
+              width={200} 
               height={60}
-              className="h-12 w-auto"
+              className="h-14 w-auto"
               priority
             />
-            <div className="text-2xl font-serif font-semibold text-sana-brown-dark">
-              SanaBalance
-            </div>
           </Link>
 
           <nav className="hidden md:flex items-center gap-8">

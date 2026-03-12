@@ -11,18 +11,14 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Column 1: Logo and Brand */}
           <div>
-            <div className="flex items-center gap-3 mb-6">
+            <div className="mb-6">
               <Image 
-                src="/logo.sb.png" 
+                src="/massage.sana.svg" 
                 alt="SanaBalance Logo" 
-                width={120} 
-                height={60}
-                className="h-12 w-auto"
+                width={200} 
+                height={80}
+                className="h-16 w-auto"
               />
-              <div>
-                <div className="text-xl font-serif">SanaBalance</div>
-                <div className="text-sm text-white/70">Praxis für ganzheitliches Wohlbefinden</div>
-              </div>
             </div>
             <p className="text-white/80 text-sm leading-relaxed">
               Ihre Balance und Harmonie sind unsere Priorität. Erleben Sie ganzheitliche Behandlungen in entspannter Atmosphäre.
