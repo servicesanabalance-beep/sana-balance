@@ -17,9 +17,9 @@ export const metadata: Metadata = {
   title: "Sana Balance Admin",
   description: "Verwaltungsbereich für Sana Balance",
   icons: {
-    icon: '/logosana.svg',
-    apple: '/logosana.svg',
-    shortcut: '/logosana.svg',
+    icon: '/logo.sana.balance.svg',
+    apple: '/logo.sana.balance.svg',
+    shortcut: '/logo.sana.balance.svg',
   },
 };
 

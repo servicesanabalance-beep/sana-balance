@@ -7,9 +7,9 @@ export const metadata: Metadata = {
   title: "Sana Balance - Praxis für ganzheitliches Wohlbefinden",
   description: "Gönnen Sie sich eine Auszeit vom Alltag und erleben Sie wohltuende Massagen und ganzheitliche Behandlungen für Ihr körperliches und seelisches Wohlbefinden.",
   icons: {
-    icon: '/logosana.svg',
-    apple: '/logosana.svg',
-    shortcut: '/logosana.svg',
+    icon: '/logo.sana.balance.svg',
+    apple: '/logo.sana.balance.svg',
+    shortcut: '/logo.sana.balance.svg',
   },
 };
 
