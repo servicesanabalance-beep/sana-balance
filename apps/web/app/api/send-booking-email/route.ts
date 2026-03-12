@@ -7,6 +7,16 @@ export async function POST(request: Request) {
   try {
     const { clientEmail, clientName, serviceName, date, time, adminEmail } = await request.json()
 
+    console.log('📧 Sending booking emails:', {
+      clientEmail,
+      clientName,
+      serviceName,
+      date,
+      time,
+      adminEmail,
+      apiKey: process.env.RESEND_API_KEY ? 'Present' : 'Missing'
+    })
+
     // Create calendar event (.ics format)
     const startDate = new Date(`${date}T${time}`)
     const endDate = new Date(startDate.getTime() + 60 * 60 * 1000) // 1 hour duration
@@ -27,9 +37,10 @@ END:VEVENT
 END:VCALENDAR`
 
     // Send email to admin
-    await resend.emails.send({
+    console.log('📨 Sending admin email to:', adminEmail)
+    const adminResult = await resend.emails.send({
       from: 'SanaBalance <onboarding@resend.dev>',
-      to: adminEmail || 'admin@sanabalance.com',
+      to: adminEmail || 'andrzejmich2@gmail.com',
       subject: `Neue Buchung: ${serviceName}`,
       html: `
         <h2>Neue Terminbuchung</h2>
@@ -48,9 +59,11 @@ END:VCALENDAR`
         },
       ],
     })
+    console.log('✅ Admin email result:', adminResult)
 
     // Send confirmation email to client
-    await resend.emails.send({
+    console.log('📨 Sending client email to:', clientEmail)
+    const clientResult = await resend.emails.send({
       from: 'SanaBalance <onboarding@resend.dev>',
       to: clientEmail,
       subject: 'Terminbestätigung - SanaBalance',
@@ -75,11 +88,24 @@ END:VCALENDAR`
         },
       ],
     })
+    console.log('✅ Client email result:', clientResult)
 
-    return NextResponse.json({ success: true })
-  } catch (error) {
-    console.error('Error sending email:', error)
-    return NextResponse.json({ error: 'Failed to send email' }, { status: 500 })
+    return NextResponse.json({ 
+      success: true,
+      adminEmailId: adminResult.data?.id,
+      clientEmailId: clientResult.data?.id
+    })
+  } catch (error: any) {
+    console.error('❌ Error sending email:', error)
+    console.error('Error details:', {
+      message: error.message,
+      name: error.name,
+      stack: error.stack
+    })
+    return NextResponse.json({ 
+      error: 'Failed to send email',
+      details: error.message 
+    }, { status: 500 })
   }
 }
 
