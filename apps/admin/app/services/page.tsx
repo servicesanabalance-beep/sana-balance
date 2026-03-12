@@ -1,49 +1,140 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Card, CardHeader, CardTitle, CardContent, Button, Input } from '@sana-balance/ui'
 import { Plus, Edit, Trash2 } from 'lucide-react'
 import { BackButton } from '@/components/back-button'
+import { createClient } from '@/lib/supabase/client'
 
 export default function ServicesPage() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [editingService, setEditingService] = useState<any>(null)
+  const [services, setServices] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
+  const [formData, setFormData] = useState({
+    name: '',
+    description: '',
+    duration: 60,
+    price: 120,
+    is_active: true,
+  })
 
-  // Mock data - replace with Supabase queries
-  const services = [
-    {
-      id: 1,
-      name: 'Klassische Massage',
-      description: 'Die klassische Massage ist eine bewährte Technik zur Linderung von Muskelverspannungen.',
+  const supabase = createClient()
+
+  useEffect(() => {
+    fetchServices()
+  }, [])
+
+  async function fetchServices() {
+    try {
+      const { data, error } = await supabase
+        .from('services')
+        .select('*')
+        .order('created_at', { ascending: false })
+
+      if (error) throw error
+      setServices(data || [])
+    } catch (error) {
+      console.error('Error fetching services:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    
+    try {
+      if (editingService) {
+        // Update existing service
+        const { error } = await supabase
+          .from('services')
+          .update({
+            name_de: formData.name,
+            description_de: formData.description,
+            duration_minutes: formData.duration,
+            price_chf: formData.price,
+            is_active: formData.is_active,
+          })
+          .eq('id', editingService.id)
+
+        if (error) throw error
+      } else {
+        // Create new service
+        const { error } = await supabase
+          .from('services')
+          .insert({
+            name_de: formData.name,
+            description_de: formData.description,
+            duration_minutes: formData.duration,
+            price_chf: formData.price,
+            is_active: formData.is_active,
+          })
+
+        if (error) throw error
+      }
+
+      // Refresh services list
+      await fetchServices()
+      
+      // Close modal and reset form
+      setIsModalOpen(false)
+      setEditingService(null)
+      setFormData({
+        name: '',
+        description: '',
+        duration: 60,
+        price: 120,
+        is_active: true,
+      })
+    } catch (error) {
+      console.error('Error saving service:', error)
+      alert('Fehler beim Speichern des Services')
+    }
+  }
+
+  async function handleDelete(id: string) {
+    if (!confirm('Möchten Sie diesen Service wirklich löschen?')) return
+
+    try {
+      const { error } = await supabase
+        .from('services')
+        .delete()
+        .eq('id', id)
+
+      if (error) throw error
+
+      // Refresh services list
+      await fetchServices()
+    } catch (error) {
+      console.error('Error deleting service:', error)
+      alert('Fehler beim Löschen des Services')
+    }
+  }
+
+  function openEditModal(service: any) {
+    setEditingService(service)
+    setFormData({
+      name: service.name_de,
+      description: service.description_de,
+      duration: service.duration_minutes,
+      price: service.price_chf,
+      is_active: service.is_active,
+    })
+    setIsModalOpen(true)
+  }
+
+  function openNewModal() {
+    setEditingService(null)
+    setFormData({
+      name: '',
+      description: '',
       duration: 60,
       price: 120,
-      isActive: true,
-    },
-    {
-      id: 2,
-      name: 'Wellnessmassage',
-      description: 'Die Wellnessmassage schenkt tiefe Entspannung für Körper und Geist.',
-      duration: 90,
-      price: 150,
-      isActive: true,
-    },
-    {
-      id: 3,
-      name: 'Dorn & Breuss Methode',
-      description: 'Die Dorn & Breuss Massage lindert Rückenschmerzen und Nackenverspannungen.',
-      duration: 75,
-      price: 140,
-      isActive: true,
-    },
-    {
-      id: 4,
-      name: 'Sportmassage',
-      description: 'Wenn Sie sportlich aktiv sind, ist eine Sportmassage ideal für Sie.',
-      duration: 60,
-      price: 130,
-      isActive: true,
-    },
-  ]
+      is_active: true,
+    })
+    setIsModalOpen(true)
+  }
 
   return (
     <div className="min-h-screen p-4 lg:p-8">
@@ -56,67 +147,76 @@ export default function ServicesPage() {
             </h1>
             <p className="text-gray-700 dark:text-amber-100">Verwaltung Ihrer Massage-Angebote</p>
           </div>
-          <Button onClick={() => setIsModalOpen(true)}>
+          <Button onClick={openNewModal}>
             <Plus className="h-4 w-4 mr-2" />
             Neuer Service
           </Button>
         </div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {services.map((service) => (
-            <Card key={service.id} className="bg-gradient-to-br from-[#6B5744] to-[#8B7355] border-none">
-              <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div>
-                    <CardTitle className="text-white">{service.name}</CardTitle>
-                    <div className="flex items-center gap-4 mt-2">
-                      <span className="text-sm text-white/80">
-                        {service.duration} Minuten
-                      </span>
-                      <span className="text-lg font-serif font-semibold text-white">
-                        {service.price} CHF
-                      </span>
+        {loading ? (
+          <div className="text-center py-12">
+            <p className="text-gray-600 dark:text-gray-400">Laden...</p>
+          </div>
+        ) : services.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-gray-600 dark:text-gray-400">Keine Services vorhanden. Erstellen Sie einen neuen Service.</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {services.map((service) => (
+              <Card key={service.id} className="bg-gradient-to-br from-[#6B5744] to-[#8B7355] border-none">
+                <CardHeader>
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <CardTitle className="text-white">{service.name_de}</CardTitle>
+                      <div className="flex items-center gap-4 mt-2">
+                        <span className="text-sm text-white/80">
+                          {service.duration_minutes} Minuten
+                        </span>
+                        <span className="text-lg font-serif font-semibold text-white">
+                          {service.price_chf} CHF
+                        </span>
+                      </div>
                     </div>
+                    <span
+                      className={`px-3 py-1 rounded-full text-xs font-medium ${
+                        service.is_active
+                          ? 'bg-green-500/20 text-green-200 border border-green-400/30'
+                          : 'bg-gray-500/20 text-gray-200 border border-gray-400/30'
+                      }`}
+                    >
+                      {service.is_active ? 'Aktiv' : 'Inaktiv'}
+                    </span>
                   </div>
-                  <span
-                    className={`px-3 py-1 rounded-full text-xs font-medium ${
-                      service.isActive
-                        ? 'bg-green-500/20 text-green-200 border border-green-400/30'
-                        : 'bg-gray-500/20 text-gray-200 border border-gray-400/30'
-                    }`}
-                  >
-                    {service.isActive ? 'Aktiv' : 'Inaktiv'}
-                  </span>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-white/90 mb-4">{service.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => {
-                      setEditingService(service)
-                      setIsModalOpen(true)
-                    }}
-                    className="flex-1 min-w-[120px] bg-[#C9A87C] hover:bg-[#B8976B] text-white border-none px-4 py-2 flex items-center justify-center gap-2"
-                  >
-                    <Edit className="h-4 w-4" />
-                    <span>Bearbeiten</span>
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className="flex-1 min-w-[120px] bg-red-600/80 hover:bg-red-700 text-white border-none px-4 py-2 flex items-center justify-center gap-2"
-                  >
-                    <Trash2 className="h-4 w-4" />
-                    <span>Löschen</span>
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                </CardHeader>
+                <CardContent>
+                  <p className="text-white/90 mb-4">{service.description_de}</p>
+                  <div className="flex flex-wrap gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => openEditModal(service)}
+                      className="flex-1 min-w-[120px] bg-[#C9A87C] hover:bg-[#B8976B] text-white border-none px-4 py-2 flex items-center justify-center gap-2"
+                    >
+                      <Edit className="h-4 w-4" />
+                      <span>Bearbeiten</span>
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={() => handleDelete(service.id)}
+                      className="flex-1 min-w-[120px] bg-red-600/80 hover:bg-red-700 text-white border-none px-4 py-2 flex items-center justify-center gap-2"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                      <span>Löschen</span>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
         </div>
 
         {/* Add/Edit Modal */}
