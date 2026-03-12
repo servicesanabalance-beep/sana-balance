@@ -26,7 +26,7 @@ export function About() {
               Wer sind wir?
             </h4>
             <p className="text-[#8B7355] leading-relaxed text-lg">
-              In unserer Praxis für ganzheitliches Wohlbefinden verbinden wir Kraft und Erfahrung mit modernen Methoden, um Körper und Seele ins Gleichgewicht zu bringen. Wir bieten Massagen (klassisch, Wellness, Dorn & Breuss, Sport), Maderotherapie sowie Reconnective Healing® an.
+              Willkommen bei Sana Balance – Ihrem Ort für Entspannung und Regeneration. Wir verbinden traditionelle Massagetechniken mit modernem Fachwissen, um Körper und Geist in Einklang zu bringen. Unser Angebot umfasst klassische Massagen, Wellness-Behandlungen, Dorn & Breuss sowie Sportmassagen.
             </p>
           </div>
 
