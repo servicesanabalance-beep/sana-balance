@@ -136,19 +136,39 @@ export default function AppointmentsPage() {
     e.preventDefault()
 
     try {
-      // For now, create a simple appointment without client authentication
-      // In production, you'd want to create/find the client profile first
-      const { error } = await supabase
+      // Get current user
+      const { data: { user } } = await supabase.auth.getUser()
+      
+      if (!user) {
+        alert('Sie müssen angemeldet sein, um einen Termin zu erstellen')
+        return
+      }
+
+      console.log('Creating appointment with data:', {
+        client_id: user.id,
+        service_id: parseInt(formData.serviceId),
+        availability_id: parseInt(formData.availabilityId),
+        status: 'confirmed',
+        notes: formData.notes || null,
+      })
+
+      const { data, error } = await supabase
         .from('appointments')
         .insert({
+          client_id: user.id,
           service_id: parseInt(formData.serviceId),
           availability_id: parseInt(formData.availabilityId),
           status: 'confirmed',
           notes: formData.notes || null,
-          // Note: client_id would need to be set properly with actual user management
         })
+        .select()
 
-      if (error) throw error
+      console.log('Insert result:', { data, error })
+
+      if (error) {
+        console.error('Detailed error:', JSON.stringify(error, null, 2))
+        throw error
+      }
 
       // Mark slot as booked
       await supabase
@@ -169,7 +189,8 @@ export default function AppointmentsPage() {
       })
     } catch (error: any) {
       console.error('Error creating appointment:', error)
-      alert(`Fehler beim Erstellen des Termins: ${error?.message || 'Unbekannter Fehler'}`)
+      const errorMsg = error?.message || error?.hint || error?.details || JSON.stringify(error)
+      alert(`Fehler beim Erstellen des Termins: ${errorMsg}`)
     }
   }
 

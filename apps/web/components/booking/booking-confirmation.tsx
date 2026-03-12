@@ -10,11 +10,12 @@ interface BookingConfirmationProps {
   service: any
   date: Date
   time: string
+  availabilityId: number
   userId: string
   onBack: () => void
 }
 
-export function BookingConfirmation({ service, date, time, userId, onBack }: BookingConfirmationProps) {
+export function BookingConfirmation({ service, date, time, availabilityId, userId, onBack }: BookingConfirmationProps) {
   const [isConfirmed, setIsConfirmed] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -28,26 +29,7 @@ export function BookingConfirmation({ service, date, time, userId, onBack }: Boo
       const { createClient } = await import('@/lib/supabase/client')
       const supabase = createClient()
 
-      // First, create or find availability slot
-      const startTime = new Date(date)
-      const [hours, minutes] = time.split(':')
-      startTime.setHours(parseInt(hours || '0', 10), parseInt(minutes || '0', 10), 0, 0)
-      
-      const endTime = new Date(startTime)
-      endTime.setMinutes(endTime.getMinutes() + service.duration)
-
-      // Check if availability slot exists
-      const { data: existingSlot } = await supabase
-        .from('availability')
-        .select('id')
-        .eq('start_time', startTime.toISOString())
-        .eq('is_booked', false)
-        .single()
-
-      let availabilityId = existingSlot?.id
-
-      if (!availabilityId) {
-        // Create new availability slot
+      // Use the availability_id that was selected by the user
         const { data: newSlot, error: slotError } = await supabase
           .from('availability')
           .insert({
