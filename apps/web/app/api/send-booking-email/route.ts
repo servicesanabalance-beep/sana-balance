@@ -64,39 +64,14 @@ END:VCALENDAR`
     })
     console.log('✅ Admin email result:', adminResult)
 
-    // Send confirmation email to client
-    console.log('📨 Sending client email to:', clientEmail)
-    const clientResult = await resend.emails.send({
-      from: 'SanaBalance <onboarding@resend.dev>',
-      to: clientEmail,
-      subject: 'Terminbestätigung - SanaBalance',
-      html: `
-        <h2>Vielen Dank für Ihre Buchung!</h2>
-        <p>Hallo ${clientName},</p>
-        <p>Ihr Termin wurde erfolgreich gebucht:</p>
-        <ul>
-          <li><strong>Service:</strong> ${serviceName}</li>
-          <li><strong>Datum:</strong> ${date}</li>
-          <li><strong>Uhrzeit:</strong> ${time}</li>
-        </ul>
-        <p>Wir freuen uns auf Ihren Besuch!</p>
-        <p>Die Kalender-Datei finden Sie im Anhang.</p>
-        <br>
-        <p>Mit freundlichen Grüßen,<br>Ihr SanaBalance Team</p>
-      `,
-      attachments: [
-        {
-          filename: 'termin.ics',
-          content: Buffer.from(calendarEvent).toString('base64'),
-        },
-      ],
-    })
-    console.log('✅ Client email result:', clientResult)
-
+    // Send confirmation email to client (DISABLED - Resend requires domain verification)
+    // TODO: Enable after domain verification at resend.com/domains
+    console.log('⚠️ Client email skipped - Resend requires domain verification to send to:', clientEmail)
+    
     return NextResponse.json({ 
       success: true,
       adminEmailId: adminResult.data?.id,
-      clientEmailId: clientResult.data?.id
+      note: 'Client email skipped - domain verification required'
     })
   } catch (error: any) {
     console.error('❌ Error sending email:', error)
