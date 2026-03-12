@@ -87,9 +87,9 @@ export default function ServicesPage() {
         price: 120,
         is_active: true,
       })
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving service:', error)
-      alert('Fehler beim Speichern des Services')
+      alert(`Fehler beim Speichern des Services: ${error?.message || 'Unbekannter Fehler'}`)
     }
   }
 
