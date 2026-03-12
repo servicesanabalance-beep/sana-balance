@@ -39,9 +39,9 @@ export function Header() {
             <Image 
               src="/massage.sana.svg" 
               alt="SanaBalance Logo" 
-              width={200} 
-              height={60}
-              className="h-14 w-auto"
+              width={180} 
+              height={54}
+              className="h-12 w-auto"
               priority
             />
           </Link>
