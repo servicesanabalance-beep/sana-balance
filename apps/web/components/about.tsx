@@ -1,19 +1,11 @@
-import Image from 'next/image'
-
 export function About() {
   return (
     <section id="about" className="relative py-20 overflow-hidden">
       {/* Background Image */}
-      <div className="absolute inset-0">
-        <Image
-          src="/uber.uns.png"
-          alt="Über uns background"
-          fill
-          className="object-cover"
-          priority={false}
-          quality={90}
-          sizes="(max-width: 768px) 100vw, 50vw"
-          unoptimized={false}
+      <div className="absolute inset-0 w-full h-full">
+        <div 
+          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: 'url(/uber.uns.png)' }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#F5F1ED]/60 via-[#F5F1ED]/50 to-white/40" />
       </div>
