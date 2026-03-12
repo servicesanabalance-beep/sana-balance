@@ -18,6 +18,8 @@ export function Hero() {
           fill
           className="object-cover"
           priority
+          quality={90}
+          sizes="100vw"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-sana-cream/80 via-sana-cream/70 to-transparent" />
       </div>

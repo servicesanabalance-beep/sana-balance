@@ -11,6 +11,9 @@ export function About() {
           fill
           className="object-cover"
           priority={false}
+          quality={90}
+          sizes="(max-width: 768px) 100vw, 50vw"
+          unoptimized={false}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#F5F1ED]/60 via-[#F5F1ED]/50 to-white/40" />
       </div>
