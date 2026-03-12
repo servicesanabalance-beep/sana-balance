@@ -65,16 +65,16 @@ export default function ServicesPage() {
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {services.map((service) => (
-            <Card key={service.id}>
+            <Card key={service.id} className="bg-gradient-to-br from-[#6B5744] to-[#8B7355] border-none">
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div>
-                    <CardTitle>{service.name}</CardTitle>
+                    <CardTitle className="text-white">{service.name}</CardTitle>
                     <div className="flex items-center gap-4 mt-2">
-                      <span className="text-sm text-gray-600 dark:text-gray-400">
+                      <span className="text-sm text-white/80">
                         {service.duration} Minuten
                       </span>
-                      <span className="text-lg font-serif font-semibold text-gray-800 dark:text-gray-100">
+                      <span className="text-lg font-serif font-semibold text-white">
                         {service.price} CHF
                       </span>
                     </div>
@@ -82,8 +82,8 @@ export default function ServicesPage() {
                   <span
                     className={`px-3 py-1 rounded-full text-xs font-medium ${
                       service.isActive
-                        ? 'bg-green-100 text-green-800'
-                        : 'bg-gray-100 text-gray-800'
+                        ? 'bg-green-500/20 text-green-200 border border-green-400/30'
+                        : 'bg-gray-500/20 text-gray-200 border border-gray-400/30'
                     }`}
                   >
                     {service.isActive ? 'Aktiv' : 'Inaktiv'}
@@ -91,7 +91,7 @@ export default function ServicesPage() {
                 </div>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600 dark:text-gray-400 mb-4">{service.description}</p>
+                <p className="text-white/90 mb-4">{service.description}</p>
                 <div className="flex flex-wrap gap-2">
                   <Button
                     variant="outline"
@@ -100,12 +100,16 @@ export default function ServicesPage() {
                       setEditingService(service)
                       setIsModalOpen(true)
                     }}
-                    className="flex-1 min-w-[120px]"
+                    className="flex-1 min-w-[120px] bg-[#C9A87C] hover:bg-[#B8976B] text-white border-none"
                   >
                     <Edit className="h-4 w-4 flex-shrink-0" />
                     Bearbeiten
                   </Button>
-                  <Button variant="outline" size="sm" className="text-red-600 hover:text-red-800 flex-1 min-w-[120px]">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="flex-1 min-w-[120px] bg-red-600/80 hover:bg-red-700 text-white border-none"
+                  >
                     <Trash2 className="h-4 w-4 flex-shrink-0" />
                     Löschen
                   </Button>
