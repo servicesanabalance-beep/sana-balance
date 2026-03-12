@@ -15,7 +15,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Sana Balance - Praxis für ganzheitliches Wohlbefinden",
     description: "Gönnen Sie sich eine Auszeit vom Alltag und erleben Sie wohltuende Massagen und ganzheitliche Behandlungen für Ihr körperliches und seelisches Wohlbefinden.",
-    images: ['/logo.sana.balance.svg'],
+    images: [
+      {
+        url: '/logo.sb.png',
+        width: 1200,
+        height: 630,
+        alt: 'Sana Balance Logo',
+      }
+    ],
     locale: 'de_DE',
     type: 'website',
   },
@@ -23,7 +30,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: "Sana Balance - Praxis für ganzheitliches Wohlbefinden",
     description: "Gönnen Sie sich eine Auszeit vom Alltag und erleben Sie wohltuende Massagen und ganzheitliche Behandlungen für Ihr körperliches und seelisches Wohlbefinden.",
-    images: ['/logo.sana.balance.svg'],
+    images: ['/logo.sb.png'],
   },
 };
 
