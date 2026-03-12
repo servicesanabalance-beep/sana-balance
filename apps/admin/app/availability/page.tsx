@@ -76,7 +76,7 @@ export default function AvailabilityPage() {
         .insert({
           start_time: startDateTime.toISOString(),
           end_time: endDateTime.toISOString(),
-          services_id: formData.serviceId || null,
+          service_id: formData.serviceId || null,
           is_booked: false,
         })
 
