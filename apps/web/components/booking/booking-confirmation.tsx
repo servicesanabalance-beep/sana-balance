@@ -29,38 +29,25 @@ export function BookingConfirmation({ service, date, time, availabilityId, userI
       const { createClient } = await import('@/lib/supabase/client')
       const supabase = createClient()
 
-      // Use the availability_id that was selected by the user
-        const { data: newSlot, error: slotError } = await supabase
-          .from('availability')
-          .insert({
-            start_time: startTime.toISOString(),
-            end_time: endTime.toISOString(),
-            is_booked: true,
-          })
-          .select('id')
-          .single()
-
-        if (slotError) throw slotError
-        availabilityId = newSlot.id
-      } else {
-        // Mark existing slot as booked
-        await supabase
-          .from('availability')
-          .update({ is_booked: true })
-          .eq('id', availabilityId)
-      }
-
-      // Create appointment
+      // Create appointment with the selected availability slot
       const { error: appointmentError } = await supabase
         .from('appointments')
         .insert({
           client_id: userId,
-          service_id: service.id,
+          service_id: parseInt(service.id),
           availability_id: availabilityId,
           status: 'confirmed',
         })
 
       if (appointmentError) throw appointmentError
+
+      // Mark the availability slot as booked
+      const { error: updateError } = await supabase
+        .from('availability')
+        .update({ is_booked: true })
+        .eq('id', availabilityId)
+
+      if (updateError) throw updateError
 
       setIsConfirmed(true)
     } catch (err: any) {
