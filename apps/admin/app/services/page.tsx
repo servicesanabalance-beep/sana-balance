@@ -217,7 +217,6 @@ export default function ServicesPage() {
             ))}
           </div>
         )}
-        </div>
 
         {/* Add/Edit Modal */}
         {isModalOpen && (
@@ -229,16 +228,18 @@ export default function ServicesPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-6">
-                <form className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-800 dark:text-gray-100 mb-2">
                       Name
                     </label>
                     <Input
                       type="text"
-                      defaultValue={editingService?.name}
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="z.B. Klassische Massage"
                       className="bg-white dark:bg-gray-700"
+                      required
                     />
                   </div>
 
@@ -249,8 +250,10 @@ export default function ServicesPage() {
                     <textarea
                       className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                       rows={4}
-                      defaultValue={editingService?.description}
+                      value={formData.description}
+                      onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                       placeholder="Beschreiben Sie den Service..."
+                      required
                     />
                   </div>
 
@@ -261,9 +264,11 @@ export default function ServicesPage() {
                       </label>
                       <Input
                         type="number"
-                        defaultValue={editingService?.duration || 60}
+                        value={formData.duration}
+                        onChange={(e) => setFormData({ ...formData, duration: parseInt(e.target.value) })}
                         placeholder="60"
                         className="bg-white dark:bg-gray-700"
+                        required
                       />
                     </div>
 
@@ -273,9 +278,11 @@ export default function ServicesPage() {
                       </label>
                       <Input
                         type="number"
-                        defaultValue={editingService?.price || 120}
+                        value={formData.price}
+                        onChange={(e) => setFormData({ ...formData, price: parseFloat(e.target.value) })}
                         placeholder="120"
                         className="bg-white dark:bg-gray-700"
+                        required
                       />
                     </div>
                   </div>
@@ -284,7 +291,8 @@ export default function ServicesPage() {
                     <input
                       type="checkbox"
                       id="isActive"
-                      defaultChecked={editingService?.isActive ?? true}
+                      checked={formData.is_active}
+                      onChange={(e) => setFormData({ ...formData, is_active: e.target.checked })}
                       className="w-4 h-4 text-amber-600 rounded focus:ring-amber-500"
                     />
                     <label htmlFor="isActive" className="text-sm text-gray-800 dark:text-gray-100">

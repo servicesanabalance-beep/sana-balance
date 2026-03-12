@@ -139,12 +139,12 @@ export default function AvailabilityPage() {
 
         {/* Add Slot Modal */}
         {isModalOpen && (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-            <Card className="w-full max-w-md">
-              <CardHeader>
-                <CardTitle>Neuer Zeitslot</CardTitle>
+          <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+            <Card className="w-full max-w-md bg-white dark:bg-gray-800 shadow-2xl">
+              <CardHeader className="bg-gradient-to-r from-[#6B5744] to-[#8B7355] text-white">
+                <CardTitle className="text-white">Neuer Zeitslot</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6">
                 <form className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-800 dark:text-gray-100 mb-2">
@@ -192,14 +192,14 @@ export default function AvailabilityPage() {
                     </select>
                   </div>
 
-                  <div className="flex gap-4 pt-4">
-                    <Button type="submit" className="flex-1">
+                  <div className="flex gap-3 pt-4">
+                    <Button type="submit" className="px-6 py-2 bg-[#C9A87C] hover:bg-[#B8976B] text-white flex items-center justify-center gap-2">
                       Erstellen
                     </Button>
                     <Button
                       type="button"
                       variant="outline"
-                      className="flex-1"
+                      className="px-6 py-2 flex items-center justify-center gap-2"
                       onClick={() => setIsModalOpen(false)}
                     >
                       Abbrechen
