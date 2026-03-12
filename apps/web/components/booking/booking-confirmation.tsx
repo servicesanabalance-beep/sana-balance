@@ -29,6 +29,11 @@ export function BookingConfirmation({ service, date, time, availabilityId, userI
       const { createClient } = await import('@/lib/supabase/client')
       const supabase = createClient()
 
+      // Get user email
+      const { data: { user } } = await supabase.auth.getUser()
+      const clientEmail = user?.email || ''
+      const clientName = user?.user_metadata?.name || user?.email || 'Kunde'
+
       // Create appointment with the selected availability slot
       const { error: appointmentError } = await supabase
         .from('appointments')
@@ -48,6 +53,25 @@ export function BookingConfirmation({ service, date, time, availabilityId, userI
         .eq('id', availabilityId)
 
       if (updateError) throw updateError
+
+      // Send booking emails
+      try {
+        await fetch('/api/send-booking-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            clientEmail,
+            clientName,
+            serviceName: service.title,
+            date: format(date, 'dd.MM.yyyy'),
+            time,
+            adminEmail: 'admin@sanabalance.com', // Replace with actual admin email
+          }),
+        })
+      } catch (emailError) {
+        console.error('Failed to send email:', emailError)
+        // Don't fail the booking if email fails
+      }
 
       setIsConfirmed(true)
     } catch (err: any) {
