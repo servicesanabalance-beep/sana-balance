@@ -1,24 +1,117 @@
 'use client'
 
-import { useState } from 'react'
-import { Card, CardHeader, CardTitle, CardContent, Button, Calendar } from '@sana-balance/ui'
+import { useState, useEffect } from 'react'
+import { Card, CardHeader, CardTitle, CardContent, Button, Calendar, Input } from '@sana-balance/ui'
 import { Plus, Clock } from 'lucide-react'
-import { format } from 'date-fns'
+import { format, startOfDay, endOfDay } from 'date-fns'
 import { de } from 'date-fns/locale'
 import { BackButton } from '@/components/back-button'
+import { createClient } from '@/lib/supabase/client'
 
 export default function AvailabilityPage() {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date())
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [slots, setSlots] = useState<any[]>([])
+  const [services, setServices] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
+  const [formData, setFormData] = useState({
+    date: format(new Date(), 'yyyy-MM-dd'),
+    startTime: '09:00',
+    endTime: '10:00',
+    serviceId: '',
+  })
 
-  // Mock data - replace with Supabase queries
-  const slots = [
-    { id: 1, time: '09:00', duration: 60, isBooked: false },
-    { id: 2, time: '10:00', duration: 60, isBooked: true },
-    { id: 3, time: '11:00', duration: 60, isBooked: false },
-    { id: 4, time: '14:00', duration: 90, isBooked: false },
-    { id: 5, time: '16:00', duration: 60, isBooked: true },
-  ]
+  const supabase = createClient()
+
+  useEffect(() => {
+    fetchServices()
+    fetchSlots()
+  }, [selectedDate])
+
+  async function fetchServices() {
+    try {
+      const { data, error } = await supabase
+        .from('services')
+        .select('*')
+        .eq('is_active', true)
+        .order('name_de')
+
+      if (error) throw error
+      setServices(data || [])
+    } catch (error) {
+      console.error('Error fetching services:', error)
+    }
+  }
+
+  async function fetchSlots() {
+    try {
+      const dayStart = startOfDay(selectedDate).toISOString()
+      const dayEnd = endOfDay(selectedDate).toISOString()
+
+      const { data, error } = await supabase
+        .from('availability')
+        .select('*')
+        .gte('start_time', dayStart)
+        .lte('start_time', dayEnd)
+        .order('start_time')
+
+      if (error) throw error
+      setSlots(data || [])
+    } catch (error) {
+      console.error('Error fetching slots:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+
+    try {
+      const startDateTime = new Date(`${formData.date}T${formData.startTime}:00`)
+      const endDateTime = new Date(`${formData.date}T${formData.endTime}:00`)
+
+      const { error } = await supabase
+        .from('availability')
+        .insert({
+          start_time: startDateTime.toISOString(),
+          end_time: endDateTime.toISOString(),
+          service_id: formData.serviceId || null,
+          is_booked: false,
+        })
+
+      if (error) throw error
+
+      await fetchSlots()
+      setIsModalOpen(false)
+      setFormData({
+        date: format(selectedDate, 'yyyy-MM-dd'),
+        startTime: '09:00',
+        endTime: '10:00',
+        serviceId: '',
+      })
+    } catch (error) {
+      console.error('Error creating slot:', error)
+      alert('Fehler beim Erstellen des Zeitslots')
+    }
+  }
+
+  async function handleDelete(id: string) {
+    if (!confirm('Möchten Sie diesen Zeitslot wirklich löschen?')) return
+
+    try {
+      const { error } = await supabase
+        .from('availability')
+        .delete()
+        .eq('id', id)
+
+      if (error) throw error
+      await fetchSlots()
+    } catch (error) {
+      console.error('Error deleting slot:', error)
+      alert('Fehler beim Löschen des Zeitslots')
+    }
+  }
 
   return (
     <div className="min-h-screen p-4 lg:p-8">
@@ -67,54 +160,71 @@ export default function AvailabilityPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-3">
-                  {slots.map((slot) => (
-                    <div
-                      key={slot.id}
-                      className={`flex items-center justify-between p-4 rounded-lg border-2 ${
-                        slot.isBooked
-                          ? 'bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700'
-                          : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600'
-                      }`}
-                    >
-                      <div className="flex items-center gap-4">
-                        <Clock className="h-5 w-5 text-gray-600 dark:text-gray-400" />
-                        <div>
-                          <p className="font-semibold text-gray-800 dark:text-gray-100">{slot.time}</p>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">{slot.duration} Minuten</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <span
-                          className={`px-3 py-1 rounded-full text-xs font-medium ${
-                            slot.isBooked
-                              ? 'bg-red-100 text-red-800'
-                              : 'bg-green-100 text-green-800'
+                {loading ? (
+                  <div className="text-center py-12">
+                    <p className="text-gray-600 dark:text-gray-400">Laden...</p>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    {slots.map((slot) => {
+                      const startTime = new Date(slot.start_time)
+                      const endTime = new Date(slot.end_time)
+                      const duration = Math.round((endTime.getTime() - startTime.getTime()) / 60000)
+                      
+                      return (
+                        <div
+                          key={slot.id}
+                          className={`flex items-center justify-between p-4 rounded-lg border-2 ${
+                            slot.is_booked
+                              ? 'bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 opacity-60'
+                              : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600'
                           }`}
                         >
-                          {slot.isBooked ? 'Gebucht' : 'Verfügbar'}
-                        </span>
-                        {!slot.isBooked && (
-                          <Button variant="outline" size="sm" className="min-w-[100px]">
-                            <span className="truncate">Bearbeiten</span>
-                          </Button>
-                        )}
-                      </div>
-                    </div>
-                  ))}
+                          <div className="flex items-center gap-4">
+                            <Clock className="h-5 w-5 text-gray-600 dark:text-gray-400" />
+                            <div>
+                              <p className="font-semibold text-gray-800 dark:text-gray-100">
+                                {format(startTime, 'HH:mm')} - {format(endTime, 'HH:mm')}
+                              </p>
+                              <p className="text-sm text-gray-600 dark:text-gray-400">{duration} Minuten</p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <span
+                              className={`px-3 py-1 rounded-full text-xs font-medium ${
+                                slot.is_booked
+                                  ? 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-200'
+                                  : 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-200'
+                              }`}
+                            >
+                              {slot.is_booked ? 'Gebucht' : 'Verfügbar'}
+                            </span>
+                            <Button 
+                              variant="outline" 
+                              size="sm" 
+                              onClick={() => handleDelete(slot.id)}
+                              className="min-w-[100px] text-red-600 hover:text-red-800"
+                            >
+                              Löschen
+                            </Button>
+                          </div>
+                        </div>
+                      )
+                    })}
 
-                  {slots.length === 0 && (
-                    <div className="text-center py-12">
-                      <Clock className="h-12 w-12 text-gray-600 dark:text-gray-400 mx-auto mb-4 opacity-50" />
-                      <p className="text-gray-600 dark:text-gray-400">
-                        Keine Zeitslots für dieses Datum vorhanden
-                      </p>
-                      <Button className="mt-4" onClick={() => setIsModalOpen(true)}>
-                        Ersten Slot erstellen
-                      </Button>
-                    </div>
-                  )}
-                </div>
+                    {slots.length === 0 && (
+                      <div className="text-center py-12">
+                        <Clock className="h-12 w-12 text-gray-600 dark:text-gray-400 mx-auto mb-4 opacity-50" />
+                        <p className="text-gray-600 dark:text-gray-400">
+                          Keine Zeitslots für dieses Datum vorhanden
+                        </p>
+                        <Button className="mt-4" onClick={() => setIsModalOpen(true)}>
+                          Ersten Slot erstellen
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+                )}
               </CardContent>
             </Card>
 
@@ -145,15 +255,17 @@ export default function AvailabilityPage() {
                 <CardTitle className="text-white">Neuer Zeitslot</CardTitle>
               </CardHeader>
               <CardContent className="p-6">
-                <form className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-800 dark:text-gray-100 mb-2">
                       Datum
                     </label>
                     <input
                       type="date"
+                      value={formData.date}
+                      onChange={(e) => setFormData({ ...formData, date: e.target.value })}
                       className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
-                      defaultValue={format(selectedDate, 'yyyy-MM-dd')}
+                      required
                     />
                   </div>
 
@@ -164,7 +276,10 @@ export default function AvailabilityPage() {
                       </label>
                       <input
                         type="time"
+                        value={formData.startTime}
+                        onChange={(e) => setFormData({ ...formData, startTime: e.target.value })}
                         className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                        required
                       />
                     </div>
 
@@ -174,7 +289,10 @@ export default function AvailabilityPage() {
                       </label>
                       <input
                         type="time"
+                        value={formData.endTime}
+                        onChange={(e) => setFormData({ ...formData, endTime: e.target.value })}
                         className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                        required
                       />
                     </div>
                   </div>
@@ -183,12 +301,17 @@ export default function AvailabilityPage() {
                     <label className="block text-sm font-medium text-gray-800 dark:text-gray-100 mb-2">
                       Service (optional)
                     </label>
-                    <select className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+                    <select 
+                      value={formData.serviceId}
+                      onChange={(e) => setFormData({ ...formData, serviceId: e.target.value })}
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                    >
                       <option value="">Alle Services</option>
-                      <option value="1">Klassische Massage</option>
-                      <option value="2">Wellnessmassage</option>
-                      <option value="3">Dorn & Breuss</option>
-                      <option value="4">Sportmassage</option>
+                      {services.map((service) => (
+                        <option key={service.id} value={service.id}>
+                          {service.name_de}
+                        </option>
+                      ))}
                     </select>
                   </div>
 
