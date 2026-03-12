@@ -56,7 +56,8 @@ export function BookingConfirmation({ service, date, time, availabilityId, userI
 
       // Send booking emails
       try {
-        await fetch('/api/send-booking-email', {
+        console.log('📧 Calling email API...')
+        const emailResponse = await fetch('/api/send-booking-email', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -68,8 +69,17 @@ export function BookingConfirmation({ service, date, time, availabilityId, userI
             adminEmail: 'andrzejmich2@gmail.com',
           }),
         })
+        
+        const emailResult = await emailResponse.json()
+        console.log('📧 Email API response:', emailResult)
+        
+        if (!emailResponse.ok) {
+          console.error('❌ Email API failed:', emailResult)
+        } else {
+          console.log('✅ Emails sent successfully!')
+        }
       } catch (emailError) {
-        console.error('Failed to send email:', emailError)
+        console.error('❌ Failed to send email:', emailError)
         // Don't fail the booking if email fails
       }
 
