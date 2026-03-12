@@ -1,41 +1,14 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ServiceCard } from '@sana-balance/ui'
+import { createClient } from '@/lib/supabase/client'
 
-const mockServices = [
-  {
-    id: '1',
-    title: 'Klassische Massage',
-    description: 'Die klassische Massage ist eine bewährte Technik zur Linderung von Muskelverspannungen.',
-    duration: 60,
-    price: 120,
-    image: 'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?q=80&w=2070&auto=format&fit=crop',
-  },
-  {
-    id: '2',
-    title: 'Wellnessmassage',
-    description: 'Die Wellnessmassage schenkt tiefe Entspannung für Körper und Geist.',
-    duration: 90,
-    price: 150,
-    image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=2070&auto=format&fit=crop',
-  },
-  {
-    id: '3',
-    title: 'Dorn & Breuss Methode',
-    description: 'Die Dorn & Breuss Massage lindert Rückenschmerzen und Nackenverspannungen.',
-    duration: 75,
-    price: 140,
-    image: 'https://images.unsplash.com/photo-1600334129128-685c5582fd35?q=80&w=2070&auto=format&fit=crop',
-  },
-  {
-    id: '4',
-    title: 'Sportmassage',
-    description: 'Wenn Sie sportlich aktiv sind, ist eine Sportmassage ideal für Sie.',
-    duration: 60,
-    price: 130,
-    image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=2070&auto=format&fit=crop',
-  },
+const defaultImages = [
+  'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?q=80&w=2070&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=2070&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1600334129128-685c5582fd35?q=80&w=2070&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=2070&auto=format&fit=crop',
 ]
 
 interface ServiceSelectionProps {
@@ -44,6 +17,41 @@ interface ServiceSelectionProps {
 
 export function ServiceSelection({ onSelect }: ServiceSelectionProps) {
   const [selectedId, setSelectedId] = useState<string | null>(null)
+  const [services, setServices] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
+  
+  const supabase = createClient()
+
+  useEffect(() => {
+    fetchServices()
+  }, [])
+
+  async function fetchServices() {
+    try {
+      const { data, error } = await supabase
+        .from('services')
+        .select('*')
+        .eq('is_active', true)
+        .order('id')
+
+      if (error) throw error
+
+      const servicesWithImages = (data || []).map((service, index) => ({
+        id: service.id.toString(),
+        title: service.name_de,
+        description: service.description_de,
+        duration: service.duration_minutes,
+        price: service.price_eur,
+        image: defaultImages[index % defaultImages.length],
+      }))
+
+      setServices(servicesWithImages)
+    } catch (error) {
+      console.error('Error fetching services:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const handleSelect = (service: any) => {
     setSelectedId(service.id)
