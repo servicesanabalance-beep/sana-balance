@@ -121,14 +121,14 @@ export default function ServicesPage() {
 
         {/* Add/Edit Modal */}
         {isModalOpen && (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-            <Card className="w-full max-w-2xl">
-              <CardHeader>
-                <CardTitle>
+          <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+            <Card className="w-full max-w-2xl bg-white dark:bg-gray-800 shadow-2xl">
+              <CardHeader className="bg-gradient-to-r from-[#6B5744] to-[#8B7355] text-white">
+                <CardTitle className="text-white">
                   {editingService ? 'Service bearbeiten' : 'Neuer Service'}
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6">
                 <form className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-800 dark:text-gray-100 mb-2">
@@ -138,6 +138,7 @@ export default function ServicesPage() {
                       type="text"
                       defaultValue={editingService?.name}
                       placeholder="z.B. Klassische Massage"
+                      className="bg-white dark:bg-gray-700"
                     />
                   </div>
 
@@ -146,7 +147,7 @@ export default function ServicesPage() {
                       Beschreibung
                     </label>
                     <textarea
-                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                       rows={4}
                       defaultValue={editingService?.description}
                       placeholder="Beschreiben Sie den Service..."
@@ -162,6 +163,7 @@ export default function ServicesPage() {
                         type="number"
                         defaultValue={editingService?.duration || 60}
                         placeholder="60"
+                        className="bg-white dark:bg-gray-700"
                       />
                     </div>
 
@@ -173,6 +175,7 @@ export default function ServicesPage() {
                         type="number"
                         defaultValue={editingService?.price || 120}
                         placeholder="120"
+                        className="bg-white dark:bg-gray-700"
                       />
                     </div>
                   </div>
@@ -189,14 +192,17 @@ export default function ServicesPage() {
                     </label>
                   </div>
 
-                  <div className="flex gap-4 pt-4">
-                    <Button type="submit" className="flex-1">
+                  <div className="flex gap-3 pt-4">
+                    <Button 
+                      type="submit" 
+                      className="px-6 py-2 bg-[#C9A87C] hover:bg-[#B8976B] text-white flex items-center justify-center gap-2"
+                    >
                       Speichern
                     </Button>
                     <Button
                       type="button"
                       variant="outline"
-                      className="flex-1"
+                      className="px-6 py-2 flex items-center justify-center gap-2"
                       onClick={() => {
                         setIsModalOpen(false)
                         setEditingService(null)
