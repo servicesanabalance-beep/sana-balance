@@ -28,7 +28,7 @@ END:VCALENDAR`
 
     // Send email to admin
     await resend.emails.send({
-      from: 'SanaBalance <noreply@sanabalance.com>',
+      from: 'SanaBalance <onboarding@resend.dev>',
       to: adminEmail || 'admin@sanabalance.com',
       subject: `Neue Buchung: ${serviceName}`,
       html: `
@@ -51,7 +51,7 @@ END:VCALENDAR`
 
     // Send confirmation email to client
     await resend.emails.send({
-      from: 'SanaBalance <noreply@sanabalance.com>',
+      from: 'SanaBalance <onboarding@resend.dev>',
       to: clientEmail,
       subject: 'Terminbestätigung - SanaBalance',
       html: `
