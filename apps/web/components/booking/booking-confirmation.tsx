@@ -65,7 +65,7 @@ export function BookingConfirmation({ service, date, time, availabilityId, userI
             serviceName: service.title,
             date: format(date, 'dd.MM.yyyy'),
             time,
-            adminEmail: 'admin@sanabalance.com', // Replace with actual admin email
+            adminEmail: 'andrzejmich2@gmail.com',
           }),
         })
       } catch (emailError) {
