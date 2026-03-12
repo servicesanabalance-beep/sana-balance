@@ -38,14 +38,14 @@ export function Header() {
           <Link href="/" className="flex items-center gap-3">
             <Image 
               src="/logo.sb.png" 
-              alt="Sana Balance Logo" 
+              alt="SanaBalance Logo" 
               width={120} 
               height={60}
               className="h-12 w-auto"
               priority
             />
             <div className="text-2xl font-serif font-semibold text-sana-brown-dark">
-              Sana Balance
+              SanaBalance
             </div>
           </Link>
 

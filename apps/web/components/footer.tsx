@@ -14,13 +14,13 @@ export function Footer() {
             <div className="flex items-center gap-3 mb-6">
               <Image 
                 src="/logo.sb.png" 
-                alt="Sana Balance Logo" 
+                alt="SanaBalance Logo" 
                 width={120} 
                 height={60}
                 className="h-12 w-auto"
               />
               <div>
-                <div className="text-xl font-serif">Sana Balance</div>
+                <div className="text-xl font-serif">SanaBalance</div>
                 <div className="text-sm text-white/70">Praxis für ganzheitliches Wohlbefinden</div>
               </div>
             </div>
@@ -109,7 +109,7 @@ export function Footer() {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-white/60">
             <p>
-              © {currentYear} Sana Balance. Alle Rechte vorbehalten.
+              © {currentYear} SanaBalance. Alle Rechte vorbehalten.
             </p>
             <p>
               Entwickelt von <span className="text-white/80 font-medium">Andrzej Mich</span>

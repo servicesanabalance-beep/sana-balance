@@ -97,7 +97,7 @@ export function Sidebar() {
               </div>
               {(!isCollapsed || isHovered) && (
                 <div className="min-w-0">
-                  <div className="text-lg font-serif text-gray-800 dark:text-gray-100 truncate">Sana Balance</div>
+                  <div className="text-lg font-serif text-gray-800 dark:text-gray-100 truncate">SanaBalance</div>
                   <div className="text-xs text-gray-600 dark:text-gray-400 truncate">Admin Panel</div>
                 </div>
               )}

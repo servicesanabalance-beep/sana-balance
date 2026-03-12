@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Sana Balance Admin",
-  description: "Verwaltungsbereich für Sana Balance",
+  title: "SanaBalance Admin",
+  description: "Verwaltungsbereich für SanaBalance",
   icons: {
     icon: '/logo.sana.balance.svg',
     apple: '/logo.sana.balance.svg',

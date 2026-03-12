@@ -26,7 +26,7 @@ export function About() {
               Wer sind wir?
             </h4>
             <p className="text-[#8B7355] leading-relaxed text-lg">
-              Willkommen bei Sana Balance – Ihrem Ort für Entspannung und Regeneration. Wir verbinden traditionelle Massagetechniken mit modernem Fachwissen, um Körper und Geist in Einklang zu bringen. Unser Angebot umfasst klassische Massagen, Wellness-Behandlungen, Dorn & Breuss sowie Sportmassagen.
+              Willkommen bei SanaBalance – Ihrem Ort für Entspannung und Regeneration. Wir verbinden traditionelle Massagetechniken mit modernem Fachwissen, um Körper und Geist in Einklang zu bringen. Unser Angebot umfasst klassische Massagen, Wellness-Behandlungen, Dorn & Breuss sowie Sportmassagen.
             </p>
           </div>
 
