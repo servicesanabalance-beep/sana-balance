@@ -147,57 +147,57 @@ export default function DashboardPage() {
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 shadow-md">
-            <CardContent className="pt-6">
-              <div className="flex items-center justify-between">
+            <CardContent className="pt-6 pb-6">
+              <div className="flex flex-col items-center justify-center text-center gap-3">
+                <Calendar className="h-12 w-12 text-amber-600 dark:text-amber-400" />
                 <div>
                   <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Heute</p>
                   <p className="text-3xl font-serif font-bold text-gray-800 dark:text-gray-100">
                     {stats.todayAppointments}
                   </p>
                 </div>
-                <Calendar className="h-10 w-10 text-amber-600 dark:text-amber-400" />
               </div>
             </CardContent>
           </Card>
 
           <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 shadow-md">
-            <CardContent className="pt-6">
-              <div className="flex items-center justify-between">
+            <CardContent className="pt-6 pb-6">
+              <div className="flex flex-col items-center justify-center text-center gap-3">
+                <Users className="h-12 w-12 text-amber-600 dark:text-amber-400" />
                 <div>
                   <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Klienten</p>
                   <p className="text-3xl font-serif font-bold text-gray-800 dark:text-gray-100">
                     {stats.totalClients}
                   </p>
                 </div>
-                <Users className="h-10 w-10 text-amber-600 dark:text-amber-400" />
               </div>
             </CardContent>
           </Card>
 
           <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 shadow-md">
-            <CardContent className="pt-6">
-              <div className="flex items-center justify-between">
+            <CardContent className="pt-6 pb-6">
+              <div className="flex flex-col items-center justify-center text-center gap-3">
+                <Clock className="h-12 w-12 text-amber-600 dark:text-amber-400" />
                 <div>
                   <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Verfügbar</p>
                   <p className="text-3xl font-serif font-bold text-gray-800 dark:text-gray-100">
                     {stats.upcomingSlots}
                   </p>
                 </div>
-                <Clock className="h-10 w-10 text-amber-600 dark:text-amber-400" />
               </div>
             </CardContent>
           </Card>
 
           <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 shadow-md">
-            <CardContent className="pt-6">
-              <div className="flex items-center justify-between">
+            <CardContent className="pt-6 pb-6">
+              <div className="flex flex-col items-center justify-center text-center gap-3">
+                <CheckCircle className="h-12 w-12 text-amber-600 dark:text-amber-400" />
                 <div>
                   <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Abgeschlossen</p>
                   <p className="text-3xl font-serif font-bold text-gray-800 dark:text-gray-100">
                     {stats.completedToday}
                   </p>
                 </div>
-                <CheckCircle className="h-10 w-10 text-amber-600 dark:text-amber-400" />
               </div>
             </CardContent>
           </Card>

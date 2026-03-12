@@ -100,18 +100,18 @@ export default function ServicesPage() {
                       setEditingService(service)
                       setIsModalOpen(true)
                     }}
-                    className="flex-1 min-w-[120px] bg-[#C9A87C] hover:bg-[#B8976B] text-white border-none"
+                    className="flex-1 min-w-[120px] bg-[#C9A87C] hover:bg-[#B8976B] text-white border-none px-4 py-2 flex items-center justify-center gap-2"
                   >
-                    <Edit className="h-4 w-4 flex-shrink-0" />
-                    Bearbeiten
+                    <Edit className="h-4 w-4" />
+                    <span>Bearbeiten</span>
                   </Button>
                   <Button 
                     variant="outline" 
                     size="sm" 
-                    className="flex-1 min-w-[120px] bg-red-600/80 hover:bg-red-700 text-white border-none"
+                    className="flex-1 min-w-[120px] bg-red-600/80 hover:bg-red-700 text-white border-none px-4 py-2 flex items-center justify-center gap-2"
                   >
-                    <Trash2 className="h-4 w-4 flex-shrink-0" />
-                    Löschen
+                    <Trash2 className="h-4 w-4" />
+                    <span>Löschen</span>
                   </Button>
                 </div>
               </CardContent>
