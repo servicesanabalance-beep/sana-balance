@@ -12,7 +12,7 @@ export function About() {
           className="object-cover"
           priority={false}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#F5F1ED]/75 via-[#F5F1ED]/65 to-white/80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#F5F1ED]/60 via-[#F5F1ED]/50 to-white/70" />
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
