@@ -30,12 +30,18 @@ export default function ServicesPage() {
       const { data, error } = await supabase
         .from('services')
         .select('*')
-        .order('created_at', { ascending: false })
+        .order('id', { ascending: false })
 
-      if (error) throw error
+      if (error) {
+        console.error('Supabase error:', error)
+        throw error
+      }
+      
+      console.log('Fetched services:', data)
       setServices(data || [])
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching services:', error)
+      alert(`Fehler beim Laden der Services: ${error?.message || 'Unbekannter Fehler'}`)
     } finally {
       setLoading(false)
     }
