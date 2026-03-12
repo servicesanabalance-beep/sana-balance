@@ -53,7 +53,7 @@ export default function ServicesPage() {
             name_de: formData.name,
             description_de: formData.description,
             duration_minutes: formData.duration,
-            price_chf: formData.price,
+            price_eur: formData.price,
             is_active: formData.is_active,
           })
           .eq('id', editingService.id)
@@ -67,7 +67,7 @@ export default function ServicesPage() {
             name_de: formData.name,
             description_de: formData.description,
             duration_minutes: formData.duration,
-            price_chf: formData.price,
+            price_eur: formData.price,
             is_active: formData.is_active,
           })
 
@@ -118,7 +118,7 @@ export default function ServicesPage() {
       name: service.name_de,
       description: service.description_de,
       duration: service.duration_minutes,
-      price: service.price_chf,
+      price: service.price_eur,
       is_active: service.is_active,
     })
     setIsModalOpen(true)
@@ -175,7 +175,7 @@ export default function ServicesPage() {
                           {service.duration_minutes} Minuten
                         </span>
                         <span className="text-lg font-serif font-semibold text-white">
-                          {service.price_chf} CHF
+                          {service.price_eur} EUR
                         </span>
                       </div>
                     </div>
