@@ -274,10 +274,11 @@ export default function ServicesPage() {
 
                     <div>
                       <label className="block text-sm font-medium text-gray-800 dark:text-gray-100 mb-2">
-                        Preis (CHF)
+                        Preis (EUR)
                       </label>
                       <Input
                         type="number"
+                        step="0.01"
                         value={formData.price}
                         onChange={(e) => setFormData({ ...formData, price: parseFloat(e.target.value) })}
                         placeholder="120"
