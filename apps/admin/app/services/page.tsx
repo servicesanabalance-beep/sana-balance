@@ -51,33 +51,43 @@ export default function ServicesPage() {
     e.preventDefault()
     
     try {
+      const serviceData = {
+        name_de: formData.name,
+        description_de: formData.description,
+        duration_minutes: formData.duration,
+        price_eur: formData.price,
+        is_active: formData.is_active,
+      }
+
+      console.log('Saving service data:', serviceData)
+
       if (editingService) {
         // Update existing service
-        const { error } = await supabase
+        console.log('Updating service ID:', editingService.id)
+        const { data, error } = await supabase
           .from('services')
-          .update({
-            name_de: formData.name,
-            description_de: formData.description,
-            duration_minutes: formData.duration,
-            price_eur: formData.price,
-            is_active: formData.is_active,
-          })
+          .update(serviceData)
           .eq('id', editingService.id)
+          .select()
 
-        if (error) throw error
+        console.log('Update result:', { data, error })
+        if (error) {
+          console.error('Update error details:', JSON.stringify(error, null, 2))
+          throw error
+        }
       } else {
         // Create new service
-        const { error } = await supabase
+        console.log('Creating new service')
+        const { data, error } = await supabase
           .from('services')
-          .insert({
-            name_de: formData.name,
-            description_de: formData.description,
-            duration_minutes: formData.duration,
-            price_eur: formData.price,
-            is_active: formData.is_active,
-          })
+          .insert(serviceData)
+          .select()
 
-        if (error) throw error
+        console.log('Insert result:', { data, error })
+        if (error) {
+          console.error('Insert error details:', JSON.stringify(error, null, 2))
+          throw error
+        }
       }
 
       // Refresh services list
@@ -95,7 +105,8 @@ export default function ServicesPage() {
       })
     } catch (error: any) {
       console.error('Error saving service:', error)
-      alert(`Fehler beim Speichern des Services: ${error?.message || 'Unbekannter Fehler'}`)
+      const errorMsg = error?.message || error?.hint || error?.details || JSON.stringify(error)
+      alert(`Fehler beim Speichern des Services: ${errorMsg}`)
     }
   }
 

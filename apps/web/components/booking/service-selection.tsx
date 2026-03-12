@@ -58,6 +58,26 @@ export function ServiceSelection({ onSelect }: ServiceSelectionProps) {
     setTimeout(() => onSelect(service), 300)
   }
 
+  if (loading) {
+    return (
+      <div className="space-y-6">
+        <div className="text-center">
+          <p className="text-sana-brown">Laden...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (services.length === 0) {
+    return (
+      <div className="space-y-6">
+        <div className="text-center">
+          <p className="text-sana-brown">Keine Services verfügbar</p>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="space-y-6">
       <div className="text-center">
@@ -70,7 +90,7 @@ export function ServiceSelection({ onSelect }: ServiceSelectionProps) {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {mockServices.map((service) => (
+        {services.map((service) => (
           <ServiceCard
             key={service.id}
             title={service.title}
