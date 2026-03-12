@@ -1,7 +1,21 @@
+import Image from 'next/image'
+
 export function About() {
   return (
-    <section id="about" className="py-20 bg-gradient-to-b from-[#F5F1ED] to-white">
-      <div className="container mx-auto px-4">
+    <section id="about" className="relative py-20 overflow-hidden">
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <Image
+          src="/uber.uns.png"
+          alt="Über uns background"
+          fill
+          className="object-cover"
+          priority={false}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#F5F1ED]/95 to-white/95" />
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
         {/* Section Title */}
         <div className="text-center mb-16">
           <h2 className="text-5xl font-serif font-bold text-[#6B5744] mb-4">
