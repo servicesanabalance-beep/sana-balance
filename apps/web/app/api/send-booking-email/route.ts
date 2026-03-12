@@ -18,7 +18,10 @@ export async function POST(request: Request) {
     })
 
     // Create calendar event (.ics format)
-    const startDate = new Date(`${date}T${time}`)
+    // Parse date from DD.MM.YYYY format
+    const [day, month, year] = date.split('.')
+    const [hours, minutes] = time.split(':')
+    const startDate = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), parseInt(hours), parseInt(minutes))
     const endDate = new Date(startDate.getTime() + 60 * 60 * 1000) // 1 hour duration
 
     const calendarEvent = `BEGIN:VCALENDAR
