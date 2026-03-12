@@ -187,7 +187,15 @@ export function AuthForm({ onSuccess, onBack }: AuthFormProps) {
               onClick={() => setIsLogin(!isLogin)}
               className="text-sm text-[#8B7355] hover:text-[#6B5744] transition-colors"
             >
-              {isLogin ? 'Noch kein Konto? Hier registrieren' : 'Bereits ein Konto? Hier anmelden'}
+              {isLogin ? (
+                <>
+                  Noch kein Konto? <span className="font-bold text-[#6B5744]">Hier registrieren</span>
+                </>
+              ) : (
+                <>
+                  Bereits ein Konto? <span className="font-bold text-[#6B5744]">Hier anmelden</span>
+                </>
+              )}
             </button>
           </div>
         </CardContent>
