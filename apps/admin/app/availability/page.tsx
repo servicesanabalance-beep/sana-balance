@@ -144,6 +144,10 @@ export default function AvailabilityPage() {
                     onSelect={(date) => date && setSelectedDate(date)}
                     locale={de}
                     className="rounded-md border border-gray-300 dark:border-gray-600 w-full"
+                    classNames={{
+                      day_selected: "bg-[#C9A87C] text-white hover:bg-[#B8976B] hover:text-white focus:bg-[#B8976B] focus:text-white",
+                      day_today: "bg-amber-100 dark:bg-amber-900/20 text-amber-900 dark:text-amber-100 font-bold",
+                    }}
                   />
                 </div>
               </CardContent>
