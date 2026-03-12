@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Facebook, Instagram } from 'lucide-react'
 
 export function Footer() {
@@ -11,9 +12,13 @@ export function Footer() {
           {/* Column 1: Logo and Brand */}
           <div>
             <div className="flex items-center gap-3 mb-6">
-              <div className="text-3xl font-serif font-bold">
-                <span className="text-[#C9A87C]">SB</span>
-              </div>
+              <Image 
+                src="/logo.sb.png" 
+                alt="Sana Balance Logo" 
+                width={120} 
+                height={60}
+                className="h-12 w-auto"
+              />
               <div>
                 <div className="text-xl font-serif">Sana Balance</div>
                 <div className="text-sm text-white/70">Praxis für ganzheitliches Wohlbefinden</div>

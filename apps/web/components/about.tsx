@@ -16,9 +16,6 @@ export function About() {
           <h2 className="text-5xl font-serif font-bold text-[#6B5744] mb-4">
             Wer sind wir?
           </h2>
-          <h3 className="text-3xl font-serif text-[#8B7355]">
-            Über uns
-          </h3>
         </div>
 
         {/* Two Column Layout */}
