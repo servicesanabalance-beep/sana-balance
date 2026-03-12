@@ -16,10 +16,10 @@ export function Hero() {
           src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=2070&auto=format&fit=crop"
           alt="Massage therapy background"
           fill
-          className="object-cover brightness-75"
+          className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-sana-cream/95 via-sana-cream/85 to-sana-cream/60" />
+        <div className="absolute inset-0 bg-gradient-to-r from-sana-cream/80 via-sana-cream/70 to-transparent" />
       </div>
 
       {/* Decorative Elements */}
