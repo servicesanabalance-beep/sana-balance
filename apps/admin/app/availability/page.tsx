@@ -14,6 +14,8 @@ export default function AvailabilityPage() {
   const [slots, setSlots] = useState<any[]>([])
   const [services, setServices] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
+  const [expandedSlotId, setExpandedSlotId] = useState<number | null>(null)
+  const [slotNotes, setSlotNotes] = useState<Record<number, string>>({})
   const [formData, setFormData] = useState({
     date: format(new Date(), 'yyyy-MM-dd'),
     startTime: '09:00',
@@ -57,6 +59,27 @@ export default function AvailabilityPage() {
 
       if (error) throw error
       setSlots(data || [])
+
+      // Fetch notes for booked slots
+      if (data && data.length > 0) {
+        const bookedSlotIds = data.filter(slot => slot.is_booked).map(slot => slot.id)
+        if (bookedSlotIds.length > 0) {
+          const { data: appointments, error: apptError } = await supabase
+            .from('appointments')
+            .select('availability_id, notes')
+            .in('availability_id', bookedSlotIds)
+
+          if (!apptError && appointments) {
+            const notesMap: Record<number, string> = {}
+            appointments.forEach(appt => {
+              if (appt.notes) {
+                notesMap[appt.availability_id] = appt.notes
+              }
+            })
+            setSlotNotes(notesMap)
+          }
+        }
+      }
     } catch (error) {
       console.error('Error fetching slots:', error)
     } finally {
@@ -146,7 +169,7 @@ export default function AvailabilityPage() {
                     className="rounded-md border border-gray-300 dark:border-gray-600 w-full"
                     classNames={{
                       selected: "bg-[#C9A87C] text-white hover:bg-[#C9A87C] hover:text-white focus:bg-[#C9A87C] focus:text-white rounded-full",
-                      today: "bg-amber-100 dark:bg-amber-900/20 text-amber-900 dark:text-amber-100 font-bold rounded-full",
+                      today: "bg-[#6B5744] text-white font-bold rounded-full",
                     }}
                   />
                 </div>
@@ -173,45 +196,67 @@ export default function AvailabilityPage() {
                       const startTime = new Date(slot.start_time)
                       const endTime = new Date(slot.end_time)
                       const duration = Math.round((endTime.getTime() - startTime.getTime()) / 60000)
+                      const hasNotes = slotNotes[slot.id]
+                      const isExpanded = expandedSlotId === slot.id
                       
                       return (
-                        <div
-                          key={slot.id}
-                          className={`flex items-center justify-between p-4 rounded-lg border-2 ${
-                            slot.is_booked
-                              ? 'bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 opacity-60'
-                              : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600'
-                          }`}
-                        >
-                          <div className="flex items-center gap-4">
-                            <Clock className="h-5 w-5 text-gray-600 dark:text-gray-400" />
-                            <div>
-                              <p className="font-semibold text-gray-800 dark:text-gray-100">
-                                {format(startTime, 'HH:mm')} - {format(endTime, 'HH:mm')}
-                              </p>
-                              <p className="text-sm text-gray-600 dark:text-gray-400">{duration} Minuten</p>
+                        <div key={slot.id} className="space-y-2">
+                          <div
+                            className={`flex items-center justify-between p-4 rounded-lg border-2 ${
+                              slot.is_booked
+                                ? 'bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 opacity-60 cursor-pointer hover:opacity-80'
+                                : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600'
+                            } transition-all`}
+                            onClick={() => hasNotes && setExpandedSlotId(isExpanded ? null : slot.id)}
+                          >
+                            <div className="flex items-center gap-4">
+                              <Clock className="h-5 w-5 text-gray-600 dark:text-gray-400" />
+                              <div>
+                                <p className="font-semibold text-gray-800 dark:text-gray-100">
+                                  {format(startTime, 'HH:mm')} - {format(endTime, 'HH:mm')}
+                                </p>
+                                <p className="text-sm text-gray-600 dark:text-gray-400">
+                                  {duration} Minuten
+                                  {hasNotes && <span className="ml-2 text-amber-600">📝</span>}
+                                </p>
+                              </div>
                             </div>
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <span
-                              className={`px-3 py-1 rounded-full text-xs font-medium ${
-                                slot.is_booked
-                                  ? 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-200'
-                                  : 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-200'
-                              }`}
-                            >
-                              {slot.is_booked ? 'Gebucht' : 'Verfügbar'}
-                            </span>
+                            <div className="flex items-center gap-3">
+                              <span
+                                className={`px-3 py-1 rounded-full text-xs font-medium ${
+                                  slot.is_booked
+                                    ? 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-200'
+                                    : 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-200'
+                                }`}
+                              >
+                                {slot.is_booked ? 'Gebucht' : 'Verfügbar'}
+                              </span>
                             <Button 
                               variant="outline" 
                               size="sm" 
-                              onClick={() => handleDelete(slot.id)}
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                handleDelete(slot.id)
+                              }}
                               className="min-w-[100px] text-red-600 hover:text-red-800"
                             >
                               Löschen
                             </Button>
                           </div>
                         </div>
+                        
+                        {/* Expandable Notes Section */}
+                        {isExpanded && hasNotes && (
+                          <div className="ml-9 p-4 bg-amber-50 dark:bg-amber-900/20 border-l-4 border-amber-500 rounded-r-lg">
+                            <p className="text-sm font-semibold text-amber-900 dark:text-amber-100 mb-1">
+                              Notizen:
+                            </p>
+                            <p className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap">
+                              {slotNotes[slot.id]}
+                            </p>
+                          </div>
+                        )}
+                      </div>
                       )
                     })}
 
