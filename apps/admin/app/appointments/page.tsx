@@ -37,12 +37,31 @@ export default function AppointmentsPage() {
   const [appointments, setAppointments] = useState<Appointment[]>([])
   const [loading, setLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [services, setServices] = useState<any[]>([])
+  const [availableSlots, setAvailableSlots] = useState<any[]>([])
+  const [formData, setFormData] = useState({
+    clientName: '',
+    clientEmail: '',
+    clientPhone: '',
+    serviceId: '',
+    availabilityId: '',
+    date: format(new Date(), 'yyyy-MM-dd'),
+    notes: '',
+  })
 
   const supabase = createClient()
 
   useEffect(() => {
     fetchAppointments()
+    fetchServices()
   }, [])
+
+  useEffect(() => {
+    if (formData.date) {
+      fetchAvailableSlots(formData.date)
+    }
+  }, [formData.date])
 
   async function fetchAppointments() {
     try {
@@ -73,6 +92,84 @@ export default function AppointmentsPage() {
       console.error('Error fetching appointments:', error)
     } finally {
       setLoading(false)
+    }
+  }
+
+  async function fetchServices() {
+    try {
+      const { data, error } = await supabase
+        .from('services')
+        .select('*')
+        .eq('is_active', true)
+        .order('name_de')
+
+      if (error) throw error
+      setServices(data || [])
+    } catch (error) {
+      console.error('Error fetching services:', error)
+    }
+  }
+
+  async function fetchAvailableSlots(date: string) {
+    try {
+      const startOfDay = new Date(date)
+      startOfDay.setHours(0, 0, 0, 0)
+      const endOfDay = new Date(date)
+      endOfDay.setHours(23, 59, 59, 999)
+
+      const { data, error } = await supabase
+        .from('availability')
+        .select('*')
+        .gte('start_time', startOfDay.toISOString())
+        .lte('start_time', endOfDay.toISOString())
+        .eq('is_booked', false)
+        .order('start_time')
+
+      if (error) throw error
+      setAvailableSlots(data || [])
+    } catch (error) {
+      console.error('Error fetching available slots:', error)
+    }
+  }
+
+  async function handleCreateAppointment(e: React.FormEvent) {
+    e.preventDefault()
+
+    try {
+      // For now, create a simple appointment without client authentication
+      // In production, you'd want to create/find the client profile first
+      const { error } = await supabase
+        .from('appointments')
+        .insert({
+          service_id: parseInt(formData.serviceId),
+          availability_id: parseInt(formData.availabilityId),
+          status: 'confirmed',
+          notes: formData.notes || null,
+          // Note: client_id would need to be set properly with actual user management
+        })
+
+      if (error) throw error
+
+      // Mark slot as booked
+      await supabase
+        .from('availability')
+        .update({ is_booked: true })
+        .eq('id', parseInt(formData.availabilityId))
+
+      await fetchAppointments()
+      setIsModalOpen(false)
+      setFormData({
+        clientName: '',
+        clientEmail: '',
+        clientPhone: '',
+        serviceId: '',
+        availabilityId: '',
+        date: format(new Date(), 'yyyy-MM-dd'),
+        notes: '',
+      })
+    } catch (error: any) {
+      console.error('Error creating appointment:', error)
+      alert(`Fehler beim Erstellen des Termins: ${error?.message || 'Unbekannter Fehler'}`)
     }
   }
 
