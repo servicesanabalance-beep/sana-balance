@@ -10,8 +10,8 @@ interface BookingStepsProps {
 }
 
 const steps = [
-  { id: 'service', label: 'Service auswählen' },
-  { id: 'datetime', label: 'Datum & Uhrzeit' },
+  { id: 'service', label: 'Service\nauswählen' },
+  { id: 'datetime', label: 'Datum &\nUhrzeit' },
   { id: 'auth', label: 'Anmelden' },
   { id: 'confirm', label: 'Bestätigen' },
 ]
@@ -44,7 +44,7 @@ export function BookingSteps({ currentStep }: BookingStepsProps) {
               </div>
               <span
                 className={cn(
-                  'mt-2 text-xs sm:text-sm font-medium text-center whitespace-nowrap',
+                  'mt-2 text-xs sm:text-sm font-medium text-center whitespace-pre-line',
                   isCurrent ? 'text-sana-brown-dark' : 'text-sana-brown'
                 )}
               >
