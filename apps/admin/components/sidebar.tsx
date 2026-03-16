@@ -91,7 +91,7 @@ export function Sidebar() {
         <div className="flex flex-col h-full">
           {/* Header */}
           <div className="p-6 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
-            <Link href="/admin-panel326/dashboard" className="flex items-center gap-3 min-w-0">
+            <Link href="/dashboard" className="flex items-center gap-3 min-w-0">
               <div className="text-2xl font-serif font-bold text-gray-800 dark:text-gray-100 flex-shrink-0">
                 <span className="text-amber-600 dark:text-amber-400">SB</span>
               </div>
