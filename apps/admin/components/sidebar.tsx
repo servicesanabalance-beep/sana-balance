@@ -54,10 +54,10 @@ export function Sidebar() {
   }
 
   const menuItems = [
-    { href: '/admin-panel326/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
-    { href: '/admin-panel326/appointments', icon: Calendar, label: 'Termine' },
-    { href: '/admin-panel326/services', icon: Briefcase, label: 'Services' },
-    { href: '/admin-panel326/availability', icon: Clock, label: 'Verfügbarkeit' },
+    { href: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
+    { href: '/appointments', icon: Calendar, label: 'Termine' },
+    { href: '/services', icon: Briefcase, label: 'Services' },
+    { href: '/availability', icon: Clock, label: 'Verfügbarkeit' },
   ]
 
   const sidebarWidth = isCollapsed && !isHovered ? 'w-20' : 'w-64'
