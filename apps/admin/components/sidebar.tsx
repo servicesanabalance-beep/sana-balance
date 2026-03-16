@@ -54,10 +54,10 @@ export function Sidebar() {
   }
 
   const menuItems = [
-    { href: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
-    { href: '/appointments', icon: Calendar, label: 'Termine' },
-    { href: '/services', icon: Briefcase, label: 'Services' },
-    { href: '/availability', icon: Clock, label: 'Verfügbarkeit' },
+    { href: '/admin-panel326/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
+    { href: '/admin-panel326/appointments', icon: Calendar, label: 'Termine' },
+    { href: '/admin-panel326/services', icon: Briefcase, label: 'Services' },
+    { href: '/admin-panel326/availability', icon: Clock, label: 'Verfügbarkeit' },
   ]
 
   const sidebarWidth = isCollapsed && !isHovered ? 'w-20' : 'w-64'
@@ -91,7 +91,7 @@ export function Sidebar() {
         <div className="flex flex-col h-full">
           {/* Header */}
           <div className="p-6 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-3 min-w-0">
+            <Link href="/admin-panel326/dashboard" className="flex items-center gap-3 min-w-0">
               <div className="text-2xl font-serif font-bold text-gray-800 dark:text-gray-100 flex-shrink-0">
                 <span className="text-amber-600 dark:text-amber-400">SB</span>
               </div>
@@ -174,7 +174,7 @@ export function Sidebar() {
 
             {(!isCollapsed || isHovered) && (
               <a
-                href="http://localhost:3000"
+                href="https://sanabalance.ch"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors px-4"
