@@ -37,7 +37,7 @@ export function Header() {
         <div className="flex items-center justify-between h-20">
           <Link href="/" className="flex items-center">
             <Image 
-              src="/massage.sana.svg" 
+              src="/sana_balance_logo.svg" 
               alt="SanaBalance Logo" 
               width={180} 
               height={54}

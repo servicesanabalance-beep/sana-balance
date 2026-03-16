@@ -13,7 +13,7 @@ export function Footer() {
           <div>
             <div className="mb-6">
               <Image 
-                src="/san_balance.logo.png" 
+                src="/sana_balance_logo.svg" 
                 alt="SanaBalance Logo" 
                 width={200} 
                 height={80}

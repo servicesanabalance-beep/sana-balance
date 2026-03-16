@@ -91,11 +91,9 @@ export function Contact() {
             </div>
 
             <div>
-              <h4 className="font-semibold text-[#6B5744] mb-3">Öffnungszeiten</h4>
+              <h4 className="font-semibold text-[#6B5744] mb-3">Und keine Öffnungszeiten.</h4>
               <div className="space-y-2 text-[#8B7355]">
-                <p>Montag - Freitag: 9:00 - 18:00 Uhr</p>
-                <p>Samstag: 10:00 - 14:00 Uhr</p>
-                <p>Sonntag: Geschlossen</p>
+                <p>Termine nach Vereinbarung/Buchung</p>
               </div>
             </div>
           </div>
