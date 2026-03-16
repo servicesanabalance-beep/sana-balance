@@ -118,7 +118,7 @@ export default function AvailabilityPage() {
     }
   }
 
-  async function handleDelete(id: string) {
+  async function handleDelete(id: number) {
     if (!confirm('Möchten Sie diesen Zeitslot wirklich löschen?')) return
 
     try {
