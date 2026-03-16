@@ -54,7 +54,9 @@ export function Footer() {
 
           {/* Column 3: Legal & Social */}
           <div>
-            <h3 className="text-lg font-serif font-semibold mb-4">Rechtliches</h3>
+            <ul className="space-y-3 mb-6 text-white/80">
+              <li>Termine nach Vereinbarung/Buchung</li>
+            </ul>
             <ul className="space-y-3 mb-6">
               <li>
                 <Link href="/impressum" className="text-white/80 hover:text-white transition-colors">

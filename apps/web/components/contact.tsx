@@ -91,7 +91,6 @@ export function Contact() {
             </div>
 
             <div>
-              <h4 className="font-semibold text-[#6B5744] mb-3">Und keine Öffnungszeiten.</h4>
               <div className="space-y-2 text-[#8B7355]">
                 <p>Termine nach Vereinbarung/Buchung</p>
               </div>
