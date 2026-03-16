@@ -122,6 +122,13 @@ export default function AvailabilityPage() {
     if (!confirm('Möchten Sie diesen Zeitslot wirklich löschen?')) return
 
     try {
+      const { error: apptError } = await supabase
+        .from('appointments')
+        .delete()
+        .eq('availability_id', id)
+
+      if (apptError) throw apptError
+
       const { error } = await supabase
         .from('availability')
         .delete()
@@ -166,11 +173,7 @@ export default function AvailabilityPage() {
                     selected={selectedDate}
                     onSelect={(date) => date && setSelectedDate(date)}
                     locale={de}
-                    className="rounded-md border border-gray-300 dark:border-gray-600 w-full"
-                    classNames={{
-                      day_selected: "bg-[#C9A87C] text-white hover:bg-[#C9A87C] hover:text-white focus:bg-[#C9A87C] focus:text-white rounded-full",
-                      day_today: "bg-[#6B5744] text-white font-bold rounded-full",
-                    }}
+                    className="rounded-md border border-gray-200 dark:border-gray-600 w-full"
                   />
                 </div>
               </CardContent>
