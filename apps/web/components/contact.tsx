@@ -91,8 +91,14 @@ export function Contact() {
             </div>
 
             <div>
-              <div className="space-y-2 text-[#8B7355]">
+              <div className="space-y-4 text-[#8B7355]">
                 <p>Termine nach Vereinbarung/Buchung</p>
+                <Link
+                  href="/booking"
+                  className="inline-block bg-[#8B7355] hover:bg-[#6B5744] text-white font-medium px-6 py-2.5 rounded-full transition-all duration-300 shadow-md hover:shadow-lg text-sm"
+                >
+                  Termin buchen
+                </Link>
               </div>
             </div>
           </div>
