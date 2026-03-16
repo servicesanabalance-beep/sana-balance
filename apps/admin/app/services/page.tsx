@@ -192,7 +192,7 @@ export default function ServicesPage() {
                           {service.duration_minutes} Minuten
                         </span>
                         <span className="text-lg font-serif font-semibold text-white">
-                          {service.price_eur} EUR
+                          {service.price_eur} CHF
                         </span>
                       </div>
                     </div>
@@ -291,7 +291,7 @@ export default function ServicesPage() {
 
                     <div>
                       <label className="block text-sm font-medium text-gray-800 dark:text-gray-100 mb-2">
-                        Preis (EUR)
+                        Preis (CHF)
                       </label>
                       <Input
                         type="number"

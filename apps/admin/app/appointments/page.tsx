@@ -292,7 +292,7 @@ export default function AppointmentsPage() {
                         <option value="">Service auswählen</option>
                         {services.map((service) => (
                           <option key={service.id} value={service.id}>
-                            {service.name_de} ({service.duration_minutes} Min, {service.price_eur} EUR)
+                            {service.name_de} ({service.duration_minutes} Min, {service.price_eur} CHF)
                           </option>
                         ))}
                       </select>
