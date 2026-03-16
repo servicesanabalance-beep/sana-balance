@@ -265,7 +265,7 @@ export default function DashboardPage() {
         {/* Quick Actions */}
         <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
           <a
-            href="/appointments"
+            href="/admin-panel326/appointments"
             className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow text-center border border-gray-200 dark:border-gray-700"
           >
             <h3 className="text-lg font-serif font-semibold text-gray-800 dark:text-gray-100 mb-2">
@@ -275,7 +275,7 @@ export default function DashboardPage() {
           </a>
 
           <a
-            href="/services"
+            href="/admin-panel326/services"
             className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow text-center border border-gray-200 dark:border-gray-700"
           >
             <h3 className="text-lg font-serif font-semibold text-gray-800 dark:text-gray-100 mb-2">
@@ -285,7 +285,7 @@ export default function DashboardPage() {
           </a>
 
           <a
-            href="/availability"
+            href="/admin-panel326/availability"
             className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow text-center border border-gray-200 dark:border-gray-700"
           >
             <h3 className="text-lg font-serif font-semibold text-gray-800 dark:text-gray-100 mb-2">
