@@ -10,3 +10,39 @@ body {
 html.dark body {
   background-color: #1A1A1A;
 }
+
+/* Fix react-day-picker calendar display */
+.rdp {
+  --rdp-cell-size: 40px;
+  --rdp-accent-color: #d97706;
+  --rdp-background-color: #fff7ed;
+}
+
+.rdp-head_cell {
+  width: var(--rdp-cell-size);
+  height: var(--rdp-cell-size);
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: #6b7280;
+}
+
+.rdp-cell {
+  width: var(--rdp-cell-size);
+  height: var(--rdp-cell-size);
+  text-align: center;
+}
+
+.rdp-day {
+  width: var(--rdp-cell-size);
+  height: var(--rdp-cell-size);
+  border-radius: 0.375rem;
+}
+
+html.dark .rdp-head_cell {
+  color: #9ca3af;
+}
+
+html.dark .rdp {
+  --rdp-background-color: #374151;
+}
