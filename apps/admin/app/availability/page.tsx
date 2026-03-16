@@ -168,8 +168,8 @@ export default function AvailabilityPage() {
                     locale={de}
                     className="rounded-md border border-gray-300 dark:border-gray-600 w-full"
                     classNames={{
-                      selected: "bg-[#C9A87C] text-white hover:bg-[#C9A87C] hover:text-white focus:bg-[#C9A87C] focus:text-white rounded-full",
-                      today: "bg-[#6B5744] text-white font-bold rounded-full",
+                      day_selected: "bg-amber-600 text-white hover:bg-amber-700 hover:text-white focus:bg-amber-600 focus:text-white rounded-full",
+                      day_today: "bg-amber-100 dark:bg-amber-900/50 text-amber-900 dark:text-amber-100 font-bold rounded-full",
                     }}
                   />
                 </div>
@@ -273,23 +273,6 @@ export default function AvailabilityPage() {
                     )}
                   </div>
                 )}
-              </CardContent>
-            </Card>
-
-            {/* Bulk Actions */}
-            <Card className="mt-6">
-              <CardHeader>
-                <CardTitle>Schnellaktionen</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <Button variant="outline">
-                    Woche kopieren
-                  </Button>
-                  <Button variant="outline">
-                    Standardzeiten anwenden
-                  </Button>
-                </div>
               </CardContent>
             </Card>
           </div>
