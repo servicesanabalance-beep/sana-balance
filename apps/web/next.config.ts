@@ -10,15 +10,17 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  async rewrites() {
+  async redirects() {
     return [
       {
         source: '/admin-panel326',
-        destination: `https://sana-balance-admin.vercel.app/admin-panel326`,
+        destination: 'https://sana-balance-admin.vercel.app/admin-panel326',
+        permanent: false,
       },
       {
         source: '/admin-panel326/:path*',
-        destination: `https://sana-balance-admin.vercel.app/admin-panel326/:path*`,
+        destination: 'https://sana-balance-admin.vercel.app/admin-panel326/:path*',
+        permanent: false,
       },
     ]
   },
