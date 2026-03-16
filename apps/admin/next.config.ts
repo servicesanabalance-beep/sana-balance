@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  basePath: '/admin-panel326',
+  /* config options here */
   reactCompiler: true,
   transpilePackages: ['@sana-balance/ui', '@sana-balance/core'],
 };

@@ -10,18 +10,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  async rewrites() {
-    return [
-      {
-        source: '/admin-panel326',
-        destination: `${process.env.ADMIN_URL || 'http://localhost:3001'}/admin-panel326`,
-      },
-      {
-        source: '/admin-panel326/:path*',
-        destination: `${process.env.ADMIN_URL || 'http://localhost:3001'}/admin-panel326/:path*`,
-      },
-    ]
-  },
 }
 
 export default nextConfig
