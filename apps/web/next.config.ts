@@ -14,12 +14,12 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/admin-panel326',
-        destination: 'https://sana-balance-admin.vercel.app/admin-panel326',
+        destination: 'https://admin.sanabalance.ch/admin-panel326',
         permanent: false,
       },
       {
         source: '/admin-panel326/:path*',
-        destination: 'https://sana-balance-admin.vercel.app/admin-panel326/:path*',
+        destination: 'https://admin.sanabalance.ch/admin-panel326/:path*',
         permanent: false,
       },
     ]
