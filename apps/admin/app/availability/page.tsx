@@ -168,8 +168,8 @@ export default function AvailabilityPage() {
                     locale={de}
                     className="rounded-md border border-gray-300 dark:border-gray-600 w-full"
                     classNames={{
-                      selected: "bg-[#C9A87C] text-white hover:bg-[#C9A87C] hover:text-white focus:bg-[#C9A87C] focus:text-white rounded-full",
-                      today: "bg-[#6B5744] text-white font-bold rounded-full",
+                      day_selected: "bg-[#C9A87C] text-white hover:bg-[#C9A87C] hover:text-white focus:bg-[#C9A87C] focus:text-white rounded-full",
+                      day_today: "bg-[#6B5744] text-white font-bold rounded-full",
                     }}
                   />
                 </div>
