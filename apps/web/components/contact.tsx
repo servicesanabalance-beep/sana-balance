@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Mail, Phone, MapPin } from 'lucide-react'
+import Link from 'next/link'
 
 export function Contact() {
   const [formData, setFormData] = useState({
