@@ -10,6 +10,18 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: '/admin-panel326',
+        destination: `https://sana-balance-admin.vercel.app/admin-panel326`,
+      },
+      {
+        source: '/admin-panel326/:path*',
+        destination: `https://sana-balance-admin.vercel.app/admin-panel326/:path*`,
+      },
+    ]
+  },
 }
 
 export default nextConfig
