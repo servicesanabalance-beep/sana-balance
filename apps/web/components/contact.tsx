@@ -80,12 +80,12 @@ export function Contact() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-[#6B5744] mb-1">E-Mail</h4>
-                    <a href="mailto:kontakt@sanabalance.ch" className="text-[#8B7355] hover:text-[#6B5744] transition-colors">
+                    <a 
+                      href="mailto:kontakt@sanabalance.ch"
+                      className="text-[#6B5744] hover:text-[#C9A87C] transition-colors"
+                    >
                       kontakt@sanabalance.ch
                     </a>
-                    <p className="text-sm text-[#8B7355]/80 mt-1">
-                      oder: besserleben70@gmail.com
-                    </p>
                   </div>
                 </div>
               </div>
