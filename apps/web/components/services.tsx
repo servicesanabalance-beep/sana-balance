@@ -3,6 +3,7 @@
 import { useTranslations } from '@/lib/i18n'
 import Image from 'next/image'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@sana-balance/ui'
+import { useEffect, useRef, useState } from 'react'
 
 const services = [
   { 
@@ -25,6 +26,32 @@ const services = [
 
 export function Services() {
   const t = useTranslations('services')
+  const [visibleItems, setVisibleItems] = useState<number[]>([])
+  const itemRefs = useRef<(HTMLDivElement | null)[]>([])
+
+  useEffect(() => {
+    const observers = itemRefs.current.map((ref, index) => {
+      if (!ref) return null
+      
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setVisibleItems((prev) => [...new Set([...prev, index])])
+            }
+          })
+        },
+        { threshold: 0.2 }
+      )
+      
+      observer.observe(ref)
+      return observer
+    })
+
+    return () => {
+      observers.forEach((observer) => observer?.disconnect())
+    }
+  }, [])
 
   return (
     <section id="services" className="py-20 bg-white">
@@ -40,18 +67,28 @@ export function Services() {
           {services.map((service, index) => (
             <div 
               key={service.key} 
+              ref={(el) => { itemRefs.current[index] = el }}
               className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${
                 index % 2 === 0 ? '' : 'lg:grid-flow-dense'
               }`}
             >
               {/* Image */}
               <div className={`${index % 2 === 0 ? 'order-2 lg:order-1' : 'order-2 lg:order-2'}`}>
-                <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border-2 border-[#E8DDD3] shadow-xl">
+                <div 
+                  className={`relative aspect-[4/3] rounded-3xl overflow-hidden border-2 border-[#E8DDD3] shadow-xl transition-all duration-1000 ease-out ${
+                    visibleItems.includes(index)
+                      ? 'opacity-100 translate-x-0'
+                      : index % 2 === 0
+                      ? 'opacity-0 -translate-x-20'
+                      : 'opacity-0 translate-x-20'
+                  }`}
+                  style={{ transitionDelay: '200ms' }}
+                >
                   <Image
                     src={service.image}
                     alt={t(`${service.key}.name`)}
                     fill
-                    className="object-cover"
+                    className="object-cover hover:scale-105 transition-transform duration-700"
                   />
                 </div>
               </div>
