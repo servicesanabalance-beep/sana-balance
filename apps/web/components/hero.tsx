@@ -40,11 +40,11 @@ export function Hero() {
             {t('title')}
           </h1>
           
-          <p className="text-xl md:text-2xl text-sana-brown mb-4 font-serif italic">
+          <p className="text-2xl md:text-2xl text-sana-black md:text-sana-brown mb-4 font-serif italic font-semibold md:font-normal">
             {t('subtitle')}
           </p>
           
-          <p className="text-body mb-8 max-w-2xl">
+          <p className="text-lg md:text-lg text-sana-brown-dark md:text-sana-brown mb-8 max-w-2xl leading-relaxed">
             {t('description')}
           </p>
 

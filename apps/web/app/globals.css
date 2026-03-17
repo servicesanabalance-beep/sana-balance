@@ -27,7 +27,7 @@
   }
   
   .heading-hero {
-    @apply text-4xl md:text-5xl lg:text-6xl font-serif text-sana-brown-dark;
+    @apply text-5xl md:text-5xl lg:text-6xl font-serif text-sana-black md:text-sana-brown-dark font-bold md:font-normal;
   }
   
   .heading-section {
