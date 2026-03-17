@@ -42,7 +42,7 @@ END:VCALENDAR`
     // Send email to admin
     console.log('📨 Sending admin email to:', adminEmail)
     const adminResult = await resend.emails.send({
-      from: 'SanaBalance <noreply@sanabalance.ch>',
+      from: 'SanaBalance <kontakt@sanabalance.ch>',
       to: adminEmail || 'service.sanabalance@gmail.com',
       subject: `Neue Buchung: ${serviceName}`,
       html: `
@@ -67,7 +67,7 @@ END:VCALENDAR`
     // Send confirmation email to client
     console.log('📨 Sending client confirmation email to:', clientEmail)
     const clientResult = await resend.emails.send({
-      from: 'SanaBalance <noreply@sanabalance.ch>',
+      from: 'SanaBalance <kontakt@sanabalance.ch>',
       to: clientEmail,
       subject: `Terminbestätigung: ${serviceName}`,
       html: `
