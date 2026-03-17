@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { 
@@ -21,6 +21,7 @@ export function Sidebar() {
   const [isHovered, setIsHovered] = useState(false)
   const [isDarkMode, setIsDarkMode] = useState(false)
   const pathname = usePathname()
+  const sidebarRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     const savedMode = localStorage.getItem('darkMode')
@@ -34,6 +35,25 @@ export function Sidebar() {
       setIsCollapsed(true)
     }
   }, [])
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        sidebarRef.current &&
+        !sidebarRef.current.contains(event.target as Node) &&
+        !isCollapsed &&
+        window.innerWidth >= 1024
+      ) {
+        setIsCollapsed(true)
+        localStorage.setItem('sidebarCollapsed', 'true')
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [isCollapsed])
 
   const toggleCollapse = () => {
     const newState = !isCollapsed
@@ -82,6 +102,7 @@ export function Sidebar() {
 
       {/* Sidebar */}
       <aside
+        ref={sidebarRef}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         className={`fixed top-0 left-0 h-full bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 shadow-lg z-40 transition-all duration-300 ${
