@@ -43,7 +43,7 @@ END:VCALENDAR`
     console.log('📨 Sending admin email to:', adminEmail)
     const adminResult = await resend.emails.send({
       from: 'SanaBalance <kontakt@sanabalance.ch>',
-      to: adminEmail || 'kontakt@sanabalance.ch',
+      to: adminEmail || 'service.sanabalance@gmail.com',
       subject: `Neue Buchung: ${serviceName}`,
       html: `
         <h2>Neue Terminbuchung</h2>
