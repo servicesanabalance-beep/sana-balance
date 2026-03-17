@@ -113,8 +113,16 @@ export function Sidebar() {
         <div className="flex flex-col h-full">
           {/* Header */}
           <div className="p-6 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
-            <Link href="/dashboard" className="flex items-center gap-3 min-w-0">
-              <div className="flex-shrink-0">
+            <Link href="/dashboard" className="flex items-center justify-center min-w-0">
+              {(!isCollapsed || isHovered) ? (
+                <Image 
+                  src="/sana_logo.svg" 
+                  alt="SanaBalance Logo" 
+                  width={120} 
+                  height={40}
+                  className="h-10 w-auto"
+                />
+              ) : (
                 <Image 
                   src="/sana_logo.svg" 
                   alt="SanaBalance Logo" 
@@ -122,12 +130,6 @@ export function Sidebar() {
                   height={40}
                   className="w-10 h-10"
                 />
-              </div>
-              {(!isCollapsed || isHovered) && (
-                <div className="min-w-0">
-                  <div className="text-lg font-serif text-gray-800 dark:text-gray-100 truncate">SanaBalance</div>
-                  <div className="text-xs text-gray-600 dark:text-gray-400 truncate">Admin Panel</div>
-                </div>
               )}
             </Link>
             {/* Collapse Toggle - Desktop Only */}
