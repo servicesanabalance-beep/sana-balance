@@ -1,3 +1,9 @@
+'use client'
+
+import { Card, CardHeader, CardTitle, CardContent, Button } from '@sana-balance/ui'
+import { Users, Heart, Sparkles } from 'lucide-react'
+import Link from 'next/link'
+
 export function About() {
   return (
     <section id="about" className="relative py-20 overflow-hidden">
@@ -11,44 +17,90 @@ export function About() {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        {/* Section Title */}
-        <div className="text-center mb-16">
-          <h2 className="text-5xl font-serif font-bold text-[#6B5744] mb-4">
+        {/* Section Title with Animation */}
+        <div className="text-center mb-16 animate-slide-up">
+          <div className="inline-block mb-4">
+            <div className="w-16 h-1 bg-sana-gold rounded-full mx-auto" />
+          </div>
+          <h2 className="text-5xl font-serif font-bold text-sana-brown-dark mb-4">
             Wer sind wir?
           </h2>
+          <p className="text-sana-brown text-lg max-w-2xl mx-auto">
+            Entdecken Sie unsere Philosophie und unser Team
+          </p>
         </div>
 
-        {/* Two Column Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-          {/* Left Column - Wer sind wir? */}
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg">
-            <h4 className="text-2xl font-serif font-semibold text-[#6B5744] mb-6">
-              Wer sind wir?
-            </h4>
-            <p className="text-[#8B7355] leading-relaxed text-lg">
-              Willkommen bei SanaBalance – Ihrem Ort für Entspannung und Regeneration. Wir verbinden traditionelle Massagetechniken mit modernem Fachwissen, um Körper und Geist in Einklang zu bringen. Unser Angebot umfasst klassische Massagen, Wellness-Behandlungen, Dorn & Breuss sowie Sportmassagen.
-            </p>
-          </div>
+        {/* Two Column Layout with Shadcn Cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto mb-12">
+          {/* Left Card - Wer sind wir? */}
+          <Card className="bg-white/90 backdrop-blur-md border-2 border-sana-beige shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 group">
+            <CardHeader>
+              <div className="flex items-center gap-3 mb-2">
+                <div className="p-2 rounded-full bg-sana-gold/20 group-hover:bg-sana-gold/30 transition-colors">
+                  <Users className="h-6 w-6 text-sana-brown-dark" />
+                </div>
+                <CardTitle className="text-sana-brown-dark">Wer sind wir?</CardTitle>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sana-brown leading-relaxed text-lg">
+                Willkommen bei SanaBalance – Ihrem Ort für Entspannung und Regeneration. Wir verbinden traditionelle Massagetechniken mit modernem Fachwissen, um Körper und Geist in Einklang zu bringen. Unser Angebot umfasst klassische Massagen, Wellness-Behandlungen, Dorn & Breuss sowie Sportmassagen.
+              </p>
+            </CardContent>
+          </Card>
 
-          {/* Right Column - Über uns */}
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg">
-            <h4 className="text-2xl font-serif font-semibold text-[#6B5744] mb-6">
-              Über uns
-            </h4>
-            <p className="text-[#8B7355] leading-relaxed text-lg">
-              In unserer Praxis für ganzheitliches Wohlbefinden begegnen wir jedem Patienten mit Respekt und Kompetenz. Unser erfahrenes Team bietet einfühlsame Therapien, die gezielt auf die persönlichen Bedürfnisse abgestimmt sind. Vertrauen Sie auf unsere Kompetenz und Hingabe für Ihr ganzheitliches Wohlbefinden.
-            </p>
+          {/* Right Card - Über uns */}
+          <Card className="bg-white/90 backdrop-blur-md border-2 border-sana-beige shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 group">
+            <CardHeader>
+              <div className="flex items-center gap-3 mb-2">
+                <div className="p-2 rounded-full bg-sana-gold/20 group-hover:bg-sana-gold/30 transition-colors">
+                  <Heart className="h-6 w-6 text-sana-brown-dark" />
+                </div>
+                <CardTitle className="text-sana-brown-dark">Über uns</CardTitle>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sana-brown leading-relaxed text-lg">
+                In unserer Praxis für ganzheitliches Wohlbefinden begegnen wir jedem Patienten mit Respekt und Kompetenz. Unser erfahrenes Team bietet einfühlsame Therapien, die gezielt auf die persönlichen Bedürfnisse abgestimmt sind. Vertrauen Sie auf unsere Kompetenz und Hingabe für Ihr ganzheitliches Wohlbefinden.
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Feature Highlights */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
+          <div className="text-center p-6 bg-white/80 backdrop-blur-sm rounded-xl border border-sana-beige hover:border-sana-gold transition-all duration-300 hover:shadow-lg">
+            <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-sana-gold/20 mb-4">
+              <Sparkles className="h-6 w-6 text-sana-brown-dark" />
+            </div>
+            <h4 className="font-serif font-semibold text-sana-brown-dark mb-2">Erfahrung</h4>
+            <p className="text-sm text-sana-brown">Jahrelange Expertise in ganzheitlicher Therapie</p>
+          </div>
+          
+          <div className="text-center p-6 bg-white/80 backdrop-blur-sm rounded-xl border border-sana-beige hover:border-sana-gold transition-all duration-300 hover:shadow-lg">
+            <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-sana-gold/20 mb-4">
+              <Heart className="h-6 w-6 text-sana-brown-dark" />
+            </div>
+            <h4 className="font-serif font-semibold text-sana-brown-dark mb-2">Hingabe</h4>
+            <p className="text-sm text-sana-brown">Individuelle Betreuung mit Herz und Verstand</p>
+          </div>
+          
+          <div className="text-center p-6 bg-white/80 backdrop-blur-sm rounded-xl border border-sana-beige hover:border-sana-gold transition-all duration-300 hover:shadow-lg">
+            <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-sana-gold/20 mb-4">
+              <Users className="h-6 w-6 text-sana-brown-dark" />
+            </div>
+            <h4 className="font-serif font-semibold text-sana-brown-dark mb-2">Kompetenz</h4>
+            <p className="text-sm text-sana-brown">Professionelles Team mit Leidenschaft</p>
           </div>
         </div>
 
-        {/* CTA Button */}
-        <div className="text-center mt-12">
-          <a
-            href="/booking"
-            className="inline-block bg-[#8B7355] hover:bg-[#6B5744] text-white font-medium px-8 py-4 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl text-lg"
-          >
-            Termin buchen
-          </a>
+        {/* CTA Button with Shadcn Button */}
+        <div className="text-center">
+          <Button asChild size="lg" className="bg-sana-brown hover:bg-sana-brown-dark text-white shadow-lg hover:shadow-xl transition-all duration-300">
+            <Link href="/booking">
+              Termin buchen
+            </Link>
+          </Button>
         </div>
       </div>
     </section>
