@@ -35,9 +35,9 @@ export function Features() {
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-sana-gold/20 mb-6">
                   <Icon className="w-8 h-8 text-sana-brown-dark" />
                 </div>
-                <h3 className="text-xl font-serif font-semibold text-sana-brown-dark mb-3">
+                <h2 className="text-xl font-serif font-semibold text-sana-brown-dark mb-3">
                   {t(`${feature.key}.title`)}
-                </h3>
+                </h2>
                 <p className="text-sana-brown">
                   {t(`${feature.key}.description`)}
                 </p>

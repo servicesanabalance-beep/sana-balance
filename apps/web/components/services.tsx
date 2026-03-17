@@ -89,6 +89,8 @@ export function Services() {
                     alt={t(`${service.key}.name`)}
                     fill
                     className="object-cover hover:scale-105 transition-transform duration-700"
+                    loading={index === 0 ? 'eager' : 'lazy'}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
                   />
                 </div>
               </div>
