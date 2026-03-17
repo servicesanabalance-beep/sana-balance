@@ -1,7 +1,7 @@
 'use client'
 
 import { Card, CardHeader, CardTitle, CardContent, Button } from '@sana-balance/ui'
-import { Users, Heart, Sparkles } from 'lucide-react'
+import { Users, Heart } from 'lucide-react'
 import Link from 'next/link'
 
 export function About() {
@@ -65,33 +65,6 @@ export function About() {
               </p>
             </CardContent>
           </Card>
-        </div>
-
-        {/* Feature Highlights */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
-          <div className="text-center p-6 bg-white/80 backdrop-blur-sm rounded-xl border border-sana-beige hover:border-sana-gold transition-all duration-300 hover:shadow-lg">
-            <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-sana-gold/20 mb-4">
-              <Sparkles className="h-6 w-6 text-sana-brown-dark" />
-            </div>
-            <h4 className="font-serif font-semibold text-sana-brown-dark mb-2">Erfahrung</h4>
-            <p className="text-sm text-sana-brown">Jahrelange Expertise in ganzheitlicher Therapie</p>
-          </div>
-          
-          <div className="text-center p-6 bg-white/80 backdrop-blur-sm rounded-xl border border-sana-beige hover:border-sana-gold transition-all duration-300 hover:shadow-lg">
-            <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-sana-gold/20 mb-4">
-              <Heart className="h-6 w-6 text-sana-brown-dark" />
-            </div>
-            <h4 className="font-serif font-semibold text-sana-brown-dark mb-2">Hingabe</h4>
-            <p className="text-sm text-sana-brown">Individuelle Betreuung mit Herz und Verstand</p>
-          </div>
-          
-          <div className="text-center p-6 bg-white/80 backdrop-blur-sm rounded-xl border border-sana-beige hover:border-sana-gold transition-all duration-300 hover:shadow-lg">
-            <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-sana-gold/20 mb-4">
-              <Users className="h-6 w-6 text-sana-brown-dark" />
-            </div>
-            <h4 className="font-serif font-semibold text-sana-brown-dark mb-2">Kompetenz</h4>
-            <p className="text-sm text-sana-brown">Professionelles Team mit Leidenschaft</p>
-          </div>
         </div>
 
         {/* CTA Button with Shadcn Button */}
