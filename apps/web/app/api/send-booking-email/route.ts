@@ -42,8 +42,8 @@ END:VCALENDAR`
     // Send email to admin
     console.log('📨 Sending admin email to:', adminEmail)
     const adminResult = await resend.emails.send({
-      from: 'SanaBalance <onboarding@resend.dev>',
-      to: adminEmail || 'andrzejmich2@gmail.com',
+      from: 'SanaBalance <kontakt@sanabalance.ch>',
+      to: adminEmail || 'service.sanabalance@gmail.com',
       subject: `Neue Buchung: ${serviceName}`,
       html: `
         <h2>Neue Terminbuchung</h2>
@@ -64,14 +64,39 @@ END:VCALENDAR`
     })
     console.log('✅ Admin email result:', adminResult)
 
-    // Send confirmation email to client (DISABLED - Resend requires domain verification)
-    // TODO: Enable after domain verification at resend.com/domains
-    console.log('⚠️ Client email skipped - Resend requires domain verification to send to:', clientEmail)
+    // Send confirmation email to client
+    console.log('📨 Sending client confirmation email to:', clientEmail)
+    const clientResult = await resend.emails.send({
+      from: 'SanaBalance <kontakt@sanabalance.ch>',
+      to: clientEmail,
+      subject: `Terminbestätigung: ${serviceName}`,
+      html: `
+        <h2>Vielen Dank für Ihre Buchung!</h2>
+        <p>Liebe/r ${clientName},</p>
+        <p>Ihre Buchung wurde erfolgreich bestätigt.</p>
+        <br>
+        <p><strong>Service:</strong> ${serviceName}</p>
+        <p><strong>Datum:</strong> ${date}</p>
+        <p><strong>Uhrzeit:</strong> ${time}</p>
+        <br>
+        <p>Wir freuen uns auf Ihren Besuch!</p>
+        <p>Bei Fragen erreichen Sie uns unter: <a href="mailto:kontakt@sanabalance.ch">kontakt@sanabalance.ch</a></p>
+        <br>
+        <p>Mit freundlichen Grüßen,<br>Ihr SanaBalance Team</p>
+      `,
+      attachments: [
+        {
+          filename: 'termin.ics',
+          content: Buffer.from(calendarEvent).toString('base64'),
+        },
+      ],
+    })
+    console.log('✅ Client email result:', clientResult)
     
     return NextResponse.json({ 
       success: true,
       adminEmailId: adminResult.data?.id,
-      note: 'Client email skipped - domain verification required'
+      clientEmailId: clientResult.data?.id,
     })
   } catch (error: any) {
     console.error('❌ Error sending email:', error)
