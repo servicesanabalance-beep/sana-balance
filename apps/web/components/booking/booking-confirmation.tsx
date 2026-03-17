@@ -4,7 +4,8 @@ import { useState } from 'react'
 import { Button, Card, CardHeader, CardTitle, CardContent } from '@sana-balance/ui'
 import { format } from 'date-fns'
 import { de } from 'date-fns/locale'
-import { Calendar, Clock, CheckCircle } from 'lucide-react'
+import { Calendar, Clock, CheckCircle, Download } from 'lucide-react'
+import { generateIcsContent, downloadIcsFile } from '@/utils/calendar'
 
 interface BookingConfirmationProps {
   service: any
@@ -19,6 +20,7 @@ export function BookingConfirmation({ service, date, time, availabilityId, userI
   const [isConfirmed, setIsConfirmed] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [userName, setUserName] = useState<string>('')
 
   const handleConfirm = async () => {
     setIsLoading(true)
@@ -33,6 +35,8 @@ export function BookingConfirmation({ service, date, time, availabilityId, userI
       const { data: { user } } = await supabase.auth.getUser()
       const clientEmail = user?.email || ''
       const clientName = user?.user_metadata?.name || user?.email || 'Kunde'
+      const firstName = user?.user_metadata?.firstName || clientName.split(' ')[0] || 'Kunde'
+      setUserName(firstName)
 
       // Create appointment with the selected availability slot
       const { error: appointmentError } = await supabase
@@ -66,7 +70,7 @@ export function BookingConfirmation({ service, date, time, availabilityId, userI
             serviceName: service.title,
             date: format(date, 'dd.MM.yyyy'),
             time,
-            adminEmail: 'service.sanabalance@gmail.com',
+            adminEmail: 'kontakt@sanabalance.ch',
           }),
         })
         
@@ -91,6 +95,25 @@ export function BookingConfirmation({ service, date, time, availabilityId, userI
     }
   }
 
+  const handleDownloadCalendar = () => {
+    const [hours, minutes] = time.split(':')
+    const startDate = new Date(date)
+    startDate.setHours(parseInt(hours || '0'), parseInt(minutes || '0'), 0)
+    
+    const endDate = new Date(startDate)
+    endDate.setMinutes(endDate.getMinutes() + parseInt(service.duration))
+
+    const icsContent = generateIcsContent({
+      title: `${service.title} - SanaBalance`,
+      description: `Termin für ${service.title} bei SanaBalance`,
+      location: 'SanaBalance Praxis',
+      startDate,
+      endDate,
+    })
+
+    downloadIcsFile(icsContent, 'sanabalance-termin.ics')
+  }
+
   if (isConfirmed) {
     return (
       <div className="text-center space-y-6">
@@ -101,10 +124,13 @@ export function BookingConfirmation({ service, date, time, availabilityId, userI
         </div>
         <div>
           <h2 className="text-3xl font-serif font-semibold text-[#6B5744] mb-2">
-            Termin bestätigt!
+            Hallo {userName}!
           </h2>
-          <p className="text-lg text-[#8B7355]">
-            Ihr Termin wurde erfolgreich gebucht.
+          <p className="text-lg text-[#8B7355] mb-2">
+            Vielen Dank für Ihre Buchung!
+          </p>
+          <p className="text-base text-[#8B7355]">
+            Wir haben Ihnen eine Bestätigung per E-Mail gesendet.
           </p>
         </div>
         <Card className="max-w-md mx-auto bg-white border-2 border-[#E8DDD3] shadow-xl">
@@ -138,9 +164,15 @@ export function BookingConfirmation({ service, date, time, availabilityId, userI
             </div>
           </CardContent>
         </Card>
-        <Button asChild>
-          <a href="/">Zurück zur Startseite</a>
-        </Button>
+        <div className="flex flex-col gap-3 max-w-md mx-auto">
+          <Button onClick={handleDownloadCalendar} variant="outline" className="w-full">
+            <Download className="h-4 w-4 mr-2" />
+            Zum Kalender hinzufügen
+          </Button>
+          <Button asChild className="w-full">
+            <a href="/">Zurück zur Startseite</a>
+          </Button>
+        </div>
       </div>
     )
   }
