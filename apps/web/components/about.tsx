@@ -11,7 +11,7 @@ export function About() {
       <div className="absolute inset-0 w-full h-full">
         <div 
           className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: 'url(/uber.uns.png)' }}
+          style={{ backgroundImage: 'url(/uber.uns.webp)' }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#F5F1ED]/60 via-[#F5F1ED]/50 to-white/40" />
       </div>

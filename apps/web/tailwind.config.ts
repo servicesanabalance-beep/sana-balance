@@ -12,8 +12,8 @@ const config: Config = {
         sana: {
           cream: '#F5F1ED',
           beige: '#E8DDD3',
-          brown: '#8B7355',
-          'brown-dark': '#6B5744',
+          brown: '#6B5744', // Darkened from #8B7355 for better contrast (WCAG AA)
+          'brown-dark': '#4A3F33', // Darkened from #6B5744 for even better contrast
           gold: '#C9A87C',
           white: '#FFFFFF',
           black: '#1A1A1A',
