@@ -278,23 +278,6 @@ export default function AvailabilityPage() {
                 )}
               </CardContent>
             </Card>
-
-            {/* Bulk Actions */}
-            <Card className="mt-6">
-              <CardHeader>
-                <CardTitle>Schnellaktionen</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <Button variant="outline">
-                    Woche kopieren
-                  </Button>
-                  <Button variant="outline">
-                    Standardzeiten anwenden
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
           </div>
         </div>
 
