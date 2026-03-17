@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { 
   LayoutDashboard, 
@@ -113,8 +114,14 @@ export function Sidebar() {
           {/* Header */}
           <div className="p-6 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
             <Link href="/dashboard" className="flex items-center gap-3 min-w-0">
-              <div className="text-2xl font-serif font-bold text-gray-800 dark:text-gray-100 flex-shrink-0">
-                <span className="text-amber-600 dark:text-amber-400">SB</span>
+              <div className="flex-shrink-0">
+                <Image 
+                  src="/sana_logo.svg" 
+                  alt="SanaBalance Logo" 
+                  width={40} 
+                  height={40}
+                  className="w-10 h-10"
+                />
               </div>
               {(!isCollapsed || isHovered) && (
                 <div className="min-w-0">
