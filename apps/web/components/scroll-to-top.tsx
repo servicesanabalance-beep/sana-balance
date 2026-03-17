@@ -8,7 +8,9 @@ export function ScrollToTop() {
 
   useEffect(() => {
     const toggleVisibility = () => {
-      if (window.scrollY > 300) {
+      // Show button after scrolling at least half of viewport height
+      const scrollThreshold = window.innerHeight / 2
+      if (window.scrollY > scrollThreshold) {
         setIsVisible(true)
       } else {
         setIsVisible(false)
