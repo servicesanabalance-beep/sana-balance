@@ -5,7 +5,7 @@ export function ThomasSection() {
   return (
     <section className="relative py-20 bg-gradient-to-br from-[#6B5744] to-[#8B7355] text-white overflow-hidden">
       {/* Decorative background elements */}
-      <div className="absolute inset-0 opacity-10">
+      <div className="absolute inset-0 opacity-10 hidden md:block">
         <div className="absolute top-10 left-10 w-64 h-64 bg-[#C9A87C] rounded-full blur-3xl" />
         <div className="absolute bottom-10 right-10 w-64 h-64 bg-[#F5F1ED] rounded-full blur-3xl" />
       </div>

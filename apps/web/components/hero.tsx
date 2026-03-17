@@ -26,9 +26,9 @@ export function Hero() {
       </div>
 
       {/* Decorative Elements */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-20 right-20 w-96 h-96 bg-sana-gold rounded-full blur-3xl" />
-        <div className="absolute bottom-20 left-20 w-96 h-96 bg-sana-brown rounded-full blur-3xl" />
+      <div className="absolute inset-0 opacity-10 hidden md:block">
+        <div className="absolute top-20 right-10 md:right-20 w-64 h-64 md:w-96 md:h-96 bg-sana-gold rounded-full blur-3xl" />
+        <div className="absolute bottom-20 left-10 md:left-20 w-64 h-64 md:w-96 md:h-96 bg-sana-brown rounded-full blur-3xl" />
       </div>
 
       <div className="container-sana relative z-10">

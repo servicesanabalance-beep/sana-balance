@@ -51,7 +51,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://images.unsplash.com" />
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
       </head>
-      <body>
+      <body className="overflow-x-hidden">
         <ScrollReset />
         <Providers>{children}</Providers>
         <CookieConsent />
