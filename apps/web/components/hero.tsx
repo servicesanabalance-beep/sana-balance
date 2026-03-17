@@ -18,8 +18,9 @@ export function Hero() {
           fill
           className="object-cover"
           priority
-          quality={90}
-          sizes="100vw"
+          quality={75}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+          fetchPriority="high"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-sana-cream/80 via-sana-cream/70 to-transparent" />
       </div>
