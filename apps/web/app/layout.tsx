@@ -1,8 +1,21 @@
 import type { Metadata } from "next";
+import { Inter, Noto_Serif } from "next/font/google";
 import { Providers } from "@/lib/providers";
 import { CookieConsent } from "@/components/cookie-consent";
 import { ScrollReset } from "@/components/scroll-reset";
 import "./globals.css";
+
+const inter = Inter({ 
+  subsets: ["latin"],
+  display: 'swap',
+  variable: '--font-sans',
+});
+
+const serif = Noto_Serif({ 
+  subsets: ["latin"],
+  display: 'swap',
+  variable: '--font-serif',
+});
 
 export const metadata: Metadata = {
   title: "SanaBalance - Praxis für ganzheitliches Wohlbefinden",
@@ -51,10 +64,12 @@ export default function RootLayout({
         <link rel="preconnect" href="https://images.unsplash.com" />
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
       </head>
-      <body className="overflow-x-hidden">
-        <ScrollReset />
-        <Providers>{children}</Providers>
-        <CookieConsent />
+      <body className={`${inter.variable} ${serif.variable} font-sans`}>
+        <div className="relative flex min-h-screen flex-col overflow-x-hidden">
+          <ScrollReset />
+          <Providers>{children}</Providers>
+          <CookieConsent />
+        </div>
       </body>
     </html>
   );
