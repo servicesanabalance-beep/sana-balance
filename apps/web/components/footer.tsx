@@ -110,7 +110,15 @@ export function Footer() {
               © {currentYear} SanaBalance. Alle Rechte vorbehalten.
             </p>
             <p>
-              Entwickelt von <span className="text-white/80 font-medium">Andrzej Mich</span>
+              Entwickelt von{' '}
+              <a 
+                href="https://andrzejmich.ch" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-[#C9A87C] hover:text-[#8B7355] font-medium transition-colors"
+              >
+                Andrzej Mich
+              </a>
             </p>
           </div>
         </div>
