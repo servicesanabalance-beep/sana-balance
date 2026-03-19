@@ -8,11 +8,9 @@ export default function Impressum() {
 
         <div className="prose prose-lg max-w-none space-y-6 text-sana-brown">
           <section>
-            <h2 className="text-2xl font-serif font-semibold text-sana-brown-dark mt-8 mb-4">
-              Angaben gemäss § 5 TMG
-            </h2>
             <p className="font-semibold text-lg">
-              SanaBalance Massagen<br />
+              SanaBalance<br />
+              Thomas Grobler<br />
               Rossweidstrasse 4<br />
               9472 Grabs<br />
               Schweiz
@@ -25,7 +23,8 @@ export default function Impressum() {
             </h2>
             <p>
               <strong>Telefon:</strong> 079 489 50 18<br />
-              <strong>E-Mail:</strong> kontakt@sanabalance.ch
+              <strong>E-Mail:</strong> kontakt@sanabalance.ch<br />
+              <strong>Web:</strong> www.sanabalance.ch
             </p>
           </section>
 
@@ -51,7 +50,7 @@ export default function Impressum() {
               Inhaber
             </h2>
             <p>
-              <strong>Thomas Mich</strong>
+              <strong>Thomas Grobler</strong>
             </p>
             <p>
               Als erfahrener Massage-Therapeut liegt mir Ihr Wohlbefinden am Herzen. 
@@ -136,7 +135,15 @@ export default function Impressum() {
               Technische Umsetzung
             </h2>
             <p>
-              <strong>Webdesign & Entwicklung:</strong> Andrzej Mich
+              <strong>Webdesign & Entwicklung:</strong>{' '}
+              <a 
+                href="https://andrzejmich.ch" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-sana-brown hover:text-sana-brown-dark underline"
+              >
+                Andrzej Mich
+              </a>
             </p>
             <p>
               <strong>Hosting:</strong> Vercel Inc., USA

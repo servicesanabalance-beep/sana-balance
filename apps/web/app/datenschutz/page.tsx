@@ -32,7 +32,8 @@ export default function Datenschutz() {
               Verantwortlich für die Datenbearbeitung auf dieser Website ist:
             </p>
             <p className="font-semibold">
-              SanaBalance Massagen<br />
+              SanaBalance<br />
+              Thomas Grobler<br />
               Rossweidstrasse 4<br />
               9472 Grabs<br />
               Schweiz<br />
