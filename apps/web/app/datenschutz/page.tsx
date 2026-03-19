@@ -69,11 +69,9 @@ export default function Datenschutz() {
               Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.
             </p>
             <p>
-              Die Verarbeitung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSG, 
-              sofern Ihre Anfrage mit der Erfüllung eines Vertrags zusammenhängt oder zur Durchführung 
-              vorvertraglicher Maßnahmen erforderlich ist. In allen übrigen Fällen beruht die 
-              Verarbeitung auf unserem berechtigten Interesse an der effektiven Bearbeitung der an 
-              uns gerichteten Anfragen.
+              Die Verarbeitung dieser Daten erfolgt zur Bearbeitung Ihrer Anfrage und für den Fall 
+              von Anschlussfragen. Die Rechtsgrundlage bildet unser berechtigtes Interesse an der 
+              effektiven Bearbeitung der an uns gerichteten Anfragen.
             </p>
           </section>
 
@@ -128,7 +126,34 @@ export default function Datenschutz() {
 
           <section>
             <h2 className="text-2xl font-serif font-semibold text-sana-brown-dark mt-8 mb-4">
-              7. Hosting und Content Delivery
+              7. Google Fonts
+            </h2>
+            <p>
+              Diese Website verwendet Google Fonts der Google LLC (1600 Amphitheatre Parkway, 
+              Mountain View, CA 94043, USA) zur einheitlichen Darstellung von Schriftarten.
+            </p>
+            <p>
+              Beim Aufruf einer Seite lädt Ihr Browser die benötigten Schriftarten in den 
+              Browsercache, um Texte und Schriftarten korrekt anzuzeigen. Zu diesem Zweck muss 
+              der von Ihnen verwendete Browser Verbindung zu den Servern von Google aufnehmen. 
+              Hierdurch erlangt Google Kenntnis darüber, dass über Ihre IP-Adresse unsere Website 
+              aufgerufen wurde.
+            </p>
+            <p>
+              Die Nutzung von Google Fonts erfolgt im Interesse einer einheitlichen und ansprechenden 
+              Darstellung unserer Online-Angebote. Die Übermittlung von Daten in die USA erfolgt auf 
+              Grundlage von Standardvertragsklauseln.
+            </p>
+            <p>
+              Weitere Informationen zu Google Fonts finden Sie unter: 
+              https://developers.google.com/fonts/faq und in der Datenschutzerklärung von Google: 
+              https://policies.google.com/privacy
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-serif font-semibold text-sana-brown-dark mt-8 mb-4">
+              8. Hosting und Content Delivery
             </h2>
             <p>
               Unsere Website wird bei Vercel Inc. gehostet. Der Anbieter ist Vercel Inc., 
@@ -150,35 +175,54 @@ export default function Datenschutz() {
               Die Speicherung erfolgt zur Gewährleistung der Sicherheit und Stabilität des Angebots. 
               Die Daten werden nach 7 Tagen gelöscht.
             </p>
+            <p>
+              <strong>Datenübermittlung in Drittländer:</strong> Die Übermittlung von Daten in die USA 
+              erfolgt auf Grundlage von Standardvertragsklauseln (Standard Contractual Clauses, SCC), 
+              die ein angemessenes Datenschutzniveau gewährleisten.
+            </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-serif font-semibold text-sana-brown-dark mt-8 mb-4">
-              8. Externe Dienste
+              9. Externe Dienste
             </h2>
             <h3 className="text-xl font-serif font-semibold text-sana-brown-dark mt-6 mb-3">
-              8.1 Unsplash (Bilder)
+              9.1 Unsplash (Bilder)
             </h3>
             <p>
               Wir verwenden Bilder von Unsplash (Unsplash Inc., 1000 King Street West, Suite 200, 
               Toronto, ON M6K 3H1, Kanada). Beim Laden dieser Bilder wird Ihre IP-Adresse an 
-              Unsplash übermittelt. Weitere Informationen finden Sie in der Datenschutzerklärung 
-              von Unsplash: https://unsplash.com/privacy
+              Unsplash übermittelt.
+            </p>
+            <p>
+              Kanada verfügt über ein von der Schweiz anerkanntes angemessenes Datenschutzniveau, 
+              sodass die Datenübermittlung ohne zusätzliche Garantien erfolgen kann.
+            </p>
+            <p>
+              Weitere Informationen: https://unsplash.com/privacy
             </p>
 
             <h3 className="text-xl font-serif font-semibold text-sana-brown-dark mt-6 mb-3">
-              8.2 Supabase (Datenbank)
+              9.2 Supabase (Datenbank)
             </h3>
             <p>
               Für die Speicherung von Termindaten nutzen wir Supabase (Supabase Inc., 970 Toa Payoh 
               North, #07-04, Singapore 318992). Die Daten werden verschlüsselt übertragen und 
-              gespeichert. Weitere Informationen: https://supabase.com/privacy
+              gespeichert.
+            </p>
+            <p>
+              <strong>Datenübermittlung in Drittländer:</strong> Die Übermittlung von Daten nach 
+              Singapur erfolgt auf Grundlage von Standardvertragsklauseln (Standard Contractual 
+              Clauses, SCC), die ein angemessenes Datenschutzniveau gewährleisten.
+            </p>
+            <p>
+              Weitere Informationen: https://supabase.com/privacy
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-serif font-semibold text-sana-brown-dark mt-8 mb-4">
-              9. Ihre Rechte
+              10. Ihre Rechte
             </h2>
             <p>
               Sie haben jederzeit das Recht auf:
@@ -198,7 +242,7 @@ export default function Datenschutz() {
 
           <section>
             <h2 className="text-2xl font-serif font-semibold text-sana-brown-dark mt-8 mb-4">
-              10. Datensicherheit
+              11. Datensicherheit
             </h2>
             <p>
               Wir verwenden innerhalb des Website-Besuchs das verbreitete SSL-Verfahren (Secure Socket Layer) 
@@ -214,7 +258,7 @@ export default function Datenschutz() {
 
           <section>
             <h2 className="text-2xl font-serif font-semibold text-sana-brown-dark mt-8 mb-4">
-              11. Änderungen dieser Datenschutzerklärung
+              12. Änderungen dieser Datenschutzerklärung
             </h2>
             <p>
               Wir behalten uns vor, diese Datenschutzerklärung gelegentlich anzupassen, damit sie 
@@ -228,7 +272,7 @@ export default function Datenschutz() {
 
           <section>
             <h2 className="text-2xl font-serif font-semibold text-sana-brown-dark mt-8 mb-4">
-              12. Fragen zum Datenschutz
+              13. Fragen zum Datenschutz
             </h2>
             <p>
               Wenn Sie Fragen zum Datenschutz haben, schreiben Sie uns bitte eine E-Mail an: 
