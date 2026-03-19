@@ -32,6 +32,8 @@ export default function AGB() {
             <p className="font-semibold">
               SanaBalance<br />
               Thomas Mich<br />
+              Rossweidstrasse 4<br />
+              9472 Grabs<br />
               Schweiz<br />
               E-Mail: kontakt@sanabalance.ch
             </p>
@@ -264,6 +266,9 @@ export default function AGB() {
             <p className="font-semibold">
               SanaBalance<br />
               Thomas Mich<br />
+              Rossweidstrasse 4<br />
+              9472 Grabs<br />
+              Schweiz<br />
               E-Mail: kontakt@sanabalance.ch
             </p>
           </section>
