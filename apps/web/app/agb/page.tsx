@@ -49,8 +49,6 @@ export default function AGB() {
               <li>Wellnessmassage</li>
               <li>Dorn & Breuss Massage</li>
               <li>Sportmassage</li>
-              <li>Maderotherapie</li>
-              <li>Reconnective Healing®</li>
               <li>Weitere ganzheitliche Behandlungen nach Vereinbarung</li>
             </ul>
             <p>
@@ -83,8 +81,7 @@ export default function AGB() {
             </h2>
             <p>
               Es gelten die zum Zeitpunkt der Buchung auf der Website angegebenen Preise. 
-              Alle Preise verstehen sich in Schweizer Franken (CHF) inklusive der gesetzlichen 
-              Mehrwertsteuer.
+              Alle Preise verstehen sich in Schweizer Franken (CHF).
             </p>
             <p>
               Die Zahlung erfolgt in bar oder nach Vereinbarung direkt nach der Behandlung.
