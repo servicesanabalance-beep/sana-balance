@@ -30,8 +30,7 @@ export default function AGB() {
               Der Vertrag kommt zustande zwischen dem Kunden und:
             </p>
             <p className="font-semibold">
-              SanaBalance<br />
-              Thomas Mich<br />
+              SanaBalance Massagen<br />
               Rossweidstrasse 4<br />
               9472 Grabs<br />
               Schweiz<br />
@@ -264,8 +263,7 @@ export default function AGB() {
               Bei Fragen zu diesen AGB wenden Sie sich bitte an:
             </p>
             <p className="font-semibold">
-              SanaBalance<br />
-              Thomas Mich<br />
+              SanaBalance Massagen<br />
               Rossweidstrasse 4<br />
               9472 Grabs<br />
               Schweiz<br />
