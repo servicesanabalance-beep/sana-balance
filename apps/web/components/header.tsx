@@ -41,7 +41,7 @@ export function Header() {
               alt="SanaBalance Logo" 
               width={180} 
               height={54}
-              className="h-8 md:h-12 w-auto"
+              className="h-8 lg:h-12 w-auto"
               priority
             />
           </Link>
