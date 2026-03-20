@@ -1,9 +1,8 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import { Mail, Phone, MapPin } from 'lucide-react'
 import Link from 'next/link'
-import ReCAPTCHA from 'react-google-recaptcha'
 
 export function Contact() {
   const [formData, setFormData] = useState({
@@ -13,31 +12,17 @@ export function Contact() {
     message: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null)
-  const recaptchaRef = useRef<ReCAPTCHA>(null)
-
-  const handleRecaptchaChange = (token: string | null) => {
-    setRecaptchaToken(token)
-  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
-    if (!recaptchaToken) {
-      alert('Bitte bestätigen Sie, dass Sie kein Roboter sind.')
-      return
-    }
-    
     setIsSubmitting(true)
     
     try {
-      // TODO: Send form data to API endpoint with reCAPTCHA token
+      // TODO: Send form data to API endpoint
       await new Promise(resolve => setTimeout(resolve, 1000))
       
       alert('Vielen Dank! Wir werden uns bald bei Ihnen melden.')
       setFormData({ name: '', email: '', phone: '', message: '' })
-      setRecaptchaToken(null)
-      recaptchaRef.current?.reset()
     } catch (error) {
       alert('Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.')
     } finally {
@@ -187,16 +172,6 @@ export function Contact() {
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   className="w-full px-4 py-3 rounded-lg border border-[#E8DDD3] focus:border-[#8B7355] focus:ring-2 focus:ring-[#8B7355]/20 outline-none transition-colors resize-none"
                   placeholder="Ihre Nachricht..."
-                />
-              </div>
-
-              {/* reCAPTCHA */}
-              <div className="flex justify-center">
-                <ReCAPTCHA
-                  ref={recaptchaRef}
-                  sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'}
-                  onChange={handleRecaptchaChange}
-                  theme="light"
                 />
               </div>
 
