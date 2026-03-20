@@ -10,7 +10,7 @@ export function MobileMassage() {
           {/* Image */}
           <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/5] w-full max-w-md mx-auto lg:max-w-none">
             <Image
-              src="https://images.unsplash.com/photo-1598901865264-4f4a0a4e5005?q=80&w=1000&auto=format&fit=crop"
+              src="/sana_massagen.png"
               alt="Mobile Massage - Massagetisch zu Hause"
               fill
               className="object-cover"
