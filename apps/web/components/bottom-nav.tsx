@@ -25,14 +25,18 @@ export function BottomNav() {
             <Link
               key={href}
               href={href}
-              className={`flex flex-1 flex-col items-center justify-center gap-1 transition-colors ${
-                isActive
-                  ? 'text-sana-brown-dark'
-                  : 'text-sana-brown/60 hover:text-sana-brown'
-              }`}
+              className="flex flex-1 items-center justify-center"
             >
-              <Icon className={`w-5 h-5 ${isActive ? 'stroke-[2.5]' : 'stroke-[1.5]'}`} />
-              <span className="text-[10px] font-medium leading-none">{label}</span>
+              <div
+                className={`flex flex-col items-center justify-center gap-1 px-4 py-2 rounded-full transition-all ${
+                  isActive
+                    ? 'bg-sana-brown/10 text-sana-brown-dark'
+                    : 'text-sana-brown/60 hover:text-sana-brown'
+                }`}
+              >
+                <Icon className={`w-5 h-5 ${isActive ? 'stroke-[2.5]' : 'stroke-[1.5]'}`} />
+                <span className="text-[10px] font-medium leading-none">{label}</span>
+              </div>
             </Link>
           )
         })}

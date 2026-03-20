@@ -41,19 +41,19 @@ export function Header() {
               alt="SanaBalance Logo" 
               width={180} 
               height={54}
-              className="h-12 w-auto"
+              className="h-8 md:h-12 w-auto"
               priority
             />
           </Link>
 
           <nav className="hidden md:flex items-center gap-8">
-            <Link href="#about" className="text-sana-brown hover:text-sana-brown-dark transition-colors">
+            <Link href="/#about" className="text-sana-brown hover:text-sana-brown-dark transition-colors">
               {t('aboutUs')}
             </Link>
-            <Link href="#services" className="text-sana-brown hover:text-sana-brown-dark transition-colors">
+            <Link href="/#services" className="text-sana-brown hover:text-sana-brown-dark transition-colors">
               {t('services')}
             </Link>
-            <Link href="#contact" className="text-sana-brown hover:text-sana-brown-dark transition-colors">
+            <Link href="/#contact" className="text-sana-brown hover:text-sana-brown-dark transition-colors">
               Kontakt
             </Link>
             <Button asChild>
@@ -74,21 +74,21 @@ export function Header() {
           <div className="md:hidden py-4 border-t border-sana-beige">
             <nav className="flex flex-col gap-4">
               <Link 
-                href="#about" 
+                href="/#about" 
                 className="text-sana-brown hover:text-sana-brown-dark transition-colors"
                 onClick={closeMenu}
               >
                 {t('aboutUs')}
               </Link>
               <Link 
-                href="#services" 
+                href="/#services" 
                 className="text-sana-brown hover:text-sana-brown-dark transition-colors"
                 onClick={closeMenu}
               >
                 {t('services')}
               </Link>
               <Link 
-                href="#contact" 
+                href="/#contact" 
                 className="text-sana-brown hover:text-sana-brown-dark transition-colors"
                 onClick={closeMenu}
               >
