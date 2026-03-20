@@ -138,7 +138,7 @@ export default function Impressum() {
               Die auf dieser Website verwendeten Bilder stammen von:
             </p>
             <ul className="list-disc pl-6 space-y-2">
-              <li>Unsplash (https://unsplash.com) - Lizenzfreie Bilder</li>
+              <li><a href="https://unsplash.com/" target="_blank" rel="noopener noreferrer" className="text-[#8B7355] hover:text-[#6B5744] underline">Unsplash</a> - Lizenzfreie Bilder</li>
               <li>Eigene Aufnahmen</li>
             </ul>
           </section>

@@ -161,9 +161,10 @@ export default function Datenschutz() {
               Grundlage von Standardvertragsklauseln.
             </p>
             <p>
-              Weitere Informationen zu Google Fonts finden Sie unter: 
-              https://developers.google.com/fonts/faq und in der Datenschutzerklärung von Google: 
-              https://policies.google.com/privacy
+              Weitere Informationen zu Google Fonts finden Sie unter:{' '}
+              <a href="https://developers.google.com/fonts/faq" target="_blank" rel="noopener noreferrer" className="text-[#8B7355] hover:text-[#6B5744] underline">developers.google.com/fonts/faq</a>{' '}
+              und in der Datenschutzerklärung von Google:{' '}
+              <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[#8B7355] hover:text-[#6B5744] underline">policies.google.com/privacy</a>
             </p>
           </section>
 
@@ -215,7 +216,8 @@ export default function Datenschutz() {
               sodass die Datenübermittlung ohne zusätzliche Garantien erfolgen kann.
             </p>
             <p>
-              Weitere Informationen: https://unsplash.com/privacy
+              Weitere Informationen:{' '}
+              <a href="https://unsplash.com/" target="_blank" rel="noopener noreferrer" className="text-[#8B7355] hover:text-[#6B5744] underline">unsplash.com</a>
             </p>
 
             <h3 className="text-xl font-serif font-semibold text-sana-brown-dark mt-6 mb-3">
@@ -232,7 +234,8 @@ export default function Datenschutz() {
               Clauses, SCC), die ein angemessenes Datenschutzniveau gewährleisten.
             </p>
             <p>
-              Weitere Informationen: https://supabase.com/privacy
+              Weitere Informationen:{' '}
+              <a href="https://supabase.com/" target="_blank" rel="noopener noreferrer" className="text-[#8B7355] hover:text-[#6B5744] underline">supabase.com</a>
             </p>
           </section>
 

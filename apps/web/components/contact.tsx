@@ -36,7 +36,8 @@ export function Contact() {
                   rel="noopener noreferrer"
                   className="text-[#8B7355] hover:text-[#6B5744] transition-colors leading-relaxed block"
                 >
-                  SanaBalance Massagen<br />
+                  SanaBalance<br />
+                  Thomas Grobler<br />
                   Rossweidstrasse 4<br />
                   9472 Grabs<br />
                   Schweiz
