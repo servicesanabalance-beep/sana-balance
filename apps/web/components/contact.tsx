@@ -78,9 +78,9 @@ export function Contact() {
               </div>
               <div>
                 <h4 className="font-semibold text-[#6B5744] mb-1">E-Mail</h4>
-                <p className="text-[#8B7355] mb-3">kontakt@sanabalance.ch</p>
+                <p className="text-[#8B7355] mb-3">service.sanabalance@gmail.com</p>
                 <a
-                  href="mailto:kontakt@sanabalance.ch"
+                  href="mailto:service.sanabalance@gmail.com"
                   className="inline-flex items-center gap-2 bg-[#8B7355] hover:bg-[#6B5744] text-white font-medium px-5 py-2.5 rounded-full transition-all duration-300 shadow-md hover:shadow-lg text-sm"
                 >
                   <Mail className="w-4 h-4" />
