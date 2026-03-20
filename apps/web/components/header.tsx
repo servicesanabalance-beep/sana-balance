@@ -32,7 +32,7 @@ export function Header() {
   }, [isMenuOpen])
 
   return (
-    <header className="sticky top-0 z-50 bg-sana-white/95 backdrop-blur-sm border-b border-sana-beige">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-sana-white/95 backdrop-blur-sm border-b border-sana-beige">
       <div className="container-sana" ref={menuRef}>
         <div className="flex items-center justify-between h-20">
           <Link href="/" className="flex items-center">

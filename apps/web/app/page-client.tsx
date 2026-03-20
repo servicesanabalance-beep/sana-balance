@@ -10,6 +10,7 @@ import { ThomasSection } from '@/components/thomas-section'
 import { Contact } from '@/components/contact'
 import { Footer } from '@/components/footer'
 import { ScrollToTop } from '@/components/scroll-to-top'
+import { BottomNav } from '@/components/bottom-nav'
 
 export function PageClient() {
   useEffect(() => {
@@ -39,7 +40,7 @@ export function PageClient() {
   return (
     <>
       <Header />
-      <main>
+      <main className="pt-20">
         <Hero />
         <Features />
         <About />
@@ -47,7 +48,10 @@ export function PageClient() {
         <ThomasSection />
         <Contact />
       </main>
-      <Footer />
+      <div className="pb-16 lg:pb-0">
+        <Footer />
+      </div>
+      <BottomNav />
       <ScrollToTop />
     </>
   )
