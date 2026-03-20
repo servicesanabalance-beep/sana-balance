@@ -7,6 +7,7 @@ import { Features } from '@/components/features'
 import { About } from '@/components/about'
 import { Services } from '@/components/services'
 import { ThomasSection } from '@/components/thomas-section'
+import { MobileMassage } from '@/components/mobile-massage'
 import { Contact } from '@/components/contact'
 import { Footer } from '@/components/footer'
 import { ScrollToTop } from '@/components/scroll-to-top'
@@ -46,6 +47,7 @@ export function PageClient() {
         <About />
         <Services />
         <ThomasSection />
+        <MobileMassage />
         <Contact />
       </main>
       <div className="pb-16 lg:pb-0">
