@@ -5,6 +5,15 @@ export function MobileMassage() {
   return (
     <section className="py-20 bg-[#F5F1ED]">
       <div className="container mx-auto px-4 max-w-6xl">
+
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <h2 className="text-5xl font-serif font-bold text-[#6B5744] mb-4">
+            Massage bei Ihnen zu Hause
+          </h2>
+          <div className="w-16 h-1 bg-[#C9A87C] rounded-full mx-auto" />
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
           {/* Image */}
@@ -23,19 +32,19 @@ export function MobileMassage() {
             {/* Label */}
             <div className="flex items-center gap-3">
               <div className="h-px w-8 bg-[#8B5E3C]" />
-              <span className="text-xs font-semibold tracking-[0.2em] text-[#8B5E3C] uppercase">
+              <span className="text-sm font-semibold tracking-[0.2em] text-[#8B5E3C] uppercase">
                 Premium Service
               </span>
             </div>
 
             {/* Heading */}
-            <h2 className="text-4xl lg:text-5xl font-serif text-[#2C1A0E] leading-tight">
+            <h3 className="text-4xl lg:text-5xl font-serif font-bold text-[#6B5744] leading-tight">
               Komfort bei Ihnen zu Hause –{' '}
-              <em className="italic">Mobile Massage</em>
-            </h2>
+              <em className="italic font-bold">Mobile Massage</em>
+            </h3>
 
             {/* Description */}
-            <p className="text-[#6B5744] text-lg leading-relaxed">
+            <p className="text-[#8B7355] text-lg leading-relaxed">
               Sparen Sie Zeit und entspannen Sie sich, ohne das Haus verlassen zu müssen.
               Ich komme zu Ihnen nach Hause und biete volle Professionalität sowie die Ruhe,
               die Sie brauchen. Die ideale Lösung für vielbeschäftigte Menschen oder solche,
@@ -63,13 +72,13 @@ export function MobileMassage() {
             {/* Stats */}
             <div className="grid grid-cols-2 gap-8 pt-2 border-t border-[#D4C4B0]">
               <div className="pt-5">
-                <div className="text-2xl font-serif italic text-[#2C1A0E]">Volle</div>
+                <div className="text-2xl font-serif italic text-[#6B5744]">Volle</div>
                 <div className="text-[10px] font-semibold tracking-[0.15em] text-[#8B7355] uppercase mt-1">
                   Ausstattung
                 </div>
               </div>
               <div className="pt-5">
-                <div className="text-2xl font-serif italic text-[#2C1A0E]">Null</div>
+                <div className="text-2xl font-serif italic text-[#6B5744]">Null</div>
                 <div className="text-[10px] font-semibold tracking-[0.15em] text-[#8B7355] uppercase mt-1">
                   Stress mit Anfahrt
                 </div>
