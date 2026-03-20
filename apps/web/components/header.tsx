@@ -6,26 +6,37 @@ import Image from 'next/image'
 import { Menu, X } from 'lucide-react'
 import { Button } from '@sana-balance/ui'
 import { useState, useEffect, useRef } from 'react'
+import { usePathname } from 'next/navigation'
 
 export function Header() {
   const t = useTranslations('nav')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
+  const pathname = usePathname()
 
   const closeMenu = () => setIsMenuOpen(false)
 
-  // Close menu when clicking outside
+  const scrollToSection = (id: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
+    closeMenu()
+    if (pathname === '/') {
+      e.preventDefault()
+      const el = document.getElementById(id)
+      if (el) {
+        const top = el.getBoundingClientRect().top + window.scrollY - 88
+        window.scrollTo({ top, behavior: 'smooth' })
+      }
+    }
+  }
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         closeMenu()
       }
     }
-
     if (isMenuOpen) {
       document.addEventListener('mousedown', handleClickOutside)
     }
-
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
@@ -47,15 +58,15 @@ export function Header() {
           </Link>
 
           <nav className="hidden md:flex items-center gap-8">
-            <Link href="/#about" className="text-sana-brown hover:text-sana-brown-dark transition-colors">
+            <a href="/#about" onClick={scrollToSection('about')} className="text-sana-brown hover:text-sana-brown-dark transition-colors cursor-pointer">
               {t('aboutUs')}
-            </Link>
-            <Link href="/#services" className="text-sana-brown hover:text-sana-brown-dark transition-colors">
+            </a>
+            <a href="/#services" onClick={scrollToSection('services')} className="text-sana-brown hover:text-sana-brown-dark transition-colors cursor-pointer">
               {t('services')}
-            </Link>
-            <Link href="/#contact" className="text-sana-brown hover:text-sana-brown-dark transition-colors">
+            </a>
+            <a href="/#contact" onClick={scrollToSection('contact')} className="text-sana-brown hover:text-sana-brown-dark transition-colors cursor-pointer">
               Kontakt
-            </Link>
+            </a>
             <Button asChild>
               <Link href="/booking">{t('booking')}</Link>
             </Button>
@@ -73,27 +84,15 @@ export function Header() {
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t border-sana-beige">
             <nav className="flex flex-col gap-4">
-              <Link 
-                href="/#about" 
-                className="text-sana-brown hover:text-sana-brown-dark transition-colors"
-                onClick={closeMenu}
-              >
+              <a href="/#about" onClick={scrollToSection('about')} className="text-sana-brown hover:text-sana-brown-dark transition-colors">
                 {t('aboutUs')}
-              </Link>
-              <Link 
-                href="/#services" 
-                className="text-sana-brown hover:text-sana-brown-dark transition-colors"
-                onClick={closeMenu}
-              >
+              </a>
+              <a href="/#services" onClick={scrollToSection('services')} className="text-sana-brown hover:text-sana-brown-dark transition-colors">
                 {t('services')}
-              </Link>
-              <Link 
-                href="/#contact" 
-                className="text-sana-brown hover:text-sana-brown-dark transition-colors"
-                onClick={closeMenu}
-              >
+              </a>
+              <a href="/#contact" onClick={scrollToSection('contact')} className="text-sana-brown hover:text-sana-brown-dark transition-colors">
                 Kontakt
-              </Link>
+              </a>
               <Button asChild className="w-full" onClick={closeMenu}>
                 <Link href="/booking">{t('booking')}</Link>
               </Button>
