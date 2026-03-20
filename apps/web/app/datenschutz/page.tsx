@@ -50,7 +50,7 @@ export default function Datenschutz() {
               Rossweidstrasse 4<br />
               9472 Grabs<br />
               Schweiz<br />
-              E-Mail: kontakt@sanabalance.ch
+              E-Mail: <a href="mailto:service.sanabalance@gmail.com" className="text-[#8B7355] hover:text-[#6B5744] underline">service.sanabalance@gmail.com</a>
             </p>
           </section>
 
@@ -252,7 +252,7 @@ export default function Datenschutz() {
               <li>Widerspruch gegen die Verarbeitung</li>
             </ul>
             <p>
-              Zur Ausübung dieser Rechte wenden Sie sich bitte an: kontakt@sanabalance.ch
+              Zur Ausübung dieser Rechte wenden Sie sich bitte an: <a href="mailto:service.sanabalance@gmail.com" className="text-[#8B7355] hover:text-[#6B5744] underline">service.sanabalance@gmail.com</a>
             </p>
           </section>
 
@@ -291,8 +291,7 @@ export default function Datenschutz() {
               13. Fragen zum Datenschutz
             </h2>
             <p>
-              Wenn Sie Fragen zum Datenschutz haben, schreiben Sie uns bitte eine E-Mail an: 
-              kontakt@sanabalance.ch
+              Wenn Sie Fragen zum Datenschutz haben, schreiben Sie uns bitte eine E-Mail an: <a href="mailto:service.sanabalance@gmail.com" className="text-[#8B7355] hover:text-[#6B5744] underline">service.sanabalance@gmail.com</a>
             </p>
           </section>
 

@@ -48,7 +48,7 @@ export default function AGB() {
               Rossweidstrasse 4<br />
               9472 Grabs<br />
               Schweiz<br />
-              E-Mail: kontakt@sanabalance.ch
+              E-Mail: <a href="mailto:service.sanabalance@gmail.com" className="text-[#8B7355] hover:text-[#6B5744] underline">service.sanabalance@gmail.com</a>
             </p>
           </section>
 
@@ -282,7 +282,7 @@ export default function AGB() {
               Rossweidstrasse 4<br />
               9472 Grabs<br />
               Schweiz<br />
-              E-Mail: kontakt@sanabalance.ch
+              E-Mail: <a href="mailto:service.sanabalance@gmail.com" className="text-[#8B7355] hover:text-[#6B5744] underline">service.sanabalance@gmail.com</a>
             </p>
           </section>
 
