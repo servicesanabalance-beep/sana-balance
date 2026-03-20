@@ -79,7 +79,7 @@ export function Footer() {
               <h4 className="text-sm font-semibold mb-3">Folgen Sie uns</h4>
               <div className="flex gap-4">
                 <a
-                  href="https://facebook.com/sanabalance"
+                  href="https://www.facebook.com/thomas.grobler.3"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
@@ -88,7 +88,7 @@ export function Footer() {
                   <Facebook className="w-5 h-5" />
                 </a>
                 <a
-                  href="https://instagram.com/sanabalance"
+                  href="https://www.instagram.com/oldscoultom/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"

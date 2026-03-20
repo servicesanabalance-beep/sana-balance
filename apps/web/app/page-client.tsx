@@ -15,21 +15,20 @@ import { BottomNav } from '@/components/bottom-nav'
 
 export function PageClient() {
   useEffect(() => {
-    // Disable browser scroll restoration
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual'
     }
 
-    // Force scroll to top immediately
+    if (window.location.hash) return
+
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
 
-    // Also try after a delay for mobile browsers
     const timer1 = setTimeout(() => {
-      window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+      if (!window.location.hash) window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
     }, 50)
 
     const timer2 = setTimeout(() => {
-      window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+      if (!window.location.hash) window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
     }, 200)
 
     return () => {
