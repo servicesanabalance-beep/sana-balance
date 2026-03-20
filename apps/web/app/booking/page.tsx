@@ -1,6 +1,8 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { ArrowLeft } from 'lucide-react'
 import { Header } from '@/components/header'
 import { BookingSteps } from '@/components/booking/booking-steps'
 import { ServiceSelection } from '@/components/booking/service-selection'
@@ -11,6 +13,7 @@ import { BookingConfirmation } from '@/components/booking/booking-confirmation'
 type BookingStep = 'service' | 'datetime' | 'auth' | 'confirm'
 
 export default function BookingPage() {
+  const router = useRouter()
   const [currentStep, setCurrentStep] = useState<BookingStep>('service')
   const [selectedService, setSelectedService] = useState<any>(null)
   const [selectedDate, setSelectedDate] = useState<Date | undefined>()
@@ -41,7 +44,9 @@ export default function BookingPage() {
   }
 
   const handleBack = () => {
-    if (currentStep === 'datetime') {
+    if (currentStep === 'service') {
+      router.push('/')
+    } else if (currentStep === 'datetime') {
       setCurrentStep('service')
     } else if (currentStep === 'auth') {
       setCurrentStep('datetime')
@@ -53,9 +58,16 @@ export default function BookingPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-sana-cream py-12">
+      <main className="min-h-screen bg-sana-cream pt-24 pb-12">
         <div className="container-sana">
           <div className="mb-8">
+            <button
+              onClick={handleBack}
+              className="flex items-center gap-2 text-sana-brown hover:text-sana-brown-dark transition-colors mb-4 lg:mb-6"
+            >
+              <ArrowLeft className="w-5 h-5" />
+              <span className="font-medium">Zurück</span>
+            </button>
             <h1 className="heading-section mb-4">Termin buchen</h1>
             <BookingSteps currentStep={currentStep} />
           </div>
