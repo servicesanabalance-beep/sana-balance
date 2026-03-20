@@ -1,7 +1,20 @@
+import Link from 'next/link'
+import { ArrowLeft } from 'lucide-react'
+import { Header } from '@/components/header'
+
 export default function Impressum() {
   return (
-    <div className="min-h-screen bg-white py-20">
+    <>
+      <Header />
+      <div className="min-h-screen bg-white pt-28 pb-16">
       <div className="container mx-auto px-4 max-w-4xl">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 text-sana-brown hover:text-sana-brown-dark transition-colors mb-6"
+        >
+          <ArrowLeft className="w-5 h-5" />
+          <span className="font-medium">Zurück zur Startseite</span>
+        </Link>
         <h1 className="text-4xl font-serif font-bold text-sana-brown-dark mb-8">
           Impressum
         </h1>
@@ -177,5 +190,6 @@ export default function Impressum() {
         </div>
       </div>
     </div>
+    </>
   )
 }
