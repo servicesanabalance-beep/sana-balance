@@ -18,8 +18,34 @@ const serif = Noto_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "SanaBalance - Praxis für ganzheitliches Wohlbefinden",
-  description: "Gönnen Sie sich eine Auszeit vom Alltag und erleben Sie wohltuende Massagen und ganzheitliche Behandlungen für Ihr körperliches und seelisches Wohlbefinden.",
+  metadataBase: new URL('https://www.sanabalance.ch'),
+  title: {
+    default: "SanaBalance Massagen Grabs – Massage Grabs, St. Gallen",
+    template: "%s | SanaBalance Massagen Grabs",
+  },
+  description: "SanaBalance in Grabs (St. Gallen): Professionelle Massagen – Klassische Massage, Wellness, Dorn & Breuss, Sportmassage und Mobile Massage bei Ihnen zu Hause. Jetzt Termin buchen!",
+  keywords: [
+    "Massage Grabs",
+    "Masseur Grabs",
+    "Massage St. Gallen",
+    "Massage Werdenberg",
+    "Klassische Massage",
+    "Wellness Massage",
+    "Dorn Breuss Massage",
+    "Sportmassage",
+    "Mobile Massage",
+    "Hausmassage",
+    "SanaBalance",
+    "Thomas Grobler",
+    "Massage Termin",
+    "Massage Vorarlberg",
+    "Massage Liechtenstein",
+  ],
+  authors: [{ name: 'Thomas Grobler', url: 'https://www.sanabalance.ch' }],
+  creator: 'Thomas Grobler',
+  alternates: {
+    canonical: 'https://www.sanabalance.ch',
+  },
   viewport: {
     width: 'device-width',
     initialScale: 1,
@@ -32,24 +58,36 @@ export const metadata: Metadata = {
     shortcut: '/logo.sana.balance.svg',
   },
   openGraph: {
-    title: "SanaBalance - Praxis für ganzheitliches Wohlbefinden",
-    description: "Gönnen Sie sich eine Auszeit vom Alltag und erleben Sie wohltuende Massagen und ganzheitliche Behandlungen für Ihr körperliches und seelisches Wohlbefinden.",
+    title: "SanaBalance Massagen Grabs – Massage Grabs, St. Gallen",
+    description: "Professionelle Massagen in Grabs (St. Gallen): Klassische Massage, Wellness, Dorn & Breuss, Sportmassage und Mobile Massage. Jetzt Termin buchen!",
+    url: 'https://www.sanabalance.ch',
+    siteName: 'SanaBalance Massagen',
     images: [
       {
-        url: '/favicon.png',
+        url: '/sana_massage.png',
         width: 1200,
         height: 630,
-        alt: 'SanaBalance Logo',
+        alt: 'SanaBalance Massagen Grabs',
       }
     ],
-    locale: 'de_DE',
+    locale: 'de_CH',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: "SanaBalance - Praxis für ganzheitliches Wohlbefinden",
-    description: "Gönnen Sie sich eine Auszeit vom Alltag und erleben Sie wohltuende Massagen und ganzheitliche Behandlungen für Ihr körperliches und seelisches Wohlbefinden.",
-    images: ['/favicon.png'],
+    title: "SanaBalance Massagen Grabs – Massage Grabs, St. Gallen",
+    description: "Professionelle Massagen in Grabs (St. Gallen). Klassische Massage, Wellness, Dorn & Breuss, Sportmassage, Mobile Massage. Jetzt buchen!",
+    images: ['/sana_massage.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 
