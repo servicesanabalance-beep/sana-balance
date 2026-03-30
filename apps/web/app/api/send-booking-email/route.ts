@@ -7,15 +7,7 @@ export async function POST(request: Request) {
   try {
     const { clientEmail, clientName, serviceName, date, time, adminEmail } = await request.json()
 
-    console.log('📧 Sending booking emails:', {
-      clientEmail,
-      clientName,
-      serviceName,
-      date,
-      time,
-      adminEmail,
-      apiKey: process.env.RESEND_API_KEY ? 'Present' : 'Missing'
-    })
+    console.log('📧 Sending booking emails for:', serviceName, date, time)
 
     // Create calendar event (.ics format)
     // Parse date from DD.MM.YYYY format
@@ -42,7 +34,7 @@ END:VCALENDAR`
     // Send email to admin
     console.log('📨 Sending admin email to:', adminEmail)
     const adminResult = await resend.emails.send({
-      from: 'SanaBalance <kontakt@sanabalance.ch>',
+      from: 'SanaBalance <service.sanabalance@gmail.com>',
       to: adminEmail || 'service.sanabalance@gmail.com',
       subject: `Neue Buchung: ${serviceName}`,
       html: `
@@ -67,7 +59,7 @@ END:VCALENDAR`
     // Send confirmation email to client
     console.log('📨 Sending client confirmation email to:', clientEmail)
     const clientResult = await resend.emails.send({
-      from: 'SanaBalance <kontakt@sanabalance.ch>',
+      from: 'SanaBalance <service.sanabalance@gmail.com>',
       to: clientEmail,
       subject: `Terminbestätigung: ${serviceName}`,
       html: `
@@ -80,7 +72,7 @@ END:VCALENDAR`
         <p><strong>Uhrzeit:</strong> ${time}</p>
         <br>
         <p>Wir freuen uns auf Ihren Besuch!</p>
-        <p>Bei Fragen erreichen Sie uns unter: <a href="mailto:kontakt@sanabalance.ch">kontakt@sanabalance.ch</a></p>
+        <p>Bei Fragen erreichen Sie uns unter: <a href="mailto:service.sanabalance@gmail.com">service.sanabalance@gmail.com</a></p>
         <br>
         <p>Mit freundlichen Grüßen,<br>Ihr SanaBalance Team</p>
       `,
@@ -99,15 +91,9 @@ END:VCALENDAR`
       clientEmailId: clientResult.data?.id,
     })
   } catch (error: any) {
-    console.error('❌ Error sending email:', error)
-    console.error('Error details:', {
-      message: error.message,
-      name: error.name,
-      stack: error.stack
-    })
+    console.error('❌ Error sending email:', error.message)
     return NextResponse.json({ 
-      error: 'Failed to send email',
-      details: error.message 
+      error: 'Failed to send email'
     }, { status: 500 })
   }
 }
