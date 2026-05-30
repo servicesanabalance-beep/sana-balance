@@ -67,7 +67,7 @@ export default function AGB() {
               <li>Weitere ganzheitliche Behandlungen nach Vereinbarung</li>
             </ul>
             <p>
-              Die genaue Leistungsbeschreibung und Preise sind auf der Website www.sanabalance.ch 
+              Die genaue Leistungsbeschreibung und Preise sind auf der Website sanabalance.ch 
               ersichtlich und können jederzeit angepasst werden.
             </p>
           </section>

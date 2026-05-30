@@ -37,7 +37,7 @@ export default function Impressum() {
             <p>
               <strong>Telefon:</strong> 079 489 50 18<br />
               <strong>E-Mail:</strong> <a href="mailto:service.sanabalance@gmail.com" className="text-[#8B7355] hover:text-[#6B5744] underline">service.sanabalance@gmail.com</a><br />
-              <strong>Web:</strong> www.sanabalance.ch
+              <strong>Web:</strong> sanabalance.ch
             </p>
           </section>
 

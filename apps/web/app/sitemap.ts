@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://www.sanabalance.ch'
+  const baseUrl = 'https://sanabalance.ch'
 
   return [
     {

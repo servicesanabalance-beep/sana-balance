@@ -18,7 +18,7 @@ const serif = Noto_Serif({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.sanabalance.ch'),
+  metadataBase: new URL('https://sanabalance.ch'),
   title: {
     default: "SanaBalance Massagen Grabs – Massage Grabs, St. Gallen",
     template: "%s | SanaBalance Massagen Grabs",
@@ -41,10 +41,10 @@ export const metadata: Metadata = {
     "Massage Vorarlberg",
     "Massage Liechtenstein",
   ],
-  authors: [{ name: 'Thomas Grobler', url: 'https://www.sanabalance.ch' }],
+  authors: [{ name: 'Thomas Grobler', url: 'https://sanabalance.ch' }],
   creator: 'Thomas Grobler',
   alternates: {
-    canonical: 'https://www.sanabalance.ch',
+    canonical: 'https://sanabalance.ch',
   },
   viewport: {
     width: 'device-width',

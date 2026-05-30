@@ -9,7 +9,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/api/', '/_next/'],
       },
     ],
-    sitemap: 'https://www.sanabalance.ch/sitemap.xml',
-    host: 'https://www.sanabalance.ch',
+    sitemap: 'https://sanabalance.ch/sitemap.xml',
+    host: 'https://sanabalance.ch',
   }
 }

@@ -4,17 +4,17 @@ import { PageClient } from './page-client'
 export const metadata: Metadata = {
   title: "SanaBalance Massagen Grabs – Massage Grabs, St. Gallen",
   alternates: {
-    canonical: 'https://www.sanabalance.ch',
+    canonical: 'https://sanabalance.ch',
   },
 }
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
-  '@id': 'https://www.sanabalance.ch',
+  '@id': 'https://sanabalance.ch',
   name: 'SanaBalance Massagen',
   description: 'Professionelle Massagen in Grabs: Klassische Massage, Wellness, Dorn & Breuss, Sportmassage und Mobile Massage bei Ihnen zu Hause.',
-  url: 'https://www.sanabalance.ch',
+  url: 'https://sanabalance.ch',
   telephone: '+41794895018',
   email: 'service.sanabalance@gmail.com',
   address: {
@@ -37,7 +37,7 @@ const jsonLd = {
     closes: '19:00',
   },
   priceRange: '$$',
-  image: 'https://www.sanabalance.ch/sana_massage.png',
+  image: 'https://sanabalance.ch/sana_massage.png',
   hasMap: 'https://www.google.com/maps/search/?api=1&query=Rossweidstrasse+4,+9472+Grabs,+Schweiz',
   sameAs: [
     'https://www.facebook.com/thomas.grobler.3',
