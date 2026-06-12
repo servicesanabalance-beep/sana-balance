@@ -33,6 +33,9 @@ export function BookingConfirmation({ service, date, time, availabilityId, onBac
       const { createClient } = await import('@/lib/supabase/client')
       const supabase = createClient()
 
+      // Make sure we always insert as anon (in case of stale session)
+      try { await supabase.auth.signOut() } catch {}
+
       const trimmedFirst = firstName.trim()
       const trimmedLast = lastName.trim()
       const trimmedEmail = email.trim()
