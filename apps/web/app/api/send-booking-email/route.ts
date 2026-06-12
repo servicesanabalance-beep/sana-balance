@@ -3,6 +3,9 @@ import { NextResponse } from 'next/server'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
+const FROM_ADDRESS = process.env.RESEND_FROM || 'SanaBalance <noreply@sanabalance.ch>'
+const REPLY_TO = 'service.sanabalance@gmail.com'
+
 export async function POST(request: Request) {
   try {
     const { clientEmail, clientName, clientPhone, serviceName, date, time, adminEmail } = await request.json()
@@ -34,7 +37,8 @@ END:VCALENDAR`
     // Send email to admin
     console.log('📨 Sending admin email to:', adminEmail)
     const adminResult = await resend.emails.send({
-      from: 'SanaBalance <service.sanabalance@gmail.com>',
+      from: FROM_ADDRESS,
+      replyTo: clientEmail || REPLY_TO,
       to: adminEmail || 'service.sanabalance@gmail.com',
       subject: `Neue Buchung: ${serviceName}`,
       html: `
@@ -60,7 +64,8 @@ END:VCALENDAR`
     // Send confirmation email to client
     console.log('📨 Sending client confirmation email to:', clientEmail)
     const clientResult = await resend.emails.send({
-      from: 'SanaBalance <service.sanabalance@gmail.com>',
+      from: FROM_ADDRESS,
+      replyTo: REPLY_TO,
       to: clientEmail,
       subject: `Terminbestätigung: ${serviceName}`,
       html: `
@@ -85,16 +90,25 @@ END:VCALENDAR`
       ],
     })
     console.log('✅ Client email result:', clientResult)
-    
+
+    if (adminResult.error || clientResult.error) {
+      console.error('❌ Resend reported errors:', { admin: adminResult.error, client: clientResult.error })
+      return NextResponse.json({
+        success: false,
+        adminError: adminResult.error,
+        clientError: clientResult.error,
+      }, { status: 502 })
+    }
+
     return NextResponse.json({ 
       success: true,
       adminEmailId: adminResult.data?.id,
       clientEmailId: clientResult.data?.id,
     })
   } catch (error: any) {
-    console.error('❌ Error sending email:', error.message)
+    console.error('❌ Error sending email:', error?.message, error)
     return NextResponse.json({ 
-      error: 'Failed to send email'
+      error: error?.message || 'Failed to send email'
     }, { status: 500 })
   }
 }
