@@ -3,7 +3,7 @@
 import { Check } from 'lucide-react'
 import { cn } from '@sana-balance/ui'
 
-type Step = 'service' | 'datetime' | 'auth' | 'confirm'
+type Step = 'service' | 'datetime' | 'confirm'
 
 interface BookingStepsProps {
   currentStep: Step
@@ -12,8 +12,7 @@ interface BookingStepsProps {
 const steps = [
   { id: 'service', label: 'Service\nauswählen' },
   { id: 'datetime', label: 'Datum &\nUhrzeit' },
-  { id: 'auth', label: 'Anmelden' },
-  { id: 'confirm', label: 'Bestätigen' },
+  { id: 'confirm', label: 'Daten &\nBestätigen' },
 ]
 
 export function BookingSteps({ currentStep }: BookingStepsProps) {

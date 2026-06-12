@@ -12,40 +12,45 @@ interface BookingConfirmationProps {
   date: Date
   time: string
   availabilityId: number
-  userId: string
   onBack: () => void
 }
 
-export function BookingConfirmation({ service, date, time, availabilityId, userId, onBack }: BookingConfirmationProps) {
+export function BookingConfirmation({ service, date, time, availabilityId, onBack }: BookingConfirmationProps) {
   const [isConfirmed, setIsConfirmed] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [userName, setUserName] = useState<string>('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
 
-  const handleConfirm = async () => {
+  const handleConfirm = async (e: React.FormEvent) => {
+    e.preventDefault()
     setIsLoading(true)
     setError(null)
 
     try {
-      // Create appointment in Supabase
       const { createClient } = await import('@/lib/supabase/client')
       const supabase = createClient()
 
-      // Get user email
-      const { data: { user } } = await supabase.auth.getUser()
-      const clientEmail = user?.email || ''
-      const clientName = user?.user_metadata?.name || user?.email || 'Kunde'
-      const firstName = user?.user_metadata?.firstName || clientName.split(' ')[0] || 'Kunde'
-      setUserName(firstName)
+      const trimmedFirst = firstName.trim()
+      const trimmedLast = lastName.trim()
+      const trimmedEmail = email.trim()
+      const trimmedPhone = phone.trim()
+      const clientName = `${trimmedFirst} ${trimmedLast}`.trim()
 
-      // Create appointment with the selected availability slot
+      // Create appointment with the selected availability slot (guest booking)
       const { error: appointmentError } = await supabase
         .from('appointments')
         .insert({
-          client_id: userId,
+          client_id: null,
           service_id: parseInt(service.id),
           availability_id: availabilityId,
           status: 'confirmed',
+          guest_first_name: trimmedFirst,
+          guest_last_name: trimmedLast,
+          guest_email: trimmedEmail,
+          guest_phone: trimmedPhone,
         })
 
       if (appointmentError) throw appointmentError
@@ -58,33 +63,27 @@ export function BookingConfirmation({ service, date, time, availabilityId, userI
 
       if (updateError) throw updateError
 
-      // Send booking emails
+      // Send booking emails (admin always gets one)
       try {
-        console.log('📧 Calling email API...')
         const emailResponse = await fetch('/api/send-booking-email', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            clientEmail,
+            clientEmail: trimmedEmail,
             clientName,
+            clientPhone: trimmedPhone,
             serviceName: service.title,
             date: format(date, 'dd.MM.yyyy'),
             time,
             adminEmail: 'service.sanabalance@gmail.com',
           }),
         })
-        
         const emailResult = await emailResponse.json()
-        console.log('📧 Email API response:', emailResult)
-        
         if (!emailResponse.ok) {
           console.error('❌ Email API failed:', emailResult)
-        } else {
-          console.log('✅ Emails sent successfully!')
         }
       } catch (emailError) {
         console.error('❌ Failed to send email:', emailError)
-        // Don't fail the booking if email fails
       }
 
       setIsConfirmed(true)
@@ -124,7 +123,7 @@ export function BookingConfirmation({ service, date, time, availabilityId, userI
         </div>
         <div>
           <h2 className="text-3xl font-serif font-semibold text-[#6B5744] mb-2">
-            Hallo {userName}!
+            Hallo {firstName || 'und vielen Dank'}!
           </h2>
           <p className="text-lg text-[#8B7355] mb-2">
             Vielen Dank für Ihre Buchung!
@@ -226,20 +225,75 @@ export function BookingConfirmation({ service, date, time, availabilityId, userI
         </CardContent>
       </Card>
 
-      {error && (
-        <div className="max-w-md mx-auto p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
-          {error}
-        </div>
-      )}
+      <form onSubmit={handleConfirm} className="max-w-md mx-auto space-y-4">
+        <Card className="bg-white border-2 border-[#E8DDD3] shadow-xl">
+          <CardHeader>
+            <CardTitle className="text-[#6B5744]">Ihre Kontaktdaten</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-[#6B5744] mb-1">Vorname *</label>
+                <input
+                  type="text"
+                  required
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  className="w-full px-3 py-2 border border-[#E8DDD3] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C9A87C] bg-white text-[#6B5744]"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-[#6B5744] mb-1">Nachname *</label>
+                <input
+                  type="text"
+                  required
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  className="w-full px-3 py-2 border border-[#E8DDD3] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C9A87C] bg-white text-[#6B5744]"
+                />
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-[#6B5744] mb-1">E-Mail *</label>
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-3 py-2 border border-[#E8DDD3] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C9A87C] bg-white text-[#6B5744]"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-[#6B5744] mb-1">Telefon *</label>
+              <input
+                type="tel"
+                required
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                className="w-full px-3 py-2 border border-[#E8DDD3] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C9A87C] bg-white text-[#6B5744]"
+              />
+            </div>
+            <p className="text-xs text-[#8B7355]">
+              Sie erhalten eine Bestätigung per E-Mail. Wir kontaktieren Sie bei Fragen telefonisch.
+            </p>
+          </CardContent>
+        </Card>
 
-      <div className="flex gap-4 max-w-md mx-auto">
-        <Button variant="outline" onClick={onBack} className="flex-1">
-          Zurück
-        </Button>
-        <Button onClick={handleConfirm} disabled={isLoading} className="flex-1">
-          {isLoading ? 'Wird gebucht...' : 'Jetzt buchen'}
-        </Button>
-      </div>
+        {error && (
+          <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
+            {error}
+          </div>
+        )}
+
+        <div className="flex gap-4">
+          <Button type="button" variant="outline" onClick={onBack} className="flex-1" disabled={isLoading}>
+            Zurück
+          </Button>
+          <Button type="submit" disabled={isLoading} className="flex-1">
+            {isLoading ? 'Wird gebucht...' : 'Jetzt buchen'}
+          </Button>
+        </div>
+      </form>
     </div>
   )
 }

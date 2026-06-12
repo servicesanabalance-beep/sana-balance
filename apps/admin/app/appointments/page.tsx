@@ -13,14 +13,18 @@ interface Appointment {
   created_at: string
   status: string
   notes: string | null
-  client_id: string
+  client_id: string | null
   service_id: number
   availability_id: number
+  guest_first_name: string | null
+  guest_last_name: string | null
+  guest_email: string | null
+  guest_phone: string | null
   profiles: {
     first_name: string
     last_name: string
     phone: string | null
-  }
+  } | null
   services: {
     name_de: string
     duration_minutes: number
@@ -230,10 +234,17 @@ export default function AppointmentsPage() {
     }
   }
 
+  const getClientName = (apt: Appointment) => {
+    if (apt.profiles) return `${apt.profiles.first_name ?? ''} ${apt.profiles.last_name ?? ''}`.trim()
+    return `${apt.guest_first_name ?? ''} ${apt.guest_last_name ?? ''}`.trim() || 'Gast'
+  }
+  const getClientPhone = (apt: Appointment) => apt.profiles?.phone ?? apt.guest_phone ?? null
+
   const filteredAppointments = appointments.filter((apt) => {
     const matchesFilter = filter === 'all' || apt.status === filter
+    const name = getClientName(apt)
     const matchesSearch = searchQuery === '' || 
-      `${apt.profiles.first_name} ${apt.profiles.last_name}`.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       apt.services.name_de.toLowerCase().includes(searchQuery.toLowerCase())
     
     return matchesFilter && matchesSearch
@@ -471,10 +482,16 @@ export default function AppointmentsPage() {
                           <td className="py-3 px-4">
                             <div>
                               <p className="font-medium text-gray-800 dark:text-gray-100">
-                                {apt.profiles.first_name} {apt.profiles.last_name}
+                                {getClientName(apt)}
+                                {!apt.profiles && (
+                                  <span className="ml-2 text-xs px-2 py-0.5 rounded bg-blue-100 text-blue-800">Gast</span>
+                                )}
                               </p>
-                              {apt.profiles.phone && (
-                                <p className="text-sm text-gray-600 dark:text-gray-400">{apt.profiles.phone}</p>
+                              {getClientPhone(apt) && (
+                                <p className="text-sm text-gray-600 dark:text-gray-400">{getClientPhone(apt)}</p>
+                              )}
+                              {!apt.profiles && apt.guest_email && (
+                                <p className="text-sm text-gray-600 dark:text-gray-400">{apt.guest_email}</p>
                               )}
                             </div>
                           </td>

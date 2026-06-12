@@ -5,7 +5,7 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function POST(request: Request) {
   try {
-    const { clientEmail, clientName, serviceName, date, time, adminEmail } = await request.json()
+    const { clientEmail, clientName, clientPhone, serviceName, date, time, adminEmail } = await request.json()
 
     console.log('📧 Sending booking emails for:', serviceName, date, time)
 
@@ -40,7 +40,8 @@ END:VCALENDAR`
       html: `
         <h2>Neue Terminbuchung</h2>
         <p><strong>Kunde:</strong> ${clientName}</p>
-        <p><strong>Email:</strong> ${clientEmail}</p>
+        <p><strong>Email:</strong> <a href="mailto:${clientEmail}">${clientEmail}</a></p>
+        ${clientPhone ? `<p><strong>Telefon:</strong> <a href="tel:${clientPhone}">${clientPhone}</a></p>` : ''}
         <p><strong>Service:</strong> ${serviceName}</p>
         <p><strong>Datum:</strong> ${date}</p>
         <p><strong>Uhrzeit:</strong> ${time}</p>

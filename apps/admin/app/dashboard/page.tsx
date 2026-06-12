@@ -61,6 +61,8 @@ export default function DashboardPage() {
           client_id,
           service_id,
           availability_id,
+          guest_first_name,
+          guest_last_name,
           profiles!appointments_client_id_fkey (
             first_name,
             last_name
@@ -88,7 +90,10 @@ export default function DashboardPage() {
         .map((apt: any) => ({
           id: apt.id,
           status: apt.status,
-          profiles: apt.profiles || { first_name: 'Unknown', last_name: 'User' },
+          profiles: apt.profiles || {
+            first_name: apt.guest_first_name || 'Gast',
+            last_name: apt.guest_last_name || '',
+          },
           services: apt.services || { name_de: 'Unknown Service' },
           availability: apt.availability || { start_time: new Date().toISOString() },
         }))

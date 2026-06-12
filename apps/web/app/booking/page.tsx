@@ -7,10 +7,9 @@ import { Header } from '@/components/header'
 import { BookingSteps } from '@/components/booking/booking-steps'
 import { ServiceSelection } from '@/components/booking/service-selection'
 import { DateTimeSelection } from '@/components/booking/datetime-selection'
-import { AuthForm } from '@/components/booking/auth-form'
 import { BookingConfirmation } from '@/components/booking/booking-confirmation'
 
-type BookingStep = 'service' | 'datetime' | 'auth' | 'confirm'
+type BookingStep = 'service' | 'datetime' | 'confirm'
 
 export default function BookingPage() {
   const router = useRouter()
@@ -19,7 +18,6 @@ export default function BookingPage() {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>()
   const [selectedTime, setSelectedTime] = useState<string | undefined>()
   const [selectedAvailabilityId, setSelectedAvailabilityId] = useState<number | undefined>()
-  const [userId, setUserId] = useState<string | null>(null)
 
   const handleServiceSelect = (service: any) => {
     setSelectedService(service)
@@ -30,16 +28,6 @@ export default function BookingPage() {
     setSelectedDate(date)
     setSelectedTime(time)
     setSelectedAvailabilityId(availabilityId)
-    
-    if (userId) {
-      setCurrentStep('confirm')
-    } else {
-      setCurrentStep('auth')
-    }
-  }
-
-  const handleAuthSuccess = (authenticatedUserId: string) => {
-    setUserId(authenticatedUserId)
     setCurrentStep('confirm')
   }
 
@@ -48,8 +36,6 @@ export default function BookingPage() {
       router.push('/')
     } else if (currentStep === 'datetime') {
       setCurrentStep('service')
-    } else if (currentStep === 'auth') {
-      setCurrentStep('datetime')
     } else if (currentStep === 'confirm') {
       setCurrentStep('datetime')
     }
@@ -85,20 +71,12 @@ export default function BookingPage() {
               />
             )}
 
-            {currentStep === 'auth' && (
-              <AuthForm
-                onSuccess={handleAuthSuccess}
-                onBack={handleBack}
-              />
-            )}
-
-            {currentStep === 'confirm' && selectedService && selectedDate && selectedTime && selectedAvailabilityId && userId && (
+            {currentStep === 'confirm' && selectedService && selectedDate && selectedTime && selectedAvailabilityId && (
               <BookingConfirmation
                 service={selectedService}
                 date={selectedDate}
                 time={selectedTime}
                 availabilityId={selectedAvailabilityId}
-                userId={userId}
                 onBack={handleBack}
               />
             )}
