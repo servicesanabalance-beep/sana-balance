@@ -3,8 +3,8 @@ import { NextResponse } from 'next/server'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
-const FROM_ADDRESS = process.env.RESEND_FROM || 'SanaBalance <noreply@sanabalance.ch>'
-const REPLY_TO = 'service.sanabalance@gmail.com'
+const FROM_ADDRESS = process.env.RESEND_FROM || 'SanaBalance <kontakt@sanabalance.ch>'
+const REPLY_TO = 'kontakt@sanabalance.ch'
 
 export async function POST(request: Request) {
   try {
@@ -63,7 +63,7 @@ END:VCALENDAR`
     const adminResult = await resend.emails.send({
       from: FROM_ADDRESS,
       replyTo: clientEmail || REPLY_TO,
-      to: adminEmail || 'service.sanabalance@gmail.com',
+      to: adminEmail || 'kontakt@sanabalance.ch',
       subject: `Neue Buchung: ${serviceName}`,
       html: `
         <h2>Neue Terminbuchung</h2>
@@ -102,7 +102,7 @@ END:VCALENDAR`
         <p><strong>Uhrzeit:</strong> ${time}</p>
         <br>
         <p>Wir freuen uns auf Ihren Besuch!</p>
-        <p>Bei Fragen erreichen Sie uns unter: <a href="mailto:service.sanabalance@gmail.com">service.sanabalance@gmail.com</a></p>
+        <p>Bei Fragen erreichen Sie uns unter: <a href="mailto:kontakt@sanabalance.ch">kontakt@sanabalance.ch</a></p>
         <br>
         <p>Mit freundlichen Grüßen,<br>Ihr SanaBalance Team</p>
       `,

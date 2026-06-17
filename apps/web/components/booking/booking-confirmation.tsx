@@ -78,7 +78,7 @@ export function BookingConfirmation({ service, date, time, availabilityId, onBac
             serviceName: service.title,
             date: format(date, 'dd.MM.yyyy'),
             time,
-            adminEmail: 'service.sanabalance@gmail.com',
+            adminEmail: 'kontakt@sanabalance.ch',
           }),
         })
         const emailResult = await emailResponse.json()
