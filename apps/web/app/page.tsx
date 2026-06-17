@@ -16,7 +16,7 @@ const jsonLd = {
   description: 'Professionelle Massagen in Grabs: Klassische Massage, Wellness, Dorn & Breuss, Sportmassage und Mobile Massage bei Ihnen zu Hause.',
   url: 'https://sanabalance.ch',
   telephone: '+41794895018',
-  email: 'service.sanabalance@gmail.com',
+  email: 'kontakt@sanabalance.ch',
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Rossweidstrasse 4',
