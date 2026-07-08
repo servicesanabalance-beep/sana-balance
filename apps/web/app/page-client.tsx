@@ -8,6 +8,7 @@ import { About } from '@/components/about'
 import { Services } from '@/components/services'
 import { ThomasSection } from '@/components/thomas-section'
 import { MobileMassage } from '@/components/mobile-massage'
+import { Treuebonus } from '@/components/treuebonus'
 import { Contact } from '@/components/contact'
 import { Footer } from '@/components/footer'
 import { ScrollToTop } from '@/components/scroll-to-top'
@@ -42,11 +43,12 @@ export function PageClient() {
       <Header />
       <main className="pt-20">
         <Hero />
+        <MobileMassage />
         <Features />
         <About />
         <Services />
+        <Treuebonus />
         <ThomasSection />
-        <MobileMassage />
         <Contact />
       </main>
       <div className="pb-16 lg:pb-0">

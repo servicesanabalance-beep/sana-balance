@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     siteName: 'SanaBalance Massagen',
     images: [
       {
-        url: '/sana_massage.png',
+        url: '/thomas_massage.png',
         width: 1200,
         height: 630,
         alt: 'SanaBalance Massagen Grabs',
@@ -77,7 +77,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: "SanaBalance Massagen Grabs – Massage Grabs, St. Gallen",
     description: "Professionelle Massagen in Grabs (St. Gallen). Klassische Massage, Wellness, Dorn & Breuss, Sportmassage, Mobile Massage. Jetzt buchen!",
-    images: ['/sana_massage.png'],
+    images: ['/thomas_massage.png'],
   },
   robots: {
     index: true,
@@ -97,12 +97,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="de">
+    <html lang="de" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://images.unsplash.com" />
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
       </head>
-      <body className={`${inter.variable} ${serif.variable} font-sans`}>
+      <body className={`${inter.variable} ${serif.variable} font-sans`} suppressHydrationWarning>
         <div className="relative flex min-h-screen flex-col overflow-x-hidden">
           <ScrollReset />
           <Providers>{children}</Providers>
