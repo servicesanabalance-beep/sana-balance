@@ -45,9 +45,9 @@ export function PageClient() {
         <Hero />
         <MobileMassage />
         <Features />
+        <Treuebonus />
         <About />
         <Services />
-        <Treuebonus />
         <ThomasSection />
         <Contact />
       </main>
