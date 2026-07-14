@@ -3,6 +3,7 @@
 import { Card, CardHeader, CardTitle, CardContent, Button } from '@sana-balance/ui'
 import { Users, Heart } from 'lucide-react'
 import Link from 'next/link'
+import { Reveal } from '@/components/reveal'
 
 export function About() {
   return (
@@ -18,7 +19,8 @@ export function About() {
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Title with Animation */}
-        <div className="text-center mb-16 animate-slide-up">
+        <Reveal>
+        <div className="text-center mb-16">
           <div className="inline-block mb-4">
             <div className="w-16 h-1 bg-sana-gold rounded-full mx-auto" />
           </div>
@@ -29,11 +31,13 @@ export function About() {
             Entdecken Sie unsere Philosophie und unser Team
           </p>
         </div>
+        </Reveal>
 
         {/* Two Column Layout with Shadcn Cards */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto mb-12">
           {/* Left Card - Wer sind wir? */}
-          <Card className="bg-white/90 backdrop-blur-md border-2 border-sana-beige shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 group">
+          <Reveal from="left">
+          <Card className="h-full bg-white/90 backdrop-blur-md border-2 border-sana-beige shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 group">
             <CardHeader>
               <div className="flex items-center gap-3 mb-2">
                 <div className="p-2 rounded-full bg-sana-gold/20 group-hover:bg-sana-gold/30 transition-colors">
@@ -48,9 +52,11 @@ export function About() {
               </p>
             </CardContent>
           </Card>
+          </Reveal>
 
           {/* Right Card - Über uns */}
-          <Card className="bg-white/90 backdrop-blur-md border-2 border-sana-beige shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 group">
+          <Reveal from="right" delay={120}>
+          <Card className="h-full bg-white/90 backdrop-blur-md border-2 border-sana-beige shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 group">
             <CardHeader>
               <div className="flex items-center gap-3 mb-2">
                 <div className="p-2 rounded-full bg-sana-gold/20 group-hover:bg-sana-gold/30 transition-colors">
@@ -65,6 +71,7 @@ export function About() {
               </p>
             </CardContent>
           </Card>
+          </Reveal>
         </div>
 
         {/* CTA Button with Shadcn Button */}

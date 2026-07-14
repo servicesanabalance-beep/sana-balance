@@ -1,5 +1,6 @@
 import { Mail, Phone, MapPin, Navigation } from 'lucide-react'
 import Link from 'next/link'
+import { Reveal } from '@/components/reveal'
 
 const MAPS_QUERY = 'Rossweidstrasse+4,+9472+Grabs,+Schweiz'
 const MAPS_LINK = `https://www.google.com/maps/search/?api=1&query=${MAPS_QUERY}`
@@ -10,14 +11,16 @@ export function Contact() {
     <section id="contact" className="py-20 bg-gradient-to-b from-white to-[#F5F1ED]">
       <div className="container mx-auto px-4">
         {/* Section Title */}
-        <div className="text-center mb-16">
-          <h2 className="text-5xl font-serif font-bold text-[#6B5744] mb-4">
-            Kontakt
-          </h2>
-          <p className="text-[#8B7355] text-lg">
-            Wir freuen uns auf Ihre Nachricht
-          </p>
-        </div>
+        <Reveal>
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-serif font-bold text-[#6B5744] mb-4">
+              Kontakt
+            </h2>
+            <p className="text-[#8B7355] text-lg">
+              Wir freuen uns auf Ihre Nachricht
+            </p>
+          </div>
+        </Reveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto items-start">
 

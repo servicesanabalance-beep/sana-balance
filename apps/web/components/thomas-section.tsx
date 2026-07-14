@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { Reveal } from '@/components/reveal'
 
 export function ThomasSection() {
   return (
@@ -13,7 +14,7 @@ export function ThomasSection() {
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
           {/* Left Column - Text Content */}
-          <div>
+          <Reveal from="left">
             <div className="mb-6">
               <div className="w-16 h-1 bg-[#C9A87C] rounded-full mb-6" />
               <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4">
@@ -34,10 +35,10 @@ export function ThomasSection() {
             >
               Termin buchen
             </Link>
-          </div>
+          </Reveal>
 
           {/* Right Column - Image */}
-          <div className="relative">
+          <Reveal from="right" delay={120} className="relative">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <Image
                 src="/thomas_massage.png"
@@ -50,7 +51,7 @@ export function ThomasSection() {
             </div>
             {/* Decorative border */}
             <div className="absolute -bottom-4 -right-4 w-full h-full border-4 border-[#C9A87C]/30 rounded-2xl -z-10" />
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

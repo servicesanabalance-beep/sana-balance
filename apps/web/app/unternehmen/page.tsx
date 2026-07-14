@@ -13,6 +13,7 @@ import {
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
 import { ScrollToTop } from '@/components/scroll-to-top'
+import { Reveal } from '@/components/reveal'
 
 export const metadata: Metadata = {
   title: 'Massage im Unternehmen – Betriebliche Gesundheitsförderung',
@@ -109,23 +110,23 @@ export default function Unternehmen() {
 
           <div className="container-sana relative z-10">
             <div className="lg:w-1/2 lg:pr-16 py-24 lg:py-32 lg:min-h-[70vh] flex flex-col justify-center gap-6">
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 animate-fade-up">
                 <div className="h-px w-8 bg-sana-brown" />
                 <span className="text-sm font-semibold tracking-[0.2em] text-sana-brown uppercase">
                   Für Unternehmen
                 </span>
               </div>
 
-              <h1 className="text-4xl lg:text-5xl font-serif font-bold text-sana-brown-dark leading-tight">
+              <h1 className="text-4xl lg:text-5xl font-serif font-bold text-sana-brown-dark leading-tight animate-fade-up [animation-delay:120ms]">
                 Gesundheit ist der Schlüssel zu{' '}
                 <em className="italic">leistungsfähigen Teams</em>
               </h1>
 
-              <p className="text-xl font-serif italic text-sana-brown-dark">
+              <p className="text-xl font-serif italic text-sana-brown-dark animate-fade-up [animation-delay:240ms]">
                 Gesunde Mitarbeitende sind kein Zufall – sondern eine Investition.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 mt-2">
+              <div className="flex flex-col sm:flex-row gap-4 mt-2 animate-fade-up [animation-delay:360ms]">
                 <a
                   href="tel:+41794895018"
                   className="inline-flex items-center justify-center gap-3 bg-sana-brown-dark hover:bg-sana-brown text-white px-8 py-4 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl font-semibold"
@@ -148,25 +149,27 @@ export default function Unternehmen() {
         {/* Angebote */}
         <section className="section-sana bg-sana-white">
           <div className="container-sana">
-            <div className="text-center mb-14">
-              <h2 className="heading-section mb-4">
-                So unterstütze ich Ihr Unternehmen
-              </h2>
-              <div className="w-16 h-1 bg-sana-gold rounded-full mx-auto" />
-              <p className="text-body max-w-3xl mx-auto mt-6">
-                Viele Beschwerden im Rücken-, Schulter- und Nackenbereich entstehen
-                nicht über Nacht. Sie entwickeln sich durch kleine Belastungen im
-                Arbeitsalltag. Mit SanaBalance unterstütze ich Unternehmen dabei,
-                die Gesundheit ihrer Mitarbeitenden aktiv zu fördern – direkt bei
-                Ihnen im Betrieb.
-              </p>
-            </div>
+            <Reveal>
+              <div className="text-center mb-14">
+                <h2 className="heading-section mb-4">
+                  So unterstütze ich Ihr Unternehmen
+                </h2>
+                <div className="w-16 h-1 bg-sana-gold rounded-full mx-auto" />
+                <p className="text-body max-w-3xl mx-auto mt-6">
+                  Viele Beschwerden im Rücken-, Schulter- und Nackenbereich entstehen
+                  nicht über Nacht. Sie entwickeln sich durch kleine Belastungen im
+                  Arbeitsalltag. Mit SanaBalance unterstütze ich Unternehmen dabei,
+                  die Gesundheit ihrer Mitarbeitenden aktiv zu fördern – direkt bei
+                  Ihnen im Betrieb.
+                </p>
+              </div>
+            </Reveal>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {angebote.map((angebot) => (
+              {angebote.map((angebot, index) => (
+                <Reveal key={angebot.title} delay={index * 120}>
                 <div
-                  key={angebot.title}
-                  className="p-8 rounded-sana bg-sana-cream hover:shadow-sana transition-shadow"
+                  className="p-8 rounded-sana bg-sana-cream hover:shadow-sana hover-lift h-full"
                 >
                   <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-sana-gold/20 mb-6">
                     <CheckCircle2 className="w-7 h-7 text-sana-brown-dark" />
@@ -178,6 +181,7 @@ export default function Unternehmen() {
                     {angebot.description}
                   </p>
                 </div>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -186,25 +190,27 @@ export default function Unternehmen() {
         {/* Vorteile */}
         <section className="section-sana bg-sana-cream">
           <div className="container-sana">
-            <div className="text-center mb-14">
-              <h2 className="heading-section mb-4">
-                Ihr Nutzen auf einen Blick
-              </h2>
-              <div className="w-16 h-1 bg-sana-gold rounded-full mx-auto" />
-              <p className="text-body max-w-2xl mx-auto mt-6">
-                Denn gesunde Mitarbeitende sind motivierter, leistungsfähiger und
-                fallen seltener aus. Gesundheit beginnt dort, wo Prävention ernst
-                genommen wird.
-              </p>
-            </div>
+            <Reveal>
+              <div className="text-center mb-14">
+                <h2 className="heading-section mb-4">
+                  Ihr Nutzen auf einen Blick
+                </h2>
+                <div className="w-16 h-1 bg-sana-gold rounded-full mx-auto" />
+                <p className="text-body max-w-2xl mx-auto mt-6">
+                  Denn gesunde Mitarbeitende sind motivierter, leistungsfähiger und
+                  fallen seltener aus. Gesundheit beginnt dort, wo Prävention ernst
+                  genommen wird.
+                </p>
+              </div>
+            </Reveal>
 
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-              {vorteile.map((vorteil) => {
+              {vorteile.map((vorteil, index) => {
                 const Icon = vorteil.icon
                 return (
+                  <Reveal key={vorteil.title} delay={index * 100}>
                   <div
-                    key={vorteil.title}
-                    className="text-center p-6 rounded-sana bg-sana-white shadow-sana"
+                    className="text-center p-6 rounded-sana bg-sana-white shadow-sana hover-lift h-full"
                   >
                     <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-sana-gold/20 mb-4">
                       <Icon className="w-7 h-7 text-sana-brown-dark" />
@@ -216,6 +222,7 @@ export default function Unternehmen() {
                       {vorteil.subtitle}
                     </div>
                   </div>
+                  </Reveal>
                 )
               })}
             </div>
@@ -225,6 +232,7 @@ export default function Unternehmen() {
         {/* CTA */}
         <section className="section-sana bg-sana-brown-dark">
           <div className="container-sana text-center">
+            <Reveal>
             <h2 className="text-3xl md:text-4xl font-serif text-white mb-6">
               Lassen Sie uns ins Gespräch kommen
             </h2>
@@ -255,6 +263,7 @@ export default function Unternehmen() {
                 sanabalance.ch
               </Link>
             </p>
+            </Reveal>
           </div>
         </section>
       </main>

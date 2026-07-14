@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
+import { Reveal } from '@/components/reveal'
 
 const punkte = ['Präventive Massagen', 'Ergonomie-Beratung', 'Gesundheitsimpulse']
 
@@ -8,6 +9,7 @@ export function UnternehmenTeaser() {
   return (
     <section className="py-12 md:py-16 bg-sana-white">
       <div className="container-sana">
+        <Reveal>
         <Link
           href="/unternehmen"
           className="group block rounded-sana overflow-hidden bg-sana-cream shadow-sana hover:shadow-sana-lg transition-shadow duration-300"
@@ -58,6 +60,7 @@ export function UnternehmenTeaser() {
             </div>
           </div>
         </Link>
+        </Reveal>
       </div>
     </section>
   )

@@ -1,4 +1,5 @@
 import { Check, Gift, Stamp, HandHeart, Sparkles } from 'lucide-react'
+import { Reveal } from '@/components/reveal'
 
 const steps = [
   {
@@ -27,25 +28,27 @@ export function Treuebonus() {
       <div className="container mx-auto px-4 max-w-6xl">
 
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="h-px w-8 bg-[#8B5E3C]" />
-            <span className="text-sm font-semibold tracking-[0.2em] text-[#8B5E3C] uppercase">
-              Treuebonus
-            </span>
-            <div className="h-px w-8 bg-[#8B5E3C]" />
+        <Reveal>
+          <div className="text-center mb-16">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <div className="h-px w-8 bg-[#8B5E3C]" />
+              <span className="text-sm font-semibold tracking-[0.2em] text-[#8B5E3C] uppercase">
+                Treuebonus
+              </span>
+              <div className="h-px w-8 bg-[#8B5E3C]" />
+            </div>
+            <h2 className="text-4xl lg:text-5xl font-serif font-bold text-[#6B5744] mb-4">
+              10 Massagen geniessen –{' '}
+              <em className="italic">nur 9 bezahlen</em>
+            </h2>
+            <div className="w-16 h-1 bg-[#C9A87C] rounded-full mx-auto" />
           </div>
-          <h2 className="text-4xl lg:text-5xl font-serif font-bold text-[#6B5744] mb-4">
-            10 Massagen geniessen –{' '}
-            <em className="italic">nur 9 bezahlen</em>
-          </h2>
-          <div className="w-16 h-1 bg-[#C9A87C] rounded-full mx-auto" />
-        </div>
+        </Reveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
           {/* Loyalty Card Visual */}
-          <div className="relative mx-auto w-full max-w-md">
+          <Reveal from="left" className="relative mx-auto w-full max-w-md">
             {/* decorative glow */}
             <div className="absolute -inset-4 bg-gradient-to-br from-[#C9A87C]/30 to-[#8B5E3C]/20 rounded-[2rem] blur-2xl" aria-hidden="true" />
 
@@ -82,12 +85,12 @@ export function Treuebonus() {
                 Die 10. Massage geht auf uns 🎁
               </div>
             </div>
-          </div>
+          </Reveal>
 
           {/* Steps */}
           <div className="space-y-8">
-            {steps.map((step) => (
-              <div key={step.number} className="flex gap-5">
+            {steps.map((step, index) => (
+              <Reveal key={step.number} from="right" delay={index * 120} className="flex gap-5">
                 <div className="flex-shrink-0">
                   <div className="w-14 h-14 rounded-2xl bg-[#F5F1ED] border border-[#D4C4B0] flex items-center justify-center relative">
                     <step.icon className="w-6 h-6 text-[#8B5E3C]" aria-hidden="true" />
@@ -104,7 +107,7 @@ export function Treuebonus() {
                     {step.description}
                   </p>
                 </div>
-              </div>
+              </Reveal>
             ))}
 
             {/* Note */}

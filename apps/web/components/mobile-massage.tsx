@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { Phone } from 'lucide-react'
+import { Reveal } from '@/components/reveal'
 
 export function MobileMassage() {
   return (
@@ -7,27 +8,29 @@ export function MobileMassage() {
       <div className="container mx-auto px-4 max-w-6xl">
 
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-5xl font-serif font-bold text-[#6B5744] mb-4">
-            Massage bei Ihnen zu Hause
-          </h2>
-          <div className="w-16 h-1 bg-[#C9A87C] rounded-full mx-auto" />
-        </div>
+        <Reveal>
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-serif font-bold text-[#6B5744] mb-4">
+              Massage bei Ihnen zu Hause
+            </h2>
+            <div className="w-16 h-1 bg-[#C9A87C] rounded-full mx-auto" />
+          </div>
+        </Reveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
           {/* Image */}
-          <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/5] w-full max-w-md mx-auto lg:max-w-none">
+          <Reveal from="left" className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/5] w-full max-w-md mx-auto lg:max-w-none">
             <Image
               src="/thomas_massage.png"
               alt="Mobile Massage - Massagetisch zu Hause"
               fill
               className="object-cover"
             />
-          </div>
+          </Reveal>
 
           {/* Content */}
-          <div className="space-y-7">
+          <Reveal from="right" delay={120} className="space-y-7">
 
             {/* Label */}
             <div className="flex items-center gap-3">
@@ -85,7 +88,7 @@ export function MobileMassage() {
               </div>
             </div>
 
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>
