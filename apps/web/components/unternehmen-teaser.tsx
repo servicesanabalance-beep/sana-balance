@@ -18,8 +18,8 @@ export function UnternehmenTeaser() {
             {/* Image */}
             <div className="relative md:col-span-2 aspect-[16/10] md:aspect-auto md:min-h-[340px] overflow-hidden">
               <Image
-                src="/massage-im-unternehmen.jpeg"
-                alt="Massage im Unternehmen – SanaBalance"
+                src="/sanabalance-gesundheit.jpeg"
+                alt="Gesundheit ist der Schlüssel zu leistungsfähigen Teams – SanaBalance für Unternehmen"
                 fill
                 className="object-cover object-top group-hover:scale-105 transition-transform duration-700"
               />
