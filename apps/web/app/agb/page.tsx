@@ -26,7 +26,7 @@ export default function AGB() {
             </h2>
             <p>
               Diese Allgemeinen Geschäftsbedingungen (AGB) gelten für alle Dienstleistungen, die 
-              SanaBalance, Thomas Mich (nachfolgend "Anbieter" genannt) im Bereich Massage und 
+              SanaBalance, Thomas Grobler (nachfolgend "Anbieter" genannt) im Bereich Massage und 
               ganzheitliche Behandlungen erbringt.
             </p>
             <p>
