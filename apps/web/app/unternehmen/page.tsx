@@ -93,55 +93,57 @@ export default function Unternehmen() {
       />
       <Header />
       <main className="pt-20">
-        {/* Hero */}
-        <section className="relative overflow-hidden bg-sana-cream">
-          {/* Photo: full background on mobile, right half on desktop */}
-          <div className="absolute inset-0 lg:left-1/2">
-            <Image
-              src="/massage-im-unternehmen.jpeg"
-              alt="Mobile Massage im Unternehmen – SanaBalance"
-              fill
-              className="object-cover object-[center_22%]"
-              priority
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-sana-cream/95 via-sana-cream/80 to-sana-cream/95 lg:hidden" />
-            <div className="hidden lg:block absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-sana-cream to-transparent" />
+        {/* Flyer – full image first */}
+        <section className="bg-sana-cream pt-6 md:pt-10 pb-0">
+          <div className="container-sana">
+            <div className="relative aspect-[3/2] w-full rounded-sana overflow-hidden shadow-sana-lg animate-fade-up">
+              <Image
+                src="/sanabalance-gesundheit.jpeg"
+                alt="Gesundheit ist der Schlüssel zu leistungsfähigen Teams – SanaBalance für Unternehmen"
+                fill
+                className="object-contain"
+                sizes="(max-width: 1280px) 100vw, 1280px"
+                priority
+              />
+            </div>
           </div>
+        </section>
 
-          <div className="container-sana relative z-10">
-            <div className="lg:w-1/2 lg:pr-16 py-24 lg:py-32 lg:min-h-[70vh] flex flex-col justify-center gap-6">
-              <div className="flex items-center gap-3 animate-fade-up">
-                <div className="h-px w-8 bg-sana-brown" />
-                <span className="text-sm font-semibold tracking-[0.2em] text-sana-brown uppercase">
-                  Für Unternehmen
-                </span>
-              </div>
+        {/* Intro below the flyer */}
+        <section className="bg-sana-cream py-14 md:py-20">
+          <div className="container-sana text-center">
+            <div className="flex items-center justify-center gap-3 animate-fade-up [animation-delay:120ms]">
+              <div className="h-px w-8 bg-sana-brown" />
+              <span className="text-sm font-semibold tracking-[0.2em] text-sana-brown uppercase">
+                Für Unternehmen
+              </span>
+              <div className="h-px w-8 bg-sana-brown" />
+            </div>
 
-              <h1 className="text-4xl lg:text-5xl font-serif font-bold text-sana-brown-dark leading-tight animate-fade-up [animation-delay:120ms]">
-                Gesundheit ist der Schlüssel zu{' '}
-                <em className="italic">leistungsfähigen Teams</em>
-              </h1>
+            <h1 className="text-4xl lg:text-5xl font-serif font-bold text-sana-brown-dark leading-tight mt-6 animate-fade-up [animation-delay:240ms]">
+              Gesundheit ist der Schlüssel zu{' '}
+              <em className="italic">leistungsfähigen Teams</em>
+            </h1>
 
-              <p className="text-xl font-serif italic text-sana-brown-dark animate-fade-up [animation-delay:240ms]">
-                Gesunde Mitarbeitende sind kein Zufall – sondern eine Investition.
-              </p>
+            <p className="text-xl font-serif italic text-sana-brown-dark mt-5 animate-fade-up [animation-delay:360ms]">
+              Gesunde Mitarbeitende sind kein Zufall – sondern eine Investition.
+            </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 mt-2 animate-fade-up [animation-delay:360ms]">
-                <a
-                  href="tel:+41794895018"
-                  className="inline-flex items-center justify-center gap-3 bg-sana-brown-dark hover:bg-sana-brown text-white px-8 py-4 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl font-semibold"
-                >
-                  <Phone className="w-5 h-5" />
-                  079 489 50 18
-                </a>
-                <a
-                  href="mailto:kontakt@sanabalance.ch?subject=Anfrage%20Gesundheit%20im%20Unternehmen"
-                  className="inline-flex items-center justify-center gap-3 border-2 border-sana-brown-dark text-sana-brown-dark hover:bg-sana-brown-dark hover:text-white px-8 py-4 rounded-full transition-all duration-300 font-semibold"
-                >
-                  <Mail className="w-5 h-5" />
-                  Anfrage senden
-                </a>
-              </div>
+            <div className="flex flex-col sm:flex-row gap-4 mt-8 justify-center animate-fade-up [animation-delay:480ms]">
+              <a
+                href="tel:+41794895018"
+                className="inline-flex items-center justify-center gap-3 bg-sana-brown-dark hover:bg-sana-brown text-white px-8 py-4 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl font-semibold"
+              >
+                <Phone className="w-5 h-5" />
+                079 489 50 18
+              </a>
+              <a
+                href="mailto:kontakt@sanabalance.ch?subject=Anfrage%20Gesundheit%20im%20Unternehmen"
+                className="inline-flex items-center justify-center gap-3 border-2 border-sana-brown-dark text-sana-brown-dark hover:bg-sana-brown-dark hover:text-white px-8 py-4 rounded-full transition-all duration-300 font-semibold"
+              >
+                <Mail className="w-5 h-5" />
+                Anfrage senden
+              </a>
             </div>
           </div>
         </section>
