@@ -92,61 +92,54 @@ export default function Unternehmen() {
       />
       <Header />
       <main className="pt-20">
-        {/* Intro */}
-        <section className="section-sana bg-sana-cream">
-          <div className="container-sana">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div className="space-y-7">
-                <div className="flex items-center gap-3">
-                  <div className="h-px w-8 bg-sana-brown" />
-                  <span className="text-sm font-semibold tracking-[0.2em] text-sana-brown uppercase">
-                    Für Unternehmen
-                  </span>
-                </div>
+        {/* Hero */}
+        <section className="relative overflow-hidden bg-sana-cream">
+          {/* Photo: full background on mobile, right half on desktop */}
+          <div className="absolute inset-0 lg:left-1/2">
+            <Image
+              src="/massage-im-unternehmen.jpeg"
+              alt="Mobile Massage im Unternehmen – SanaBalance"
+              fill
+              className="object-cover object-[center_22%]"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-sana-cream/95 via-sana-cream/80 to-sana-cream/95 lg:hidden" />
+            <div className="hidden lg:block absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-sana-cream to-transparent" />
+          </div>
 
-                <h1 className="text-4xl lg:text-5xl font-serif font-bold text-sana-brown-dark leading-tight">
-                  Gesundheit ist der Schlüssel zu{' '}
-                  <em className="italic">leistungsfähigen Teams</em>
-                </h1>
-
-                <p className="text-xl font-serif italic text-sana-brown-dark">
-                  Gesunde Mitarbeitende sind kein Zufall – sondern eine Investition.
-                </p>
-
-                <p className="text-body">
-                  Viele Beschwerden im Rücken-, Schulter- und Nackenbereich entstehen
-                  nicht über Nacht. Sie entwickeln sich durch kleine Belastungen im
-                  Arbeitsalltag. Mit SanaBalance unterstütze ich Unternehmen dabei,
-                  die Gesundheit ihrer Mitarbeitenden aktiv zu fördern – direkt bei
-                  Ihnen im Betrieb.
-                </p>
-
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <a
-                    href="tel:+41794895018"
-                    className="inline-flex items-center justify-center gap-3 bg-sana-brown-dark hover:bg-sana-brown text-white px-8 py-4 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl font-semibold"
-                  >
-                    <Phone className="w-5 h-5" />
-                    079 489 50 18
-                  </a>
-                  <a
-                    href="mailto:kontakt@sanabalance.ch?subject=Anfrage%20Gesundheit%20im%20Unternehmen"
-                    className="inline-flex items-center justify-center gap-3 border-2 border-sana-brown-dark text-sana-brown-dark hover:bg-sana-brown-dark hover:text-white px-8 py-4 rounded-full transition-all duration-300 font-semibold"
-                  >
-                    <Mail className="w-5 h-5" />
-                    Anfrage senden
-                  </a>
-                </div>
+          <div className="container-sana relative z-10">
+            <div className="lg:w-1/2 lg:pr-16 py-24 lg:py-32 lg:min-h-[70vh] flex flex-col justify-center gap-6">
+              <div className="flex items-center gap-3">
+                <div className="h-px w-8 bg-sana-brown" />
+                <span className="text-sm font-semibold tracking-[0.2em] text-sana-brown uppercase">
+                  Für Unternehmen
+                </span>
               </div>
 
-              <div className="relative rounded-sana overflow-hidden shadow-sana-lg aspect-[4/5] w-full max-w-md mx-auto lg:max-w-none">
-                <Image
-                  src="/sanabalance-unternehmen.jpeg"
-                  alt="Mobile Massage im Unternehmen – SanaBalance"
-                  fill
-                  className="object-cover"
-                  priority
-                />
+              <h1 className="text-4xl lg:text-5xl font-serif font-bold text-sana-brown-dark leading-tight">
+                Gesundheit ist der Schlüssel zu{' '}
+                <em className="italic">leistungsfähigen Teams</em>
+              </h1>
+
+              <p className="text-xl font-serif italic text-sana-brown-dark">
+                Gesunde Mitarbeitende sind kein Zufall – sondern eine Investition.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 mt-2">
+                <a
+                  href="tel:+41794895018"
+                  className="inline-flex items-center justify-center gap-3 bg-sana-brown-dark hover:bg-sana-brown text-white px-8 py-4 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl font-semibold"
+                >
+                  <Phone className="w-5 h-5" />
+                  079 489 50 18
+                </a>
+                <a
+                  href="mailto:kontakt@sanabalance.ch?subject=Anfrage%20Gesundheit%20im%20Unternehmen"
+                  className="inline-flex items-center justify-center gap-3 border-2 border-sana-brown-dark text-sana-brown-dark hover:bg-sana-brown-dark hover:text-white px-8 py-4 rounded-full transition-all duration-300 font-semibold"
+                >
+                  <Mail className="w-5 h-5" />
+                  Anfrage senden
+                </a>
               </div>
             </div>
           </div>
@@ -160,6 +153,13 @@ export default function Unternehmen() {
                 So unterstütze ich Ihr Unternehmen
               </h2>
               <div className="w-16 h-1 bg-sana-gold rounded-full mx-auto" />
+              <p className="text-body max-w-3xl mx-auto mt-6">
+                Viele Beschwerden im Rücken-, Schulter- und Nackenbereich entstehen
+                nicht über Nacht. Sie entwickeln sich durch kleine Belastungen im
+                Arbeitsalltag. Mit SanaBalance unterstütze ich Unternehmen dabei,
+                die Gesundheit ihrer Mitarbeitenden aktiv zu fördern – direkt bei
+                Ihnen im Betrieb.
+              </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

@@ -3,7 +3,7 @@
 import { useEffect } from 'react'
 import { Header } from '@/components/header'
 import { Hero } from '@/components/hero'
-import { AudienceCards } from '@/components/audience-cards'
+import { UnternehmenTeaser } from '@/components/unternehmen-teaser'
 import { Features } from '@/components/features'
 import { About } from '@/components/about'
 import { Services } from '@/components/services'
@@ -44,7 +44,7 @@ export function PageClient() {
       <Header />
       <main className="pt-20">
         <Hero />
-        <AudienceCards />
+        <UnternehmenTeaser />
         <MobileMassage />
         <Features />
         <Treuebonus />
