@@ -3,7 +3,7 @@ import { Phone } from 'lucide-react'
 
 export function MobileMassage() {
   return (
-    <section className="py-20 bg-[#F5F1ED]">
+    <section id="mobile-massage" className="py-20 bg-[#F5F1ED]">
       <div className="container mx-auto px-4 max-w-6xl">
 
         {/* Section Header */}

@@ -64,6 +64,9 @@ export function Header() {
             <a href="/#services" onClick={scrollToSection('services')} className="text-sana-brown hover:text-sana-brown-dark transition-colors cursor-pointer">
               {t('services')}
             </a>
+            <Link href="/unternehmen" className="text-sana-brown hover:text-sana-brown-dark transition-colors">
+              Für Unternehmen
+            </Link>
             <a href="/#contact" onClick={scrollToSection('contact')} className="text-sana-brown hover:text-sana-brown-dark transition-colors cursor-pointer">
               Kontakt
             </a>
@@ -90,6 +93,9 @@ export function Header() {
               <a href="/#services" onClick={scrollToSection('services')} className="text-sana-brown hover:text-sana-brown-dark transition-colors">
                 {t('services')}
               </a>
+              <Link href="/unternehmen" onClick={closeMenu} className="text-sana-brown hover:text-sana-brown-dark transition-colors">
+                Für Unternehmen
+              </Link>
               <a href="/#contact" onClick={scrollToSection('contact')} className="text-sana-brown hover:text-sana-brown-dark transition-colors">
                 Kontakt
               </a>
