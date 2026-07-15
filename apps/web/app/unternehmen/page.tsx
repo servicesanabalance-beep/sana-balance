@@ -98,7 +98,7 @@ export default function Unternehmen() {
           <div className="container-sana">
             <div className="relative aspect-[3/2] w-full rounded-sana overflow-hidden shadow-sana-lg animate-fade-up">
               <Image
-                src="/sanabalance-gesundheit.jpeg"
+                src="/banner-sana.png"
                 alt="Gesundheit ist der Schlüssel zu leistungsfähigen Teams – SanaBalance für Unternehmen"
                 fill
                 className="object-contain"

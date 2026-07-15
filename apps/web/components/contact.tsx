@@ -40,7 +40,7 @@ export function Contact() {
                   className="text-[#8B7355] hover:text-[#6B5744] transition-colors leading-relaxed block"
                 >
                   SanaBalance<br />
-                  Thomas Grobler<br />
+                  Thomas Gröbler<br />
                   Rossweidstrasse 4<br />
                   9472 Grabs<br />
                   Schweiz

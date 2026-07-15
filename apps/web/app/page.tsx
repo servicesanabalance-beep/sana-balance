@@ -45,7 +45,7 @@ const jsonLd = {
   ],
   founder: {
     '@type': 'Person',
-    name: 'Thomas Grobler',
+    name: 'Thomas Gröbler',
   },
   areaServed: [
     { '@type': 'City', name: 'Grabs' },

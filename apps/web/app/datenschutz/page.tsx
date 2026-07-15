@@ -46,7 +46,7 @@ export default function Datenschutz() {
             </p>
             <p className="font-semibold">
               SanaBalance<br />
-              Thomas Grobler<br />
+              Thomas Gröbler<br />
               Rossweidstrasse 4<br />
               9472 Grabs<br />
               Schweiz<br />

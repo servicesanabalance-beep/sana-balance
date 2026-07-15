@@ -18,7 +18,7 @@ export function UnternehmenTeaser() {
             {/* Image */}
             <div className="relative md:col-span-2 aspect-[16/10] md:aspect-auto md:min-h-[340px] overflow-hidden">
               <Image
-                src="/sanabalance-gesundheit.jpeg"
+                src="/banner-sana.png"
                 alt="Gesundheit ist der Schlüssel zu leistungsfähigen Teams – SanaBalance für Unternehmen"
                 fill
                 className="object-cover object-top group-hover:scale-105 transition-transform duration-700"

@@ -26,7 +26,7 @@ export default function AGB() {
             </h2>
             <p>
               Diese Allgemeinen Geschäftsbedingungen (AGB) gelten für alle Dienstleistungen, die 
-              SanaBalance, Thomas Grobler (nachfolgend "Anbieter" genannt) im Bereich Massage und 
+              SanaBalance, Thomas Gröbler (nachfolgend "Anbieter" genannt) im Bereich Massage und 
               ganzheitliche Behandlungen erbringt.
             </p>
             <p>
@@ -44,7 +44,7 @@ export default function AGB() {
             </p>
             <p className="font-semibold">
               SanaBalance<br />
-              Thomas Grobler<br />
+              Thomas Gröbler<br />
               Rossweidstrasse 4<br />
               9472 Grabs<br />
               Schweiz<br />
@@ -278,7 +278,7 @@ export default function AGB() {
             </p>
             <p className="font-semibold">
               SanaBalance<br />
-              Thomas Grobler<br />
+              Thomas Gröbler<br />
               Rossweidstrasse 4<br />
               9472 Grabs<br />
               Schweiz<br />

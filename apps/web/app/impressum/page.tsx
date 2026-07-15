@@ -23,7 +23,7 @@ export default function Impressum() {
           <section>
             <p className="font-semibold text-lg">
               SanaBalance<br />
-              Thomas Grobler<br />
+              Thomas Gröbler<br />
               Rossweidstrasse 4<br />
               9472 Grabs<br />
               Schweiz
@@ -63,7 +63,7 @@ export default function Impressum() {
               Inhaber
             </h2>
             <p>
-              <strong>Thomas Grobler</strong>
+              <strong>Thomas Gröbler</strong>
             </p>
             <p>
               Als erfahrener Massage-Therapeut liegt mir Ihr Wohlbefinden am Herzen. 
