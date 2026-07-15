@@ -16,12 +16,12 @@ export function UnternehmenTeaser() {
         >
           <div className="grid grid-cols-1 md:grid-cols-5">
             {/* Image */}
-            <div className="relative md:col-span-2 aspect-[16/10] md:aspect-auto md:min-h-[340px] overflow-hidden">
+            <div className="relative md:col-span-2 aspect-[96/65] md:aspect-auto md:min-h-[340px] overflow-hidden">
               <Image
                 src="/banner-sana.png"
                 alt="Gesundheit ist der Schlüssel zu leistungsfähigen Teams – SanaBalance für Unternehmen"
                 fill
-                className="object-cover object-top group-hover:scale-105 transition-transform duration-700"
+                className="object-contain md:object-cover object-center group-hover:scale-105 transition-transform duration-700"
               />
             </div>
 
