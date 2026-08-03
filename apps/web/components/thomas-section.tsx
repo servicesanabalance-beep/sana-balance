@@ -38,19 +38,15 @@ export function ThomasSection() {
           </Reveal>
 
           {/* Right Column - Image */}
-          <Reveal from="right" delay={120} className="relative">
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-              <Image
-                src="/thomas_massage.png"
-                alt="Thomas - Massage Therapeut"
-                width={600}
-                height={700}
-                className="object-cover w-full h-auto"
-                priority={false}
-              />
-            </div>
-            {/* Decorative border */}
-            <div className="absolute -bottom-4 -right-4 w-full h-full border-4 border-[#C9A87C]/30 rounded-2xl -z-10" />
+          <Reveal from="right" delay={120} className="relative flex justify-center">
+            <Image
+              src="/sana-balance.png"
+              alt="Thomas Gröbler - Massage Therapeut"
+              width={600}
+              height={600}
+              className="w-full max-w-sm h-auto drop-shadow-2xl"
+              priority={false}
+            />
           </Reveal>
         </div>
       </div>

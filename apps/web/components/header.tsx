@@ -75,13 +75,21 @@ export function Header() {
             </Button>
           </nav>
 
-          <button
-            className="md:hidden p-2 text-sana-brown"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          <div className="md:hidden flex items-center gap-2">
+            <Link
+              href="/booking"
+              className="bg-sana-brown hover:bg-sana-brown-dark text-white text-sm font-medium px-4 py-2 rounded-full transition-colors whitespace-nowrap"
+            >
+              {t('booking')}
+            </Link>
+            <button
+              className="p-2 text-sana-brown"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
 
         {isMenuOpen && (

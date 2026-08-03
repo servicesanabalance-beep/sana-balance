@@ -3,14 +3,14 @@
 import { useEffect } from 'react'
 import { Header } from '@/components/header'
 import { Hero } from '@/components/hero'
-import { UnternehmenTeaser } from '@/components/unternehmen-teaser'
 import { Features } from '@/components/features'
-import { About } from '@/components/about'
 import { Services } from '@/components/services'
-import { ThomasSection } from '@/components/thomas-section'
-import { MobileMassage } from '@/components/mobile-massage'
 import { Treuebonus } from '@/components/treuebonus'
+import { MobileMassage } from '@/components/mobile-massage'
+import { ThomasSection } from '@/components/thomas-section'
+import { About } from '@/components/about'
 import { Contact } from '@/components/contact'
+import { UnternehmenTeaser } from '@/components/unternehmen-teaser'
 import { Footer } from '@/components/footer'
 import { ScrollToTop } from '@/components/scroll-to-top'
 import { BottomNav } from '@/components/bottom-nav'
@@ -44,11 +44,11 @@ export function PageClient() {
       <Header />
       <main className="pt-20">
         <Hero />
-        <UnternehmenTeaser />
-        <MobileMassage />
         <Features />
-        <Treuebonus />
         <Services />
+        <Treuebonus />
+        <MobileMassage />
+        <UnternehmenTeaser />
         <ThomasSection />
         <About />
         <Contact />
