@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Reveal } from '@/components/reveal'
+import { Qualifications } from '@/components/qualifications'
 
 export function ThomasSection() {
   return (
@@ -49,6 +50,17 @@ export function ThomasSection() {
             />
           </Reveal>
         </div>
+
+        {/* Qualifications */}
+        <Reveal delay={200} className="max-w-6xl mx-auto mt-14 pt-10 border-t border-white/15">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="h-px w-8 bg-[#C9A87C]" />
+            <span className="text-sm font-semibold tracking-[0.2em] text-[#F5F1ED]/80 uppercase">
+              Qualifikationen
+            </span>
+          </div>
+          <Qualifications />
+        </Reveal>
       </div>
     </section>
   )
