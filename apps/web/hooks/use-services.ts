@@ -11,7 +11,7 @@ export function useServices() {
         .from('services')
         .select('*')
         .eq('is_active', true)
-        .order('name')
+        .order('name_de')
 
       if (error) throw error
       return data as Service[]

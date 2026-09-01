@@ -11,7 +11,7 @@ export const serviceSchema = z.object({
   description_it: z.string().nullable().optional(),
   description_fr: z.string().nullable().optional(),
   duration_minutes: z.number().min(15, 'Dauer muss mindestens 15 Minuten betragen'),
-  price_chf: z.number().min(0, 'Preis muss positiv sein'),
+  price_eur: z.number().min(0, 'Preis muss positiv sein'),
   image_url: z.string().url().nullable().optional(),
   is_active: z.boolean().default(true),
   display_order: z.number().default(0),

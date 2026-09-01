@@ -53,7 +53,7 @@ export interface Database {
           description_it: string | null
           description_fr: string | null
           duration_minutes: number
-          price_chf: number
+          price_eur: number
           image_url: string | null
           is_active: boolean
           display_order: number
@@ -71,7 +71,7 @@ export interface Database {
           description_it?: string | null
           description_fr?: string | null
           duration_minutes: number
-          price_chf: number
+          price_eur: number
           image_url?: string | null
           is_active?: boolean
           display_order?: number
@@ -89,7 +89,7 @@ export interface Database {
           description_it?: string | null
           description_fr?: string | null
           duration_minutes?: number
-          price_chf?: number
+          price_eur?: number
           image_url?: string | null
           is_active?: boolean
           display_order?: number
