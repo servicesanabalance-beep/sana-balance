@@ -48,7 +48,7 @@ export function ServiceCard({
       )}
       <CardHeader>
         <div className="flex items-start justify-between">
-          <CardTitle className="flex-1 text-[#6B5744]">{title}</CardTitle>
+          <CardTitle className="flex-1 text-[#6B5744] dark:text-[#6B5744]">{title}</CardTitle>
           {selected && (
             <div className="ml-2 flex h-6 w-6 items-center justify-center rounded-full bg-[#C9A87C]">
               <svg
