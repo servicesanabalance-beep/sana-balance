@@ -36,7 +36,14 @@ function priceLinesFor(dbServices: { name_de: string; duration_minutes: number; 
 
   if (matches.length === 0) return null
 
-  return matches.map((s) => `${s.duration_minutes} Min. – ${s.price_eur} CHF`)
+  const seenDurations = new Set<number>()
+  const uniqueMatches = matches.filter((s) => {
+    if (seenDurations.has(s.duration_minutes)) return false
+    seenDurations.add(s.duration_minutes)
+    return true
+  })
+
+  return uniqueMatches.map((s) => `${s.duration_minutes} Min. – ${s.price_eur} CHF`)
 }
 
 export function Services() {
@@ -77,8 +84,8 @@ export function Services() {
                     />
                     {priceLines && (
                       <div className="absolute bottom-4 right-4 rounded-3xl bg-white/95 backdrop-blur-sm shadow-xl px-5 py-3 text-right">
-                        {priceLines.map((line) => (
-                          <p key={line} className="text-[#6B5744] text-sm md:text-base font-semibold leading-snug whitespace-nowrap">
+                        {priceLines.map((line, lineIndex) => (
+                          <p key={lineIndex} className="text-[#6B5744] text-sm md:text-base font-semibold leading-snug whitespace-nowrap">
                             {line}
                           </p>
                         ))}

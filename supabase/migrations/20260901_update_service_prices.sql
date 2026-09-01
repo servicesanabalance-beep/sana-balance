@@ -3,29 +3,28 @@
 -- Wellnessmassage:    30 min - 45 CHF / 60 min - 80 CHF
 -- Dorn & Breuss:      60 min - 95 CHF / 75 min - 120 CHF
 -- Sportmassage:       30 min - 55 CHF / 60 min - 95 CHF (already correct, description fixed)
+--
+-- This script is safe to run more than once: the inserts are guarded so
+-- they won't create duplicate rows if it's re-executed.
 
 -- Klassische Massage (id 1): existing 60 min row -> 95 CHF, add 30 min / 55 CHF
 update services set price_eur = 95 where id = 1;
 insert into services (name_de, name_en, description_de, duration_minutes, price_eur, is_active)
-values (
-  'Klassische Massage',
-  'Classic Massage',
-  'Die klassische Massage ist eine bewährte Technik zur Linderung von Muskelverspannungen.',
-  30,
-  55,
-  true
+select 'Klassische Massage', 'Classic Massage',
+       'Die klassische Massage ist eine bewährte Technik zur Linderung von Muskelverspannungen.',
+       30, 55, true
+where not exists (
+  select 1 from services where trim(name_de) = 'Klassische Massage' and duration_minutes = 30
 );
 
 -- Wellnessmassage (id 2): existing 60 min row -> 80 CHF, add 30 min / 45 CHF
 update services set price_eur = 80 where id = 2;
 insert into services (name_de, name_en, description_de, duration_minutes, price_eur, is_active)
-values (
-  'Wellnessmassage',
-  'Aromatherapy Massage',
-  'Die Wellnessmassage schenkt tiefe Entspannung für Körper und Geist.',
-  30,
-  45,
-  true
+select 'Wellnessmassage', 'Aromatherapy Massage',
+       'Die Wellnessmassage schenkt tiefe Entspannung für Körper und Geist.',
+       30, 45, true
+where not exists (
+  select 1 from services where trim(name_de) = 'Wellnessmassage' and duration_minutes = 30
 );
 
 -- Dorn & Breuss (id 11 = 75 min, id 12 = 60 min): fix prices
