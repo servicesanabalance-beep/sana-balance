@@ -2,9 +2,12 @@ name: Supabase Keep Alive
 
 on:
   schedule:
-    # Every 4 days at midnight UTC
-    - cron: '0 0 */4 * *'
+    # Every 3 days at 03:00 UTC
+    - cron: '0 3 */3 * *'
   workflow_dispatch: # Allow manual trigger
+
+permissions:
+  actions: write
 
 jobs:
   ping:
@@ -16,12 +19,19 @@ jobs:
             "${{ secrets.SUPABASE_URL }}/rest/v1/services?select=id&limit=1" \
             -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
             -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}")
-          
+
           echo "Response code: $response"
-          
+
           if [ "$response" -eq 200 ]; then
             echo "✅ Supabase is alive!"
           else
             echo "❌ Ping failed with status: $response"
             exit 1
           fi
+
+      # GitHub disables scheduled workflows in repos with no commits for 60 days.
+      # Re-enabling ourselves on every run resets that timer.
+      - name: Keep this workflow enabled
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow enable supabase-keep-alive.yml --repo "${{ github.repository }}"
